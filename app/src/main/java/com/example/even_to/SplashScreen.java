@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.even_to.introduction_to_evento.IntroductionActivity;
+
 public class SplashScreen extends AppCompatActivity {
 
     private Handler mHandler;
@@ -19,7 +21,7 @@ public class SplashScreen extends AppCompatActivity {
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class ));
+                startActivity(new Intent(getApplicationContext(), IntroductionActivity.class ));
                 finish();
             }
         };
