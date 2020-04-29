@@ -1,0 +1,2 @@
+rootProject.name='Even_To'
+include ':app'
