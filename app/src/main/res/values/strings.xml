@@ -1,20 +1,4 @@
 <resources>
+    <string name="app_name">Even_To</string>
     <string name="evento_image">Evento Image</string>
-
-    <string name="app_name">Evento</string>
-    <string name="food">FOOD</string>
-    <string name="arrange_your_food_court_for_your_event_faciely_with_evento">Arrange your food court for your event faciely with Evento</string>
-    <string name="todo">TODO</string>
-    <string name="string_todo" />
-    <string name="start">START</string>
-    <string name="next">NEXT</string>
-
-    /*************************************************************
-    *    Positioning of headings in login and signup             *
-    *************************************************************/
-
-    <dimen name="top_padding_login_signup_activities">40dp</dimen>
-    <dimen name="bottom_padding_login_signup_activities">30dp</dimen>
-
-    <dimen name="top_padding_for_textView">10dp</dimen>
 </resources>
