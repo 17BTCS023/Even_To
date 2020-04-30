@@ -12,8 +12,8 @@
         <activity android:name=".login_signup.SignUpActivity"></activity>
         <activity android:name=".login_signup.LoginActivity" />
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:name=".HomeScreen.MainActivity"
+            android:theme="@style/Theme.Design.NoActionBar"/>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashScreen">

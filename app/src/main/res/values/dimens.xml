@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    /*************************************************************
+    *    Positioning of headings in login and signup             *
+    *************************************************************/
+
+    <dimen name="top_padding_login_signup_activities">40dp</dimen>
+    <dimen name="bottom_padding_login_signup_activities">30dp</dimen>
+
+    <dimen name="top_padding_for_textView">10dp</dimen>
+</resources>

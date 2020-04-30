@@ -17,8 +17,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.even_to.MainActivity;
+import com.example.even_to.HomeScreen.MainActivity;
 import com.example.even_to.R;
+import com.example.even_to.Utils.SharedPref;
 import com.example.even_to.login_signup.LoginActivity;
 
 public class IntroductionActivity extends AppCompatActivity {
@@ -35,11 +36,13 @@ public class IntroductionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         if(!isFirstTimeStarting()) {
             startLoginActivity();
             finish();
         }
+
+        SharedPref sharedPreferences = new SharedPref(getApplicationContext());
+        sharedPreferences.setDefault();
         /*Setting Up status bar transparent
          ******************************************/
 

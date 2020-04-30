@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "871303150224",
+    "firebase_url": "https://even-to-final.firebaseio.com",
+    "project_id": "even-to-final",
+    "storage_bucket": "even-to-final.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871303150224:android:a8ad3f1fbc7c038ca3b615",
+        "android_client_info": {
+          "package_name": "com.example.even_to"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871303150224-9tf9ricjjdna56kh3pkn1k4ags66km4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHB2mmpdeQOCzJLyFPZX7CYhIe5FeTcd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871303150224-9tf9ricjjdna56kh3pkn1k4ags66km4k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

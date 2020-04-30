@@ -5,13 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
+import com.example.even_to.HomeScreen.MainActivity;
+import com.example.even_to.Utils.SharedPref;
 import com.example.even_to.introduction_to_evento.IntroductionActivity;
+import com.example.even_to.login_signup.LoginActivity;
+
 
 public class SplashScreen extends AppCompatActivity {
 
     private Handler mHandler;
     private Runnable mRunnable;
+    private String remember;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        /******* Check if the sharedPreferences contains Key-value pair of email id and password *****/
+        SharedPref sharedPreferences = new SharedPref(getApplicationContext());
+        remember = sharedPreferences.getRemember();
+        Log.i("TEST", remember);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +36,17 @@ public class SplashScreen extends AppCompatActivity {
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), IntroductionActivity.class ));
-                finish();
+
+                if (remember.contentEquals("true")) {
+                    //Log.i("TEST", "User is old");
+                    // if YES, redirect to Main/ Home Activity
+                    startActivity(new Intent(SplashScreen.this, MainActivity.class));
+                    finish();
+                } else {
+                    //Log.i("TEST", "User is new");
+                    startActivity(new Intent(getApplicationContext(), IntroductionActivity.class));
+                    finish();
+                }
             }
         };
 
@@ -36,8 +60,9 @@ public class SplashScreen extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         /*********** Destroying the handler and runnable object *******/
-        if(mHandler!=  null && mRunnable != null) {
+        if (mHandler != null && mRunnable != null) {
             mHandler.removeCallbacks(mRunnable);
         }
     }
+
 }
