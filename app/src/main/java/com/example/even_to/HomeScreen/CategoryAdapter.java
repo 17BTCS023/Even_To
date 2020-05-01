@@ -17,35 +17,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.FurnitureView> implements Filterable{
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryView> implements Filterable{
 
 
-    List<HashMap<String,Object>> furnitureList = new ArrayList<>();
+    List<HashMap<String,Object>> categoryList = new ArrayList<>();
     List<HashMap<String,Object>> filteredList = new ArrayList<>();
     CustomFilter customFilter;
 
     public CategoryAdapter(List<HashMap<String, Object>> fList) {
-        this.furnitureList = fList;
-        filteredList = furnitureList;
+        this.categoryList = fList;
+        filteredList = categoryList;
         customFilter = new CustomFilter();
     }
 
     @NonNull
     @Override
-    public FurnitureView onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public CategoryView onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_category,viewGroup,false);
 
-        return new FurnitureView(view);
+        return new CategoryView(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FurnitureView furnitureView, int position) {
+    public void onBindViewHolder(@NonNull CategoryView categoryView, int position) {
 
         HashMap<String,Object> map = filteredList.get(position);
 
-        furnitureView.imageFurniture.setImageResource((Integer) map.get("Image"));
-        furnitureView.textTitle.setText(String.valueOf(map.get("Title")));
+        categoryView.imageFurniture.setImageResource((Integer) map.get("Image"));
+        categoryView.textTitle.setText(String.valueOf(map.get("Title")));
     }
 
     @Override
@@ -59,12 +59,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Furnit
     }
 
 
-    public class FurnitureView extends RecyclerView.ViewHolder{
+    public class CategoryView extends RecyclerView.ViewHolder{
 
 
         ImageView imageFurniture;
         TextView textTitle,textPrice;
-        public FurnitureView(@NonNull View itemView) {
+        public CategoryView(@NonNull View itemView) {
             super(itemView);
 
             imageFurniture = (ImageView)itemView.findViewById(R.id.image_furniture);
@@ -82,7 +82,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Furnit
 
             FilterResults filterResults = new FilterResults();
 
-            List<HashMap<String,Object>> newList = furnitureList;
+            List<HashMap<String,Object>> newList = categoryList;
             List<HashMap<String,Object>> resultList = new ArrayList<>();
 
             String searchValue = constraint.toString().toLowerCase();
