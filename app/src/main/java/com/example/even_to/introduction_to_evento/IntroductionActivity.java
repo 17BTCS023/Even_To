@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.even_to.HomeScreen.MainActivity;
+import com.example.even_to.MainHomeScreen;
 import com.example.even_to.R;
 import com.example.even_to.Utils.SharedPref;
 import com.example.even_to.login_signup.LoginActivity;
@@ -147,7 +147,7 @@ public class IntroductionActivity extends AppCompatActivity {
 
     private void startMainActivity(){
         setFirstTimeStartStatus(false);
-        startActivity(new Intent(IntroductionActivity.this, MainActivity.class));
+        startActivity(new Intent(IntroductionActivity.this, MainHomeScreen.class));
         finish();
     }
     private void startLoginActivity(){

@@ -12,7 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.even_to.HomeScreen.MainActivity;
+import com.example.even_to.MainHomeScreen;
 import com.example.even_to.Utils.SharedPref;
 import com.example.even_to.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
 
                                 // if the signup was successful, go to LogIn activity using intent
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                startActivity(new Intent(LoginActivity.this, MainHomeScreen.class));
                                 finish();
 
                             } else {

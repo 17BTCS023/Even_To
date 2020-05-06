@@ -1,4 +1,4 @@
-package com.example.even_to.HomeScreen;
+package com.example.even_to.ui_navigation.home;
 
 
 import android.view.LayoutInflater;
