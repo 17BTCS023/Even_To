@@ -31,7 +31,8 @@ public class ProfileFragment extends Fragment {
      *  Pending:
      *
      *  1.  Storing the profile attributes into firebase
-     *
+     *  2.  Updating and editing profile
+     *  3.  Retrieve data from firebase
      *
      * */
 }

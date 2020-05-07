@@ -7,8 +7,12 @@ import android.view.Menu;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.even_to.Utils.SharedPref;
 import com.example.even_to.ui_navigation.home.HomeFragment;
+import com.example.even_to.ui_navigation.messages.MessagesFragment;
+import com.example.even_to.ui_navigation.orders.OrderFragment;
 import com.example.even_to.ui_navigation.profile.ProfileFragment;
+import com.example.even_to.ui_navigation.services.ServicesFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -24,6 +28,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import com.example.even_to.Utils.SharedPref;
 
 public class MainHomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -131,20 +136,39 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
                         .commit();
                 fab.setImageResource(R.drawable.ic_edit);
                 toolbar.setTitle(R.string.Profile);
-
                 break;
+
             case R.id.nav_my_orders:
-                Toast.makeText(this, "Orders was clicked", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment,new OrderFragment())
+                        .commit();
+                fab.setImageResource(R.drawable.ic_edit);
+                toolbar.setTitle(R.string.Profile);
+                break;
 
-                break;
+
             case R.id.nav_my_services:
-                Toast.makeText(this, "Services was clicked", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment,new ServicesFragment())
+                        .commit();
+                fab.setImageResource(R.drawable.ic_edit);
+                toolbar.setTitle(R.string.Profile);
                 break;
+
             case R.id.nav_messages:
-                Toast.makeText(this, "Messaged", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment,new MessagesFragment())
+                        .commit();
+                fab.setImageResource(R.drawable.ic_edit);
+                toolbar.setTitle(R.string.Profile);
                 break;
+
             case R.id.nav_logout:
-                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                /*** Set sharedPref remember as false ***/
+                SharedPref sharedPref = new SharedPref(this);
+                sharedPref.setDefault();
+                sharedPref.setRememberFirst();
+                Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
                 break;
         }
 
