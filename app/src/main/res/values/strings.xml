@@ -8,7 +8,7 @@
     <string name="string_todo" />
     <string name="start">START</string>
     <string name="next">NEXT</string>
-    <string name="title_activity_main_home_screen">MainHomeScreen</string>
+    <string name="title_activity_main_home_screen">Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -21,6 +21,13 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="home_second">Home Second</string>
+    <string name="evento">Evento</string>
+    <string name="email_id">post.mk02@gmail.com</string>
+    <string name="edit_profile">Manisha Katiyar</string>
+    <string name="name">Manisha Katiyar</string>
+    <string name="Profile">Profile</string>
+    <string name="nav_bar_name">Manisha Katiyar</string>
+    <string name="nav_bar_email_id">post.mk02@gmail.com</string>
 
 
 </resources>
