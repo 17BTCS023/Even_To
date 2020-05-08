@@ -28,6 +28,9 @@
     <string name="Profile">Profile</string>
     <string name="nav_bar_name">Manisha Katiyar</string>
     <string name="nav_bar_email_id">post.mk02@gmail.com</string>
+    <string name="my_services">My Services</string>
+    <string name="my_messages">Messages</string>
+    <string name="my_orders">My orders</string>
 
 
 </resources>

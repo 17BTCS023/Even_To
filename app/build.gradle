@@ -44,9 +44,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
+
     /*** adding for circular image*****/
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
 
+    /*** Adding dependecey for using material design in applications UI ***/
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
 
 }

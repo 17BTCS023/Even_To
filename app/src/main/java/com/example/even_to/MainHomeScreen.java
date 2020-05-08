@@ -143,7 +143,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
                         .replace(R.id.nav_host_fragment,new OrderFragment())
                         .commit();
                 fab.setImageResource(R.drawable.ic_edit);
-                toolbar.setTitle(R.string.Profile);
+                toolbar.setTitle(R.string.my_orders);
                 break;
 
 
@@ -152,7 +152,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
                         .replace(R.id.nav_host_fragment,new ServicesFragment())
                         .commit();
                 fab.setImageResource(R.drawable.ic_edit);
-                toolbar.setTitle(R.string.Profile);
+                toolbar.setTitle(R.string.my_services);
                 break;
 
             case R.id.nav_messages:
@@ -160,7 +160,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
                         .replace(R.id.nav_host_fragment,new MessagesFragment())
                         .commit();
                 fab.setImageResource(R.drawable.ic_edit);
-                toolbar.setTitle(R.string.Profile);
+                toolbar.setTitle(R.string.my_messages);
                 break;
 
             case R.id.nav_logout:
