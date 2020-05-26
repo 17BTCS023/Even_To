@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView android:id="@+id/card"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_margin="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,13 +13,12 @@
 
         <!-- Media -->
         <ImageView
+            android:id="@+id/service_provider_image"
             android:layout_width="match_parent"
             android:layout_height="194dp"
-            android:id="@+id/service_provider_image"
-            app:srcCompat="@drawable/service"
-            android:scaleType="centerCrop"
             android:contentDescription="@string/content_description_media"
-            />
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/service" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,30 +28,29 @@
 
             <!-- Title, secondary and supporting text -->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/service_provider_name"
-                android:text="@string/service_name"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                />
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/service_name"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+
+            <TextView
                 android:id="@+id/service_provider_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/title"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary"
-                />
+                android:textColor="?android:attr/textColorSecondary" />
+
             <TextView
+                android:id="@+id/service_provider_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/service_provider_description"
                 android:layout_marginTop="16dp"
                 android:text="@string/service_description"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary"
-                />
+                android:textColor="?android:attr/textColorSecondary" />
 
         </LinearLayout>
 
@@ -70,15 +68,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
+                android:background="#73A89B"
                 android:text="@string/action_message" />
+
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/service_provider_unhire"
+                style="?attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/service_provider_unhire"
-                android:text="@string/action_unhire"
-                style="?attr/borderlessButtonStyle"
                 android:layout_weight="1"
-                />
+                android:background="#7B60B5"
+                android:text="@string/action_unhire" />
         </LinearLayout>
 
     </LinearLayout>

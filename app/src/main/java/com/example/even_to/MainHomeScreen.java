@@ -1,5 +1,6 @@
 package com.example.even_to;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.Menu;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.even_to.Category.FoodCategory;
 import com.example.even_to.Utils.SharedPref;
 import com.example.even_to.ui_navigation.home.HomeFragment;
 import com.example.even_to.ui_navigation.messages.MessagesFragment;
@@ -111,6 +113,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
     // checking , if the elements are clickable
     public void clicked(View view) {
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), FoodCategory.class));
     }
 
     /**** When the profile is seclected from the menu, the profile_fragment should be loaded ****/
