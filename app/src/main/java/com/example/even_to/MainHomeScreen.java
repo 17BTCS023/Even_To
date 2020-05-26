@@ -29,6 +29,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.example.even_to.Utils.SharedPref;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainHomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -142,7 +144,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment,new OrderFragment())
                         .commit();
-                fab.setImageResource(R.drawable.ic_edit);
+                fab.setVisibility(View.GONE);
                 toolbar.setTitle(R.string.my_orders);
                 break;
 
@@ -161,6 +163,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
                         .commit();
                 fab.setImageResource(R.drawable.ic_edit);
                 toolbar.setTitle(R.string.my_messages);
+
                 break;
 
             case R.id.nav_logout:
@@ -175,6 +178,14 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    public void UpdateProfile(View view) {
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
     }
 }
 

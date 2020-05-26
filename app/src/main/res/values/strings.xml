@@ -31,6 +31,12 @@
     <string name="my_services">My Services</string>
     <string name="my_messages">Messages</string>
     <string name="my_orders">My orders</string>
+    <string name="content_description_media">Order_pic</string>
+    <string name="title">Photography</string>
+    <string name="service_description">I am a photographer. I love to shoot everything with my camera, of course! I am a moment capturer.....</string>
+    <string name="service_name">"Capturers! "</string>
+    <string name="action_message">Message</string>
+    <string name="action_unhire">Unhire</string>
 
 
 </resources>
