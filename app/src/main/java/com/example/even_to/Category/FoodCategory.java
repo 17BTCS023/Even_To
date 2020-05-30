@@ -69,6 +69,8 @@ public class FoodCategory extends AppCompatActivity {
         mListIetmAdapter.setOnItemClickListener(new FoodAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+//                Intent intent = new Intent(Intent.ACTION_SEND);
+//                intent.putExtra()
                 startActivity(new Intent(getApplicationContext(), ServiceProviderProfile.class));
             }
         });
