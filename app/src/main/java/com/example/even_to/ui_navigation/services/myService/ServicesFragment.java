@@ -1,4 +1,4 @@
-package com.example.even_to.ui_navigation.services;
+package com.example.even_to.ui_navigation.services.myService;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +18,11 @@ public class ServicesFragment extends Fragment {
     //constructor
     public ServicesFragment(){
         // simply
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {

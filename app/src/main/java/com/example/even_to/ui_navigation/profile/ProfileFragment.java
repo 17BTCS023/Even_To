@@ -16,8 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
+
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -57,9 +56,6 @@ public class ProfileFragment extends Fragment {
     FirebaseFirestore dbInstance = FirebaseFirestore.getInstance();
     private DocumentReference profileReference;
 
-
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         // Inflate the Profile fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -69,27 +65,17 @@ public class ProfileFragment extends Fragment {
         mEmail =  view.findViewById(R.id.user_profile_email);
         mPassword =  view.findViewById(R.id.user_profile_password);
         mLocation  =  view.findViewById(R.id.user_profile_location);
-        mUpdateProfile =  view.findViewById(R.id.profile_update);
+
         mAbout = view.findViewById(R.id.et_user_profile_about);
         mOccupartion = view.findViewById(R.id.et_user_profile_occupation);
         mDisplayName = view.findViewById(R.id.tv_user_profile_name);
         mDisplayAbout = view.findViewById(R.id.tv_user_profile_about);
         mDisplayOccupation = view.findViewById(R.id.tv_user_profile_occupation);
+        mUpdateProfile =  view.findViewById(R.id.profile_update);
 
         //get the user id
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if (firebaseUser != null) {
-                    userId = firebaseUser.getUid();
-                    userEmail = firebaseUser.getEmail();
-                }
-            }
-        };
-
-        profileReference = dbInstance.document("profile/"+userId);
+        profileReference = dbInstance.collection("profile").document(auth.getCurrentUser().getUid());
 
         mUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override

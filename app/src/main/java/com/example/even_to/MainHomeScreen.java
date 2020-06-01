@@ -14,15 +14,14 @@ import com.example.even_to.ui_navigation.home.HomeFragment;
 import com.example.even_to.ui_navigation.messages.MessagesFragment;
 import com.example.even_to.ui_navigation.orders.OrderFragment;
 import com.example.even_to.ui_navigation.profile.ProfileFragment;
-import com.example.even_to.ui_navigation.services.ServicesFragment;
+import com.example.even_to.ui_navigation.services.newService.AddNewService;
+import com.example.even_to.ui_navigation.services.myService.ServicesFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,9 +29,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import com.example.even_to.Utils.SharedPref;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MainHomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -57,8 +53,9 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Add new Service", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(MainHomeScreen.this, AddNewService.class));
+                /*Snackbar.make(view, "Add new Service", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
 
@@ -183,13 +180,6 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
         return true;
     }
 
-    public void UpdateProfile(View view) {
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
-    }
 }
 
 

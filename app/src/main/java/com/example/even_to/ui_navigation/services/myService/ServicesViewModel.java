@@ -1,4 +1,4 @@
-package com.example.even_to.ui_navigation.services;
+package com.example.even_to.ui_navigation.services.myService;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
