@@ -100,8 +100,6 @@ public class AddNewService extends AppCompatActivity {
 
         // get the reference of the database
         mStorageReference = FirebaseStorage.getInstance().getReference("serviceLogo ");
-//        mDatabaseReference = FirebaseFirestore.getInstance().getReference("serviceLogo");
-
 
         ArrayAdapter adapter =
                 new ArrayAdapter(this,
