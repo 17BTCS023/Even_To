@@ -20,7 +20,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     private EditText emailId;
     private EditText password;
-    private EditText phoneNumber;
     Button signUp;
     Button goBackToLogIn;
 
@@ -36,7 +35,6 @@ public class SignUpActivity extends AppCompatActivity {
         // to find out the component using email id
         emailId = findViewById(R.id.etEmalName);
         password = findViewById(R.id.etPassword);
-        phoneNumber = findViewById(R.id.etPhoneNumber);
         signUp =findViewById(R.id.btnSignUp);
         goBackToLogIn = findViewById(R.id.btnGoBackToLogIN);
 
@@ -44,7 +42,6 @@ public class SignUpActivity extends AppCompatActivity {
         goBackToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SignUpActivity.this,"Moving into LonIn activity",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
             }
         });
@@ -61,11 +58,15 @@ public class SignUpActivity extends AppCompatActivity {
                 if(inputEmail.isEmpty()){  // If user submits null info
                     emailId.setError("Please enter your email id!");  // display error
                     emailId.requestFocus();
-                }else if (inputPassword.isEmpty()){  // check if password field is empty
+                }else if (inputPassword.isEmpty() ){  // check if password field is empty
                     password.setError("Please enter a password");  // display error
                     password.requestFocus();
 
-                }else if (!inputEmail.isEmpty()&&!inputPassword.isEmpty()){
+                }else if(inputPassword.length() < 8 ){
+                    password.setError("Min password length is 8");  // display error
+                    password.requestFocus();
+                }
+                else if (!inputEmail.isEmpty()&&!inputPassword.isEmpty()){
                     /*check both conditions
                       Using the FA variable add the user by passing the two strings : inputemail and inputPassword
                     */
@@ -83,8 +84,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 finish();
                                 // show this toast
                             }else{
-                                // if  added
-                                Toast.makeText(SignUpActivity.this,"Please try to sign in again",Toast.LENGTH_SHORT).show();
+                                // if not added
+                                Toast.makeText(SignUpActivity.this, task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

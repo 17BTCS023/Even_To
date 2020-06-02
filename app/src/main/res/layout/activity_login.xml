@@ -77,14 +77,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log In"
-        android:outlineProvider="bounds"
         android:elevation="5dp"
         android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:layout_margin="20dp"
-        android:padding="5dp"
+        android:padding="10dp"
         />
 
 
@@ -105,10 +104,10 @@
         android:layout_margin="20dp"
         android:elevation="5dp"
         android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:padding="5dp"
+        android:padding="10dp"
         />
 
 
