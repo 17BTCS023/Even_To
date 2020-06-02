@@ -4,101 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_login"
-    tools:context=".login_signup.SignUpActivity"
+    android:layout_margin="16dp"
     android:orientation="vertical"
-    >
-
+    tools:context=".login_signup.SignUpActivity">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/top_padding_login_signup_activities"
         android:layout_marginBottom="@dimen/bottom_padding_login_signup_activities"
         android:text="Sign Up"
         android:textAlignment="center"
-        android:textColor="@color/white"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal" />
+        android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/etEmalName"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:hint="Email..."
-        android:importantForAutofill="no"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:layout_marginTop="@dimen/top_padding_for_textView"
-        android:layout_gravity="center_horizontal" />
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="@dimen/top_padding_login_signup_activities"
+        android:layout_marginBottom="@dimen/bottom_padding_login_signup_activities"
+        android:hint="Email...">
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:hint="Password..."
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:layout_marginTop="@dimen/top_padding_for_textView"
-        android:layout_gravity="center_horizontal"/>
-    <EditText
-        android:id="@+id/etPhoneNumber"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:hint="Mobile "
-        android:importantForAutofill="yes"
-        android:inputType="phone"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:layout_marginTop="@dimen/top_padding_for_textView"
-        android:layout_gravity="center_horizontal"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmalName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="true"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="password..."
+        android:layout_marginTop="@dimen/top_padding_login_signup_activities"
+        android:layout_marginBottom="@dimen/bottom_padding_login_signup_activities">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:importantForAutofill="no"
 
-    <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="300dp"
-        android:layout_height="49dp"
-        android:background="#00FFFFFF"
-        android:elevation="5dp"
-        android:outlineProvider="bounds"
-        android:stateListAnimator="@android:anim/fade_out"
-        android:text="Sign Up"
-        android:textColor="@color/white"
-        android:layout_marginTop="@dimen/top_padding_for_textView"
-        android:layout_gravity="center_horizontal"/>
+            />
 
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/btnGoBackToLogIN"
-        android:layout_width="300dp"
-        android:layout_height="49dp"
-        android:background="#00FFFFFF"
+        android:text="Sign Up"
+        android:layout_margin="20dp"
         android:elevation="5dp"
-        android:outlineProvider="bounds"
-        android:stateListAnimator="@android:anim/fade_out"
-        android:text="Log In"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textAlignment="center"
         android:textColor="@color/white"
-        android:layout_marginTop="@dimen/top_padding_for_textView"
-        android:layout_gravity="center_horizontal" />
+        android:padding="5dp"/>
+
     <TextView
         android:id="@+id/textViewHaveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Already Have an account?"
-        android:textColor="@color/white"
         android:textSize="16sp"
-        android:layout_marginTop="@dimen/top_padding_for_textView"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        android:outlineProvider="bounds"
+        android:elevation="5dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_margin="20dp"
+        android:padding="5dp"
+        />
 
 </LinearLayout>

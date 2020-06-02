@@ -54,8 +54,8 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // take input from 2 edit texts in form of Strings
-                String inputEmail =emailId.getText().toString();
-                String inputPassword =password.getText().toString();
+                String inputEmail =emailId.getText().toString().trim();
+                String inputPassword =password.getText().toString().trim();
                 firebaseAuth = FirebaseAuth.getInstance();  // Calling the variable for FirebaseAuth
 
                 if(inputEmail.isEmpty()){  // If user submits null info

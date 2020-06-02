@@ -57,8 +57,8 @@ public class LoginActivity extends AppCompatActivity {
         buttonlogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String logInEmailString = logInEmail.getText().toString();
-                final String logInPasswordString = logInPassword.getText().toString();
+                final String logInEmailString = logInEmail.getText().toString().trim();
+                final String logInPasswordString = logInPassword.getText().toString().trim();
                 firebaseAuth = FirebaseAuth.getInstance();
 
                 if (logInEmailString.isEmpty()) {
