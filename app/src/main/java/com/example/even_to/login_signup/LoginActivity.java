@@ -78,9 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Successfully Logged in!", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(LoginActivity.this, "Welcome Back, " + logInEmailString, Toast.LENGTH_SHORT).show();
-
+                                Toast.makeText(LoginActivity.this, "Welcome Back! ", Toast.LENGTH_SHORT).show();
                                     // If user has checked the remember me then store the values
                                     if (rememberMe.isChecked()) {
                                         // If the login is successful save the email and password for the user
@@ -95,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             } else {
                                 // if not added
-                                Toast.makeText(LoginActivity.this, "Wrong Passwrod or email id", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,  task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
