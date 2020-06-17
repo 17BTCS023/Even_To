@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.even_to.MainHomeScreen;
-import com.example.even_to.Utils.SharedPref;
+import com.example.even_to.utils.SharedPref;
 import com.example.even_to.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

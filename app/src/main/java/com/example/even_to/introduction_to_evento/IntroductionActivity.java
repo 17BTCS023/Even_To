@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.example.even_to.MainHomeScreen;
 import com.example.even_to.R;
-import com.example.even_to.Utils.SharedPref;
+import com.example.even_to.utils.SharedPref;
 import com.example.even_to.login_signup.LoginActivity;
 
 public class IntroductionActivity extends AppCompatActivity {

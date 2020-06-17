@@ -9,13 +9,14 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.even_to.Category.FoodCategory;
-import com.example.even_to.Utils.SharedPref;
-import com.example.even_to.ui_navigation.home.HomeFragment;
-import com.example.even_to.ui_navigation.messages.MessagesFragment;
-import com.example.even_to.ui_navigation.orders.OrderFragment;
-import com.example.even_to.ui_navigation.profile.ProfileFragment;
-import com.example.even_to.ui_navigation.services.newService.AddNewService;
-import com.example.even_to.ui_navigation.services.myService.ServicesFragment;
+import com.example.even_to.CategorySelection.SelectCategory;
+import com.example.even_to.utils.SharedPref;
+import com.example.even_to.navigation.home.HomeFragment;
+import com.example.even_to.navigation.messages.MessagesFragment;
+import com.example.even_to.navigation.orders.OrderFragment;
+import com.example.even_to.navigation.profile.ProfileFragment;
+import com.example.even_to.navigation.services.newService.AddNewService;
+import com.example.even_to.navigation.services.myService.ServicesFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -37,7 +38,11 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
     FloatingActionButton fab;
     private boolean isStartup = true;
     Toolbar toolbar;
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        this.finishActivity(0);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +58,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainHomeScreen.this, AddNewService.class));
-                /*Snackbar.make(view, "Add new Service", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+                startActivity(new Intent(MainHomeScreen.this, SelectCategory.class));
             }
         });
 

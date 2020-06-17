@@ -7,9 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.even_to.Utils.SharedPref;
+import com.example.even_to.utils.SharedPref;
 import com.example.even_to.introduction_to_evento.IntroductionActivity;
-import com.example.even_to.login_signup.LoginActivity;
 
 
 public class SplashScreen extends AppCompatActivity {

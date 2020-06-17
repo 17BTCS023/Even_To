@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui_navigation.services.newService.AddNewService" />
+        <activity android:name=".navigation.services.newService.AddServiceImage"></activity>
+        <activity android:name=".CategorySelection.SelectCategory" />
+        <activity android:name=".navigation.services.newService.AddNewService" />
         <activity android:name=".Category.ServiceProviderProfile" />
         <activity android:name=".Category.FoodCategory" />
         <activity

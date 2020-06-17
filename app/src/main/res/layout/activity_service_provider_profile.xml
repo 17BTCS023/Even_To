@@ -119,6 +119,6 @@
 <!--                android:id="@+id/display_work"-->
 <!--                />-->
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout> 
 
 </ScrollView>

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.even_to.R;
+import com.example.even_to.adapter.FoodAdapter;
 
 import java.util.ArrayList;
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.even_to.ui_navigation.home.HomeFragment"
+        android:name="com.example.even_to.navigation.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
 
@@ -17,9 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_home_second"
-        android:name="com.example.even_to.ui_navigation.home.HomeSecondFragment"
-        android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
+        >
         <action
             android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
             app:destination="@id/nav_home" />
@@ -31,13 +29,13 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.even_to.ui_navigation.profile.ProfileFragment"
+        android:name="com.example.even_to.navigation.profile.ProfileFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.even_to.ui_navigation.orders.OrderFragment"
+        android:name="com.example.even_to.navigation.orders.OrderFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_orders" />
 </navigation>
