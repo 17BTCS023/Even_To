@@ -11,10 +11,19 @@ public class ServiceModel {
     private static final String KEY_EXPERIENCE = "experience";
     private static final String KEY_LINK = "link";
 
-    String name, category, description, experience, link, capacity;
+    String name;
+    String category;
+    String description;
+    String experience;
+    String link;
+    String capacity;
+    String documentId;
     long phone;
 
 
+    public ServiceModel(){
+        // used by Firestore
+    }
     public ServiceModel(String name, String phone, String capacity, String category, String experience,
                         String link,  String description) {
         this.name = name;
@@ -41,6 +50,15 @@ public class ServiceModel {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
 
     public String getDescription() {
         return description;
@@ -73,8 +91,6 @@ public class ServiceModel {
     public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
-
-
 
     public long getPhone() {
         return phone;

@@ -133,6 +133,8 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment,new HomeFragment())
                         .commit();
+                fab.setVisibility(View.VISIBLE);
+                toolbar.setTitle("Home");
                 break;
             case R.id.nav_my_profile:
 
