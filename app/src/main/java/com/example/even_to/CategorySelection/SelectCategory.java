@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.even_to.R;
 import com.example.even_to.navigation.services.newService.AddNewService;
+import com.example.even_to.navigation.services.newService.AddServiceImage;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,7 +27,7 @@ public class SelectCategory extends AppCompatActivity {
     FirebaseFirestore dbInstance = FirebaseFirestore.getInstance();
     CollectionReference categoryRef ;
 
-    String serviceCategory = "MANISHA KO SAMOSA KHANA HAI";
+    String serviceCategory = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

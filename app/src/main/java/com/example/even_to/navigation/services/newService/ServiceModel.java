@@ -15,10 +15,10 @@ public class ServiceModel {
     long phone;
 
 
-    public ServiceModel(String name, long phone, String capacity, String category, String experience,
+    public ServiceModel(String name, String phone, String capacity, String category, String experience,
                         String link,  String description) {
         this.name = name;
-        this.phone = phone;
+        this.phone = Integer.parseInt(phone);
         this.capacity = capacity;
         this.category = category;
         this.experience = experience;

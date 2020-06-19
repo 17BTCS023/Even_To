@@ -14,9 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.even_to.MainHomeScreen;
 import com.example.even_to.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,17 +40,17 @@ public class AddServiceImage extends AppCompatActivity {
 
     MaterialButton materialButtonSelectFile, materialButtonUplaodFile;
     ImageView serviceImage;
-    private static boolean USER_ATTACHED_FILE = false, IMAGE_UPLOADED= false;
+    private static boolean USER_ATTACHED_FILE = false, IMAGE_UPLOADED = false;
     private static final int PICK_IMAGE_REQUEST = 1;
-    String displayNameOfFile,imageUri, mCategory;
-    Uri selectedImageUri,downloadedImageUri;
+    String displayNameOfFile, mCategory, imageUri;
+    Uri selectedImageUri, downloadedImageUri;
     UploadTask UploadTask;
 
     //getting reference for StorageReference
     StorageReference mStorageReference;
 
     FirebaseFirestore dbInstance = FirebaseFirestore.getInstance();
-    private DocumentReference manyServiceReference;
+    private DocumentReference serviceRef;
 
 
     @Override
@@ -61,12 +61,12 @@ public class AddServiceImage extends AppCompatActivity {
 
         materialButtonSelectFile = findViewById(R.id.btn_select_file);
         materialButtonUplaodFile = findViewById(R.id.btn_upload_file);
-        serviceImage =findViewById(R.id.image_view_service);
+        serviceImage = findViewById(R.id.image_view_service);
         mCategory = getIntent().getStringExtra("category");
-
+        //Log.d(TAG, "onCreate: " + mCategory);
         // get the reference of the database
         mStorageReference = FirebaseStorage.getInstance().getReference("serviceLogo ");
-        
+
         materialButtonSelectFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,43 +77,14 @@ public class AddServiceImage extends AppCompatActivity {
         materialButtonUplaodFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(USER_ATTACHED_FILE){
-                    imageUri = UploadImageToStorage();
-                    UploadImageToFirestore(imageUri);
-                }
-                else{
-                    Toast.makeText(AddServiceImage.this, "Cannot upload nothing", Toast.LENGTH_SHORT).show();
-                    return;
+                if (USER_ATTACHED_FILE) {
+                    UploadImageToStorage();
                 }
 
-                
             }
         });
     }
 
-    private void UploadImageToFirestore(String imageUri) {
-        //get the user id
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        manyServiceReference = dbInstance
-                .collection("services").document(auth.getCurrentUser().getUid())
-                .collection("myServices").document(mCategory);
-
-        ServiceImageModel serviceImage = new ServiceImageModel(imageUri);
-        manyServiceReference.set(serviceImage, SetOptions.merge())
-        .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(AddServiceImage.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
-            }
-        })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, e.toString());
-            }
-        });
-
-    }
 
     private void chooseFile() {
         Intent intent = new Intent();
@@ -122,8 +93,9 @@ public class AddServiceImage extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
-    // Find the extension of the file, so that it can be stored in that form
+
     private String getFileExtension(Uri uri) {
+        // Find the extension of the file, so that it can be stored in that form
         ContentResolver typeOfFile = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(typeOfFile.getType(uri));
@@ -138,7 +110,6 @@ public class AddServiceImage extends AppCompatActivity {
             selectedImageUri = data.getData();
             String uriString = selectedImageUri.toString();
             File myFile = new File(uriString);
-            String path = myFile.getAbsolutePath();
             displayNameOfFile = null;
 
             if (uriString.startsWith("content://")) {
@@ -158,7 +129,7 @@ public class AddServiceImage extends AppCompatActivity {
         }
     }
 
-    private String UploadImageToStorage() {
+    private void UploadImageToStorage() {
         final StorageReference filePathReference = mStorageReference.child(System.currentTimeMillis() + "." + getFileExtension(selectedImageUri));
         UploadTask = (com.google.firebase.storage.UploadTask) filePathReference.putFile(selectedImageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -169,11 +140,15 @@ public class AddServiceImage extends AppCompatActivity {
                         filePathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                IMAGE_UPLOADED= true;
+                                IMAGE_UPLOADED = true;
                                 downloadedImageUri = uri;
                                 imageUri = downloadedImageUri.toString().trim();
-                                Log.d("CHECK", "URL" + downloadedImageUri);
-                                Log.d("CHECK", "String of URL" + imageUri);
+                                Toast.makeText(AddServiceImage.this, imageUri, Toast.LENGTH_SHORT).show();
+                                //Log.d("CHECK", "URL" + downloadedImageUri);
+                                //Log.d("CHECK", "String of URL" + imageUri);
+                                UploadImageToFirestore(imageUri);
+                                startActivity(new Intent(AddServiceImage.this, MainHomeScreen.class));
+                                finish();
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -188,11 +163,38 @@ public class AddServiceImage extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(AddServiceImage.this, "Service not added", Toast.LENGTH_SHORT).show();
-                        
+
                         Log.d("CHECK", "onFailure: " + e.getMessage());
                     }
                 });
 
-        return imageUri;
+
     }
+
+
+    private void UploadImageToFirestore(String imageUri) {
+        //get the user id
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        serviceRef = dbInstance
+                .collection("services").document(auth.getCurrentUser().getUid())
+                .collection("myServices").document(mCategory);
+
+        Map<String, Object> photo = new HashMap<>();
+        photo.put("imageUri", imageUri);
+        serviceRef.set(photo, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(AddServiceImage.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, e.toString());
+                    }
+                });
+
+    }
+
 }

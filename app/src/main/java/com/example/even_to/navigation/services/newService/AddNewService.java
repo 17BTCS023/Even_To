@@ -37,8 +37,7 @@ public class AddNewService extends AppCompatActivity {
 
     FirebaseFirestore dbInstance = FirebaseFirestore.getInstance();
     private DocumentReference manyServiceReference;
-    String mName, mCapacity, mCategory, mDescription, mExperience, mLink, mImageName;
-    long mPhone;
+    String mName, mCapacity, mCategory, mDescription, mExperience, mLink, mPhone;
 
     String[] EXPERIENCE = new String[]{"1-6 months", "7-10 months", "1-2 year", "2-3years", "more than 3 years"};
     String[] CAPACITY = new String[]{"10-30", "50-100", "100-500"};
@@ -82,9 +81,13 @@ public class AddNewService extends AppCompatActivity {
         mName = name.getText().toString().trim();
         mCapacity = capacity.getText().toString().trim();
         mDescription = description.getText().toString().trim();
-        mPhone = Integer.parseInt(phone.getText().toString().trim());
+        mPhone = phone.getText().toString().trim();
         mExperience = experience.getText().toString().trim();
         mLink = link.getText().toString().trim();
+        if(mName.isEmpty()||mCategory.isEmpty() || mDescription.isEmpty() || mExperience.isEmpty()|| mLink.isEmpty()){
+            Toast.makeText(this, "Fill everything! '_' ", LENGTH_SHORT).show();
+            return;
+        }
         Log.d("CHECK", "onClick: " + mName + ", " + mCapacity + ", " + mCategory + ", " + mDescription + ", " + mPhone + ", " + mExperience + "," + mLink );
 
         ServiceModel newService = new ServiceModel(mName, mPhone, mCapacity, mCategory, mExperience,
@@ -92,12 +95,10 @@ public class AddNewService extends AppCompatActivity {
 
         //get the user id
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        manyServiceReference = dbInstance
-                .collection("services").document("newService");
 
-        /* manyServiceReference = dbInstance
+        manyServiceReference = dbInstance
                 .collection("services").document(auth.getCurrentUser().getUid())
-                .collection("myServices").document(mCategory);*/
+                .collection("myServices").document(mCategory);
         manyServiceReference.set(newService)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
