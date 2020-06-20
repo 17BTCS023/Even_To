@@ -82,6 +82,7 @@ public class ServicesFragment extends Fragment {
                 if (getItemCount() == 0) {
                     serviceRecyclerViewList.setVisibility(View.GONE);
                     mEmptyView.setVisibility(View.VISIBLE);
+
                 } else {
                     serviceRecyclerViewList.setVisibility(View.VISIBLE);
                     mEmptyView.setVisibility(View.GONE);

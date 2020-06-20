@@ -2,34 +2,32 @@ package com.example.even_to;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.even_to.Category.FoodCategory;
-import com.example.even_to.CategorySelection.SelectCategory;
-import com.example.even_to.utils.SharedPref;
-import com.example.even_to.navigation.home.HomeFragment;
-import com.example.even_to.navigation.messages.MessagesFragment;
-import com.example.even_to.navigation.orders.OrderFragment;
-import com.example.even_to.navigation.profile.ProfileFragment;
-import com.example.even_to.navigation.services.newService.AddNewService;
-import com.example.even_to.navigation.services.myService.ServicesFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.example.even_to.CategorySelection.SelectCategory;
+import com.example.even_to.navigation.home.HomeFragment;
+import com.example.even_to.navigation.messages.MessagesFragment;
+import com.example.even_to.navigation.orders.OrderFragment;
+import com.example.even_to.navigation.profile.ProfileFragment;
+import com.example.even_to.navigation.services.myService.ServicesFragment;
+import com.example.even_to.utils.SharedPref;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainHomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -38,11 +36,13 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
     FloatingActionButton fab;
     private boolean isStartup = true;
     Toolbar toolbar;
+
     @Override
     protected void onStop() {
         super.onStop();
         this.finishActivity(0);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +76,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
 
 
         /*** we dont want to loose the state of the activity ***/
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             /* Creating instance of the HomeFragment and display it using
             // FragmentManager and Transaction **/
             getSupportFragmentManager().beginTransaction()
@@ -90,9 +90,9 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
     /********* When we press back, we should leave the activity immedieately, but close the drawer first *******/
     @Override
     public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -110,11 +110,6 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-    // checking , if the elements are clickable
-    public void clicked(View view) {
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getApplicationContext(), FoodCategory.class));
-    }
 
     /**** When the profile is seclected from the menu, the profile_fragment should be loaded ****/
     @Override
@@ -123,15 +118,15 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
         int menuItemId = item.getItemId();
         // Using switch statement, identify the item selected
         //Use a FragmentManager and Transaction tp add the Fragment to the screen
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-        if(isStartup){
+        //FragmentManager fragmentManager = getSupportFragmentManager();
+        if (isStartup) {
             ((FrameLayout) findViewById(R.id.nav_host_fragment)).removeAllViews();
             isStartup = false;
         }
-        switch (menuItemId){
+        switch (menuItemId) {
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment,new HomeFragment())
+                        .replace(R.id.nav_host_fragment, new HomeFragment())
                         .commit();
                 fab.setVisibility(View.VISIBLE);
                 toolbar.setTitle("Home");
@@ -139,7 +134,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
             case R.id.nav_my_profile:
 
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment,new ProfileFragment())
+                        .replace(R.id.nav_host_fragment, new ProfileFragment())
                         .commit();
                 fab.setVisibility(View.GONE);
                 toolbar.setTitle(R.string.Profile);
@@ -147,7 +142,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
 
             case R.id.nav_my_orders:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment,new OrderFragment())
+                        .replace(R.id.nav_host_fragment, new OrderFragment())
                         .commit();
                 fab.setVisibility(View.GONE);
                 toolbar.setTitle(R.string.my_orders);
@@ -156,15 +151,15 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
 
             case R.id.nav_my_services:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment,new ServicesFragment())
+                        .replace(R.id.nav_host_fragment, new ServicesFragment())
                         .commit();
-                fab.setVisibility(View.GONE);
+                fab.setImageResource(R.drawable.add_service);
                 toolbar.setTitle(R.string.my_services);
                 break;
 
             case R.id.nav_messages:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment,new MessagesFragment())
+                        .replace(R.id.nav_host_fragment, new MessagesFragment())
                         .commit();
                 fab.setImageResource(R.drawable.ic_edit);
                 toolbar.setTitle(R.string.my_messages);
@@ -184,12 +179,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
 
         return true;
     }
-
 }
-
-
-
-
 
 
 //    @Override
