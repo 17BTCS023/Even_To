@@ -1,6 +1,6 @@
-package com.example.even_to.Category;
+package com.example.even_to.CategoriesServiceProvidersList;
 
-public class FoodServiceItem {
+public class ServiceItem {
 
     private int mImageResource;
     private String mServiceProviderName;
@@ -9,7 +9,7 @@ public class FoodServiceItem {
     private String mRatingStar;
 
 
-    public FoodServiceItem(int mImageResource, String mServiceProviderName, String mServiceProviderDescription, String mServiceProviderSize, String mRatingStar) {
+    public ServiceItem(int mImageResource, String mServiceProviderName, String mServiceProviderDescription, String mServiceProviderSize, String mRatingStar) {
         this.mImageResource = mImageResource;
         this.mServiceProviderName = mServiceProviderName;
         this.mServiceProviderDescription = mServiceProviderDescription;

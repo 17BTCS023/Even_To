@@ -9,13 +9,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.even_to.Category.FoodServiceItem;
+import com.example.even_to.CategoriesServiceProvidersList.ServiceItem;
 import com.example.even_to.R;
 
 import java.util.ArrayList;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodServiceViewHolder> {
-    private ArrayList<FoodServiceItem> mFoodServiceItems;
+    private ArrayList<ServiceItem> mServiceItems;
     private  OnItemClickListener mListener;
     public interface OnItemClickListener{
         void onItemClick(int position);
@@ -52,8 +52,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodServiceVie
         }
     }
 
-    public FoodAdapter(ArrayList<FoodServiceItem> serviceItems){
-        mFoodServiceItems = serviceItems;
+    public FoodAdapter(ArrayList<ServiceItem> serviceItems){
+        mServiceItems = serviceItems;
     }
 
     @NonNull
@@ -65,7 +65,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodServiceVie
 
     @Override
     public void onBindViewHolder(@NonNull FoodServiceViewHolder holder, int position) {
-        FoodServiceItem currentItem = mFoodServiceItems.get(position);
+        ServiceItem currentItem = mServiceItems.get(position);
         holder.mImageResource.setImageResource(currentItem.getmImageResource());
         holder.mServiceProviderName.setText(currentItem.getmServiceProviderName());
         holder.mServiceProviderDescription.setText(currentItem.getmServiceProviderDescription());
@@ -76,7 +76,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodServiceVie
 
     @Override
     public int getItemCount() {
-        return mFoodServiceItems.size();
+        return mServiceItems.size();
     }
 
 

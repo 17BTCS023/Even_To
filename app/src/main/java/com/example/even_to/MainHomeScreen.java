@@ -29,7 +29,8 @@ import com.example.even_to.utils.SharedPref;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainHomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainHomeScreen extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
 
     AppBarConfiguration mAppBarConfiguration;
     DrawerLayout drawer;

@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.even_to.Category.FoodCategory;
+import com.example.even_to.CategoriesServiceProvidersList.ListOfServiceProviders;
 import com.example.even_to.R;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,37 +85,37 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         Log.d("ERRRROOOORRRR!!!", "onCategoryClick: " + cat);
         switch (cat){
             case "Food" :
-                Intent intent1 = new Intent(getContext(), FoodCategory.class);
+                Intent intent1 = new Intent(getContext(), ListOfServiceProviders.class);
                 intent1.putExtra("category", "Food");
                 startActivity(intent1);
                 break;
 
             case "Drinks" :
-                Intent intent2 = new Intent(getContext(), FoodCategory.class);
+                Intent intent2 = new Intent(getContext(), ListOfServiceProviders.class);
                 intent2.putExtra("category", "Drinks");
                 startActivity(intent2);
                 break;
 
             case "Bakery" :
-                Intent intent3 = new Intent(getContext(), FoodCategory.class);
+                Intent intent3 = new Intent(getContext(), ListOfServiceProviders.class);
                 intent3.putExtra("category", "Bakery");
                 startActivity(intent3);
                 break;
 
             case "Gift" :
-                Intent intent4 = new Intent(getContext(), FoodCategory.class);
+                Intent intent4 = new Intent(getContext(), ListOfServiceProviders.class);
                 intent4.putExtra("category", "Gift");
                 startActivity(intent4);
                 break;
 
             case "Decor" :
-                Intent intent5 = new Intent(getContext(), FoodCategory.class);
+                Intent intent5 = new Intent(getContext(), ListOfServiceProviders.class);
                 intent5.putExtra("category", "Decor");
                 startActivity(intent5);
                 break;
 
             case "Photography" :
-                Intent intent6 = new Intent(getContext(), FoodCategory.class);
+                Intent intent6 = new Intent(getContext(), ListOfServiceProviders.class);
                 intent6.putExtra("category", "Photography");
                 startActivity(intent6);
                 break;

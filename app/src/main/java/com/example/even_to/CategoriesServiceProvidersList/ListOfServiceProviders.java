@@ -1,4 +1,4 @@
-package com.example.even_to.Category;
+package com.example.even_to.CategoriesServiceProvidersList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,12 +9,12 @@ import com.example.even_to.R;
 import com.example.even_to.adapter.FoodAdapter;
 import java.util.ArrayList;
 
-public class FoodCategory extends AppCompatActivity {
+public class ListOfServiceProviders extends AppCompatActivity {
 
     private RecyclerView mCategoryRecyclerView;
     private FoodAdapter mListIetmAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<FoodServiceItem> foodServiceItemsArrayList;
+    private ArrayList<ServiceItem> serviceItemsArrayList;
     private String mCategory;
 
     @Override
@@ -23,39 +23,39 @@ public class FoodCategory extends AppCompatActivity {
         setContentView(R.layout.activity_food_category);
         mCategory = getIntent().getStringExtra("category");
 
-        foodServiceItemsArrayList = new ArrayList<>();
+        serviceItemsArrayList = new ArrayList<>();
 
-        foodServiceItemsArrayList.add(new FoodServiceItem(R.drawable.service,
+        serviceItemsArrayList.add(new ServiceItem(R.drawable.service,
                 "Mark Kistler",
                 "We know how to mix love and health in taste",
                 "Medium : 100 to 500 people",
                 " 4.5"));
 
-        foodServiceItemsArrayList.add(new FoodServiceItem(R.drawable.service,
+        serviceItemsArrayList.add(new ServiceItem(R.drawable.service,
                 "Mark Kistler",
                 "We know how to mix love and health in taste",
                 "Medium : 100 to 500 people",
                 "4.5"));
 
-        foodServiceItemsArrayList.add(new FoodServiceItem(R.drawable.service,
+        serviceItemsArrayList.add(new ServiceItem(R.drawable.service,
                 "Mark Kistler",
                 "We know how to mix love and health in taste",
                 "Medium : 100 to 500 people",
                 "4.5"));
 
-        foodServiceItemsArrayList.add(new FoodServiceItem(R.drawable.service,
+        serviceItemsArrayList.add(new ServiceItem(R.drawable.service,
                 "Mark Kistler",
                 "We know how to mix love and health in taste",
                 "Medium : 100 to 500 people",
                 " 4.5"));
 
-        foodServiceItemsArrayList.add(new FoodServiceItem(R.drawable.service,
+        serviceItemsArrayList.add(new ServiceItem(R.drawable.service,
                 "Mark Kistler",
                 "We know how to mix love and health in taste",
                 "Medium : 100 to 500 people",
                 "4.5"));
 
-        foodServiceItemsArrayList.add(new FoodServiceItem(R.drawable.service,
+        serviceItemsArrayList.add(new ServiceItem(R.drawable.service,
                 "Mark Kistler",
                 "We know how to mix love and health in taste",
                 "Medium : 100 to 500 people",
@@ -68,7 +68,7 @@ public class FoodCategory extends AppCompatActivity {
         mCategoryRecyclerView = findViewById(R.id.food_items_list_view);
         mCategoryRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
-        mListIetmAdapter = new FoodAdapter(foodServiceItemsArrayList);
+        mListIetmAdapter = new FoodAdapter(serviceItemsArrayList);
 
         mCategoryRecyclerView.setLayoutManager(mLayoutManager);
         mCategoryRecyclerView.setAdapter(mListIetmAdapter);

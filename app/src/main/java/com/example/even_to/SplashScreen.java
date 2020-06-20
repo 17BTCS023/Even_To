@@ -50,7 +50,7 @@ public class SplashScreen extends AppCompatActivity {
 
         /********************* Wait before moving to next screen ************/
         mHandler = new Handler();
-        mHandler.postDelayed(mRunnable, 2000);
+        mHandler.postDelayed(mRunnable, 500);
     }
 
 

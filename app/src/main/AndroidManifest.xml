@@ -12,8 +12,8 @@
         <activity android:name=".navigation.services.newService.AddServiceImage" />
         <activity android:name=".CategorySelection.SelectCategory" />
         <activity android:name=".navigation.services.newService.AddNewService" />
-        <activity android:name=".Category.ServiceProviderProfile" />
-        <activity android:name=".Category.FoodCategory" />
+        <activity android:name=".CategoriesServiceProvidersList.ServiceProviderProfile" />
+        <activity android:name=".CategoriesServiceProvidersList.ListOfServiceProviders" />
         <activity
             android:name=".MainHomeScreen"
             android:label="@string/title_activity_main_home_screen"

@@ -1,4 +1,4 @@
-package com.example.even_to.Category;
+package com.example.even_to.CategoriesServiceProvidersList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
