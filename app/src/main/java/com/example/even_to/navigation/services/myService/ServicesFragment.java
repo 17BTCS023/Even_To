@@ -15,24 +15,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.even_to.R;
 import com.example.even_to.adapter.ListAdapter;
+import com.example.even_to.adapter.ServiceAdapter;
 import com.example.even_to.navigation.profile.ProfileViewModel;
 import com.example.even_to.navigation.services.newService.ServiceModel;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class ServicesFragment extends Fragment {
 
-    private ProfileViewModel profileViewModel;
+    private static final String TAG = "ServicesFragment";
     private RecyclerView serviceRecyclerViewList;
-    TextView textView;
     FirebaseAuth firebaseAuth;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db ;
     CollectionReference serviceRef ;
+    private ViewGroup mEmptyView;
+    private Query mQuery;
+    private ServiceAdapter mAdapter;
+
 
     //constructor
     public ServicesFragment(){
@@ -47,55 +53,70 @@ public class ServicesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         // Inflate the Profile fragment
         View view = inflater.inflate(R.layout.fragment_services, container, false);
+        mEmptyView = view.findViewById(R.id.view_empty);
+        serviceRecyclerViewList = view.findViewById(R.id.service_recycler_view_list);
+        // Initialize Firestore and the main RecyclerView
+        initFirestore();
+        initRecyclerView();
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        serviceRecyclerViewList = view.findViewById(R.id.service_recycler_view_list);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        serviceRecyclerViewList.setLayoutManager(layoutManager);
-        ListAdapter orderAdapter = new ListAdapter();
-        serviceRecyclerViewList.setAdapter(orderAdapter);
-        textView = view.findViewById(R.id.text_view_data);
+    private void initFirestore() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        mQuery = db.collection("services").document(firebaseAuth.getUid())
+                .collection("myServices");
 
+    }
+    private void initRecyclerView() {
+        if (mQuery == null) {
+            Log.w(TAG, "No query, not initializing RecyclerView");
+        }
+        //mAdapter = new RestaurantAdapter(mQuery, this){
+        mAdapter = new ServiceAdapter(mQuery) {
+
+            @Override
+            protected void onDataChanged() {
+                // Show/hide content if the query returns empty.
+
+                if (getItemCount() == 0) {
+                    serviceRecyclerViewList.setVisibility(View.GONE);
+                    mEmptyView.setVisibility(View.VISIBLE);
+                } else {
+                    serviceRecyclerViewList.setVisibility(View.VISIBLE);
+                    mEmptyView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            protected void onError(FirebaseFirestoreException e) {
+                // Show a snackbar on errors
+                Log.d("ERRROOOOORRRRRR!!!", e.toString());
+
+            }
+        };
+        serviceRecyclerViewList.setLayoutManager(new LinearLayoutManager(getContext()));
+        serviceRecyclerViewList.setAdapter(mAdapter);
 
     }
 
-    @Override
     public void onStart() {
         super.onStart();
-        firebaseAuth = FirebaseAuth.getInstance();
-        serviceRef = db.collection("services").document(firebaseAuth.getUid())
-                .collection("myServices");
-        serviceRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-               String data = "";
-                if(e!= null){
-                    Log.d("CHECK", e.toString());
-                    return;
-                }
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                    ServiceModel myService = documentSnapshot.toObject(ServiceModel.class);
-                    myService.setDocumentId(documentSnapshot.getId());
 
-                    String documentId = myService.getDocumentId();
-                    String name = myService.getName();
-                    String category = myService.getCategory();
-                    String capacity = myService.getCapacity();
-                    String experience = myService.getExperience();
-                    Long phone = myService.getPhone();
-                    String description = myService.getDescription();
-                    String link = myService.getLink();
-
-                    data += "\nid: "+ documentId + "\nname: " + name + "\ncategory: " + category +
-                            "\ncapacity: " + capacity + "\nexp: " + experience + "\nphone: " + phone+
-                            "\ndescription: " + description + "\nlink" + link + "_________________";
-                }
-                textView.setText(data);
-            }
-        });
+        // Start listening for Firestore updates
+        if (mAdapter != null) {
+            mAdapter.startListening();
+        }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAdapter != null) {
+            mAdapter.stopListening();
+        }
+    }
+
+
+
 }

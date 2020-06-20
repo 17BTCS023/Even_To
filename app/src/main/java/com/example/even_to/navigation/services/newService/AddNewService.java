@@ -28,7 +28,7 @@ public class AddNewService extends AppCompatActivity {
 
     private static final String TAG = "AddNewService";
 
-    TextInputEditText name, phone, description, link, imageName;
+    TextInputEditText name, phone, description, link, city;
     AutoCompleteTextView experience, capacity;
     Button addService;
 
@@ -37,7 +37,7 @@ public class AddNewService extends AppCompatActivity {
 
     FirebaseFirestore dbInstance = FirebaseFirestore.getInstance();
     private DocumentReference manyServiceReference;
-    String mName, mCapacity, mCategory, mDescription, mExperience, mLink, mPhone;
+    String mName, mCapacity, mCategory, mDescription, mExperience, mLink, mPhone,mCity;
 
     String[] EXPERIENCE = new String[]{"1-6 months", "7-10 months", "1-2 year", "2-3years", "more than 3 years"};
     String[] CAPACITY = new String[]{"10-30", "50-100", "100-500"};
@@ -46,6 +46,8 @@ public class AddNewService extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_service);
+
+
         name = findViewById(R.id.new_service_name);
         capacity = findViewById(R.id.new_service_capacity);
         phone = findViewById(R.id.new_service_mobile_number);
@@ -53,6 +55,7 @@ public class AddNewService extends AppCompatActivity {
         experience = findViewById(R.id.new_service_experience);
         link = findViewById(R.id.new_service_additional_info);
         addService = findViewById(R.id.add_service);
+        city = findViewById(R.id.new_service_city);
         mCategory = getIntent().getStringExtra("category");
 
         // get the reference of the database
@@ -84,14 +87,15 @@ public class AddNewService extends AppCompatActivity {
         mPhone = phone.getText().toString().trim();
         mExperience = experience.getText().toString().trim();
         mLink = link.getText().toString().trim();
-        if(mName.isEmpty()||mCategory.isEmpty() || mDescription.isEmpty() || mExperience.isEmpty()|| mLink.isEmpty()){
+        mCity = city.getText().toString().trim();
+        if(mName.isEmpty()||mCategory.isEmpty() || mDescription.isEmpty() || mExperience.isEmpty()|| mLink.isEmpty() || mCity.isEmpty()){
             Toast.makeText(this, "Fill everything! '_' ", LENGTH_SHORT).show();
             return;
         }
         Log.d("CHECK", "onClick: " + mName + ", " + mCapacity + ", " + mCategory + ", " + mDescription + ", " + mPhone + ", " + mExperience + "," + mLink );
 
         ServiceModel newService = new ServiceModel(mName, mPhone, mCapacity, mCategory, mExperience,
-                mLink,  mDescription);
+                mLink,  mDescription, mCity);
 
         //get the user id
         FirebaseAuth auth = FirebaseAuth.getInstance();

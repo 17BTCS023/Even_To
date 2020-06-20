@@ -158,7 +158,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment,new ServicesFragment())
                         .commit();
-                fab.setImageResource(R.drawable.ic_edit);
+                fab.setVisibility(View.GONE);
                 toolbar.setTitle(R.string.my_services);
                 break;
 

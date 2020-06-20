@@ -17,7 +17,16 @@ public class Service {
     public static final String KEY_NUMBER_RATINGS = "numRatings";
     public static final String KEY_AVG_RATING = "avgRating";
 
-    private String name,type,category,description,experience,imageLogo,link;
+    private String name;
+    private String type;
+    private String category;
+    private String description;
+    private String experience;
+    private String imageLogo;
+    private String link;
+
+
+    private String imageUri;
     private double mAvgRating;
     private int mPhoneNumber,numRatings;
 
@@ -36,6 +45,8 @@ public class Service {
         this.mPhoneNumber = mPhoneNumber;
         this.numRatings = numRatings;
     }
+
+
 
     public String getName() {
         return name;
