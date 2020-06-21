@@ -63,8 +63,8 @@ public class ProfileFragment extends Fragment {
 
         mFullName = view.findViewById(R.id.user_profile_full_name);
         mPhoneNumber = view.findViewById(R.id.user_profile_phone_no);
-        mEmail =  view.findViewById(R.id.user_profile_email);
-        mPassword =  view.findViewById(R.id.user_profile_password);
+//        mEmail =  view.findViewById(R.id.user_profile_email);
+//        mPassword =  view.findViewById(R.id.user_profile_password);
         mLocation  =  view.findViewById(R.id.user_profile_location);
 
         mAbout = view.findViewById(R.id.et_user_profile_about);
@@ -84,20 +84,20 @@ public class ProfileFragment extends Fragment {
                 String dbFullName, dbPhoneNumber, dbEmail, dbPassword, dbLocation, dbAbout, dbOccupation;
                 dbFullName = mFullName.getText().toString().trim();
                 dbPhoneNumber = mPhoneNumber.getText().toString().trim();
-                dbEmail = mEmail.getText().toString().trim();
-                dbPassword =mPassword.getText().toString().trim();;
-                dbLocation = mLocation.getText().toString().trim();;
-                dbAbout =mAbout.getText().toString().trim();;
+//                dbEmail = mEmail.getText().toString().trim();
+//                dbPassword =mPassword.getText().toString().trim();;
+                dbLocation = mLocation.getText().toString().trim();
+                dbAbout =mAbout.getText().toString().trim();
                 dbOccupation = mOccupartion.getText().toString().trim();
 
                 Log.d(TAG, "onClick: "+ dbFullName + ", " + dbAbout
-                        + ", " + dbEmail + ", " + dbLocation
-                        + ", " + dbPassword + ", " + dbPhoneNumber + ", " + dbOccupation);
+                        + ",  + dbEmail" + ", " + dbLocation
+                        + ",  + dbPassword "+ ", " + dbPhoneNumber + ", " + dbOccupation);
 
                 HashMap<String, Object> profile= new HashMap<>();
                 profile.put(KEY_NAME, dbFullName);
-                profile.put(KEY_EMAIL , dbEmail);
-                profile.put(KEY_PASSWORD , dbPassword);
+//                profile.put(KEY_EMAIL , dbEmail);
+//                profile.put(KEY_PASSWORD , dbPassword);
                 profile.put(KEY_PHONE_NO , dbPhoneNumber);
                 profile.put(KEY_LOCATION , dbLocation);
                 profile.put(KEY_ABOUT, dbAbout);
@@ -139,8 +139,8 @@ public class ProfileFragment extends Fragment {
                             mFullName.setText((CharSequence) loadedProfile.get(KEY_NAME));
                             mAbout.setText((CharSequence) loadedProfile.get(KEY_ABOUT));
                             mDisplayAbout.setText((CharSequence) loadedProfile.get(KEY_ABOUT));
-                            mEmail.setText((CharSequence) loadedProfile.get(KEY_EMAIL));
-                            mPassword.setText((CharSequence) loadedProfile.get(KEY_PASSWORD));
+//                            mEmail.setText((CharSequence) loadedProfile.get(KEY_EMAIL));
+//                            mPassword.setText((CharSequence) loadedProfile.get(KEY_PASSWORD));
                             mPhoneNumber.setText((CharSequence) loadedProfile.get(KEY_PHONE_NO));
                             mLocation.setText((CharSequence) loadedProfile.get(KEY_LOCATION));
                             mOccupartion.setText((CharSequence) loadedProfile.get(KEY_OCCUPATION));

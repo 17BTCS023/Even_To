@@ -181,31 +181,3 @@ public class MainHomeScreen extends AppCompatActivity implements
         return true;
     }
 }
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        getMenuInflater().inflate(R.menu.menu_home,menu);
-//
-//        MenuItem menuItem = menu.findItem(R.id.action_search);
-//
-//        SearchView searchView = (SearchView) menuItem.getActionView();
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String s) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//
-//                categoryAdapter.getFilter().filter(s);
-//
-//                return false;
-//            }
-//        });
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
