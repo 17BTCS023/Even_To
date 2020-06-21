@@ -6,6 +6,10 @@ package com.example.even_to.model;
 
 public class Service {
 
+    public Service(){
+
+    }
+
     private static final String KEY_NAME = "name";
     private static final String KEY_SERVICE_TYPE = "type";
     private static final String KEY_CATEGORY = "category";
@@ -24,15 +28,16 @@ public class Service {
     private String experience;
     private String imageLogo;
     private String link;
+    private String city;
+    private String capacity;
+    private double avgRating;
 
+    private int phoneNumber,numRatings;
 
-    private String imageUri;
-    private double mAvgRating;
-    private int mPhoneNumber,numRatings;
 
     public Service(String name, String type, String category, String description, String experience,
-                   String imageLogo, String link, double mAvgRating,
-                   int mPhoneNumber, int numRatings)
+                   String imageLogo, String link, double avgRating,
+                   int phoneNumber, int numRatings, String city, String capacity)
     {
         this.name = name;
         this.type = type;
@@ -41,9 +46,12 @@ public class Service {
         this.experience = experience;
         this.imageLogo = imageLogo;
         this.link = link;
-        this.mAvgRating = mAvgRating;
-        this.mPhoneNumber = mPhoneNumber;
+        this.avgRating = avgRating;
+        this.phoneNumber = phoneNumber;
         this.numRatings = numRatings;
+        this.city = city;
+        this.capacity = capacity;
+
     }
 
 
@@ -104,20 +112,20 @@ public class Service {
         this.link = link;
     }
 
-    public double getmAvgRating() {
-        return mAvgRating;
+    public double getAvgRating() {
+        return avgRating;
     }
 
-    public void setmAvgRating(double mAvgRating) {
-        this.mAvgRating = mAvgRating;
+    public void setAvgRating(double mAvgRating) {
+        this.avgRating = mAvgRating;
     }
 
-    public int getmPhoneNumber() {
-        return mPhoneNumber;
+    public int getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setmPhoneNumber(int mPhoneNumber) {
-        this.mPhoneNumber = mPhoneNumber;
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public int getNumRatings() {
@@ -127,4 +135,19 @@ public class Service {
     public void setNumRatings(int numRatings) {
         this.numRatings = numRatings;
     }
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+    public String getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
+    }
+
 }

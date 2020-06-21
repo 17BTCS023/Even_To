@@ -5,28 +5,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.even_to.R;
-import com.example.even_to.adapter.ListAdapter;
-import com.example.even_to.adapter.ServiceAdapter;
-import com.example.even_to.navigation.profile.ProfileViewModel;
-import com.example.even_to.navigation.services.newService.ServiceModel;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.even_to.adapter.MyServiceAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class ServicesFragment extends Fragment {
 
@@ -37,7 +28,7 @@ public class ServicesFragment extends Fragment {
     CollectionReference serviceRef ;
     private ViewGroup mEmptyView;
     private Query mQuery;
-    private ServiceAdapter mAdapter;
+    private MyServiceAdapter mAdapter;
 
 
     //constructor
@@ -73,7 +64,7 @@ public class ServicesFragment extends Fragment {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
         //mAdapter = new RestaurantAdapter(mQuery, this){
-        mAdapter = new ServiceAdapter(mQuery) {
+        mAdapter = new MyServiceAdapter(mQuery) {
 
             @Override
             protected void onDataChanged() {
