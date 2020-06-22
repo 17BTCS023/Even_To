@@ -1,16 +1,263 @@
 package com.example.even_to.CategoriesServiceProvidersList;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.even_to.R;
+import com.example.even_to.adapter.RatingAdapter;
+import com.example.even_to.model.Rating;
+import com.example.even_to.model.Service;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.Transaction;
 
-public class ServiceDetailActivity extends AppCompatActivity {
+public class ServiceDetailActivity extends AppCompatActivity implements
+        View.OnClickListener,
+        EventListener<DocumentSnapshot>,
+        RatingDialogFragment.RatingListener {
+    private static final String TAG = "RestaurantDetail";
+
+    public static final String KEY_SERVCE_ID = "service_id";
+
+    private ImageView mImageView;
+    private RatingBar mRatingIndicator;
+    private MaterialTextView mNameView,mNumRatingsView, mCityView,mContactView,mWebsiteView, mCategoryView,mDescriptionView, mOptionsView,mExperienceView;
+    private MaterialButton mHire;
+    FloatingActionButton mAddReview;
+
+
+    private ViewGroup mEmptyView;
+    private RecyclerView mRatingsRecycler;
+
+    private RatingDialogFragment mRatingDialog;
+
+    private FirebaseFirestore mFirestore;
+    private DocumentReference mServiceRef;
+    private ListenerRegistration mServiceRegistration;
+
+    private RatingAdapter mRatingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_detail2);
+        setContentView(R.layout.service_detail);
+
+        mImageView = findViewById(R.id.service_detail_image);
+        mNameView = findViewById(R.id.service_detail_name);
+        mRatingIndicator = findViewById(R.id.service_detail_rating);
+        mNumRatingsView = findViewById(R.id.service_detail_num_ratings);
+        mCityView = findViewById(R.id.service_detail_city);
+        mContactView = findViewById(R.id.service_detail_contact_number);
+        mWebsiteView = findViewById(R.id.service_detail_website_link);
+        mCategoryView = findViewById(R.id.service_detail_category);
+        mDescriptionView= findViewById(R.id.service_detail_description);
+        mOptionsView = findViewById(R.id.service_detail_options_array);
+        mExperienceView = findViewById(R.id.service_detail_experience);
+        mHire = findViewById(R.id.service_detail_hire);
+        mEmptyView = findViewById(R.id.view_empty_ratings);
+        mRatingsRecycler = findViewById(R.id.recycler_ratings);
+        mAddReview = findViewById(R.id.fab_service_detail_add_review);
+
+        mHire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(ServiceDetailActivity.this, "Hired!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mAddReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAddRatingClicked(v);
+            }
+        });
+
+
+        // Get service ID from extras
+        String serviceId = getIntent().getExtras().getString(KEY_SERVCE_ID);
+        if (serviceId == null) {
+            throw new IllegalArgumentException("Must pass extra " + KEY_SERVCE_ID);
+        }
+
+        // Initialize Firestore
+        mFirestore = FirebaseFirestore.getInstance();
+
+        // Get reference to the restaurant
+        mServiceRef = mFirestore.collection("listservices").document(serviceId);
+
+        // Get ratings
+        Query ratingsQuery = mServiceRef
+                .collection("ratings")
+                .limit(50);
+
+        // RecyclerView
+        mRatingAdapter = new RatingAdapter(ratingsQuery) {
+            @Override
+            protected void onDataChanged() {
+                if (getItemCount() == 0) {
+                    mRatingsRecycler.setVisibility(View.GONE);
+                    mEmptyView.setVisibility(View.VISIBLE);
+                } else {
+                    mRatingsRecycler.setVisibility(View.VISIBLE);
+                    mEmptyView.setVisibility(View.GONE);
+                }
+            }
+        };
+
+        mRatingsRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mRatingsRecycler.setAdapter(mRatingAdapter);
+
+        mRatingDialog = new RatingDialogFragment();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mRatingAdapter.startListening();
+        mServiceRegistration = mServiceRef.addSnapshotListener(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        mRatingAdapter.stopListening();
+
+        if (mServiceRegistration != null) {
+            mServiceRegistration.remove();
+            mServiceRegistration = null;
+        }
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab_service_detail_add_review:
+
+                break;
+            case R.id.service_detail_hire:
+                Toast.makeText(this, "Hired!", Toast.LENGTH_SHORT).show();
+                
+        }
+    }
+    public void onAddRatingClicked(View view) {
+        mRatingDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
+    }
+
+    private Task<Void> addRating(final DocumentReference serviceRef,
+                                 final Rating rating) {
+        // Create reference for new rating, for use inside the transaction
+        final DocumentReference ratingRef = serviceRef.collection("ratings")
+                .document();
+        // In a transaction add a new rating and update the aggregate totals
+        return mFirestore.runTransaction(new Transaction.Function<Void>() {
+            @Nullable
+            @Override
+            public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                Service service = transaction.get(serviceRef).toObject(Service.class);
+                // Compute new number of ratings
+                int newNumRating = service.getNumRatings() +1;
+
+                // compute new average rating
+                double oldRatingTotal = service.getAvgRating() * service.getNumRatings();
+                double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRating;
+
+                //Set new service info
+                service.setNumRatings(newNumRating);
+                service.setAvgRating(newAvgRating);
+
+                // commit to firestore
+                transaction.set(serviceRef, service);
+                transaction.set(ratingRef, rating);
+
+                return null;
+            }
+        });
+    }
+
+    @Override
+    public void onRating(Rating rating) {
+        addRating(mServiceRef, rating)
+                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Rating added");
+
+                        // Hide keyboard and scroll to top
+                        hideKeyboard();
+                        mRatingsRecycler.smoothScrollToPosition(0);
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Add rating failed", e);
+
+                        // Show failure message and hide keyboard
+                        hideKeyboard();
+                        Snackbar.make(findViewById(android.R.id.content), "Failed to add rating",
+                                Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void onServiceLoaded(Service service) {
+        mNameView.setText(service.getName());
+        mRatingIndicator.setRating((float) service.getAvgRating());
+        mNumRatingsView.setText(getString(R.string.fmt_num_ratings, service.getNumRatings()));
+        mCityView.setText(service.getCity());
+        mCategoryView.setText(service.getCategory());
+        mExperienceView.setText(service.getExperience());
+        mDescriptionView.setText(service.getDescription());
+        mOptionsView.setText("Here there will be an array of type of sub categories of service");
+        mWebsiteView.setText(service.getLink());
+        mContactView.setText(String.valueOf(  service.getPhoneNumber()));
+        // Background image
+        Glide.with(mImageView.getContext())
+                .load(service.getImageLogo())
+                .into(mImageView);
+    }
+    @Override
+    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+        if (e != null) {
+            Log.w(TAG, "restaurant:onEvent", e);
+            return;
+        }
+        assert documentSnapshot != null;
+        onServiceLoaded(documentSnapshot.toObject(Service.class));
+    }
+
+    private void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

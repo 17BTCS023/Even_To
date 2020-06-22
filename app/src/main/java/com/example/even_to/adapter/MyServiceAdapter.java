@@ -64,14 +64,14 @@ public class MyServiceAdapter extends FirestoreAdapter<MyServiceAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             Log.d("ERRROOOOORRRRRR!!!", "ViewHolder: INSIDE VIEW HOLDER");
-            imageView = itemView.findViewById(R.id.service_image);
-            nameView = itemView.findViewById(R.id.service_name);
-            edit = itemView.findViewById(R.id.fab_edit_service);
-            descriptionView = itemView.findViewById(R.id.service_provider_description);
-            linkView = itemView.findViewById(R.id.service_website_link);
-            categoryView = itemView.findViewById(R.id.service_category);
-            cityView = itemView.findViewById(R.id.service_city);
-            contactView = itemView.findViewById(R.id.service_contact_number);
+            imageView = itemView.findViewById(R.id.service_detail_image);
+            nameView = itemView.findViewById(R.id.service_detail_name);
+            edit = itemView.findViewById(R.id.fab_service_detail_add_review);
+            descriptionView = itemView.findViewById(R.id.service_detail_description);
+            linkView = itemView.findViewById(R.id.service_detail_website_link);
+            categoryView = itemView.findViewById(R.id.service_detail_category);
+            cityView = itemView.findViewById(R.id.service_detail_city);
+            contactView = itemView.findViewById(R.id.service_detail_contact_number);
         }
 
         //        public void bind(final DocumentSnapshot snapshot,

@@ -1,6 +1,7 @@
 package com.example.even_to.adapter;
 
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +79,6 @@ public class ServiceAdapter extends FirestoreAdapter<ServiceAdapter.ViewHolder>{
             experienceView.setText(service.getExperience());
             capacityView.setText(service.getCapacity());
             categoryView.setText(service.getCategory());
-            cityView.setText(service.getCity());
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

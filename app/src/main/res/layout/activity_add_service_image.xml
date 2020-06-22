@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:layout_marginBottom="2dp"
+    android:background="#ffffff"
     tools:context=".navigation.services.newService.AddServiceImage">
 
     <LinearLayout
@@ -15,10 +16,10 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/add_service_image" />
+            android:src="@drawable/upload_lady" />
 
         <TextView
             android:layout_width="match_parent"
@@ -29,14 +30,14 @@
             android:textColor="@color/black"
             android:textSize="22sp" />
 
-        <!--        <TextView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:layout_marginBottom="20dp"-->
-        <!--            android:text="This image will be displayed in My Services section and To other users "-->
-        <!--            android:textAlignment="center"-->
-        <!--            android:textSize="16sp" />-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="This image will be displayed in My Services section and To other users "
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
         <ImageView
             android:id="@+id/image_view_service"
             android:layout_width="match_parent"
@@ -48,40 +49,39 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/btn_layout"
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_select_file"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="Select Image"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_select_file"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:layout_margin="2dp"
-                android:padding="8dp"
-                android:text="Select Image"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_upload_file"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="Upload"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_upload_file"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:layout_margin="2dp"
-                android:padding="8dp"
-                android:text="Upload"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

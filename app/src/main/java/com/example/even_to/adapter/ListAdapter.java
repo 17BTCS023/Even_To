@@ -42,7 +42,7 @@ public class ListAdapter extends RecyclerView.Adapter{
             mServiceProviderImage = itemView.findViewById(R.id.service_provider_image);
             mServiceProviderName = itemView.findViewById(R.id.service_provider_name);
             mServiceProviderCategory =  itemView.findViewById(R.id.service_provider_category);
-            mServiceProviderDescription =  itemView.findViewById(R.id.service_provider_description);
+            mServiceProviderDescription =  itemView.findViewById(R.id.service_detail_description);
             mActionChat =  itemView.findViewById(R.id.service_provider_chat);
             mActionUnhire =   itemView.findViewById(R.id.service_provider_unhire);
             itemView.setOnClickListener(this);

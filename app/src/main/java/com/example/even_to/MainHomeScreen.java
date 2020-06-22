@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,8 +27,17 @@ import com.example.even_to.navigation.orders.OrderFragment;
 import com.example.even_to.navigation.profile.ProfileFragment;
 import com.example.even_to.navigation.services.myService.ServicesFragment;
 import com.example.even_to.utils.SharedPref;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainHomeScreen extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +47,8 @@ public class MainHomeScreen extends AppCompatActivity implements
     FloatingActionButton fab;
     private boolean isStartup = true;
     Toolbar toolbar;
+    TextView userEmail, userName;
+    FirebaseAuth auth;
 
     @Override
     protected void onStop() {
@@ -48,6 +60,8 @@ public class MainHomeScreen extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home_screen);
+
+        auth = FirebaseAuth.getInstance();
 
         /*** finding the toolbar for our main screen ****/
         toolbar = findViewById(R.id.toolbar);
@@ -71,7 +85,6 @@ public class MainHomeScreen extends AppCompatActivity implements
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -84,11 +97,10 @@ public class MainHomeScreen extends AppCompatActivity implements
                     .replace(R.id.nav_host_fragment, new HomeFragment())
                     .commit();
             navigationView.setCheckedItem(R.id.nav_home);
-
         }
     }
 
-    /********* When we press back, we should leave the activity immedieately, but close the drawer first *******/
+    /********* When we press back, we should leave the activity immediately, but close the drawer first *******/
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -97,7 +109,6 @@ public class MainHomeScreen extends AppCompatActivity implements
             super.onBackPressed();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -124,6 +135,10 @@ public class MainHomeScreen extends AppCompatActivity implements
             ((FrameLayout) findViewById(R.id.nav_host_fragment)).removeAllViews();
             isStartup = false;
         }
+        userEmail = findViewById(R.id.nav_bar_user_email);
+        userName = findViewById(R.id.nav_bar_user_name) ;
+        //fecthNameOfUser(auth.getUid(),userName, userEmail );
+
         switch (menuItemId) {
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction()
@@ -180,4 +195,6 @@ public class MainHomeScreen extends AppCompatActivity implements
 
         return true;
     }
+
+
 }

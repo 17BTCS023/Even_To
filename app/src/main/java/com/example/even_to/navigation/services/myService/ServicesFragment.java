@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.even_to.R;
 import com.example.even_to.adapter.MyServiceAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -24,15 +23,14 @@ public class ServicesFragment extends Fragment {
     private static final String TAG = "ServicesFragment";
     private RecyclerView serviceRecyclerViewList;
     FirebaseAuth firebaseAuth;
-    FirebaseFirestore db ;
-    CollectionReference serviceRef ;
+    FirebaseFirestore db;
     private ViewGroup mEmptyView;
     private Query mQuery;
     private MyServiceAdapter mAdapter;
 
 
     //constructor
-    public ServicesFragment(){
+    public ServicesFragment() {
         // simply
     }
 
@@ -41,7 +39,7 @@ public class ServicesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the Profile fragment
         View view = inflater.inflate(R.layout.fragment_services, container, false);
         mEmptyView = view.findViewById(R.id.view_empty);
@@ -59,6 +57,7 @@ public class ServicesFragment extends Fragment {
                 .collection("myServices");
 
     }
+
     private void initRecyclerView() {
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
@@ -108,7 +107,6 @@ public class ServicesFragment extends Fragment {
             mAdapter.stopListening();
         }
     }
-
 
 
 }

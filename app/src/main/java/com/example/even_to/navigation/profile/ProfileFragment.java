@@ -96,7 +96,7 @@ public class ProfileFragment extends Fragment {
 
                 HashMap<String, Object> profile= new HashMap<>();
                 profile.put(KEY_NAME, dbFullName);
-//                profile.put(KEY_EMAIL , dbEmail);
+                profile.put(KEY_EMAIL , FirebaseAuth.getInstance().getCurrentUser().getEmail());
 //                profile.put(KEY_PASSWORD , dbPassword);
                 profile.put(KEY_PHONE_NO , dbPhoneNumber);
                 profile.put(KEY_LOCATION , dbLocation);
@@ -117,7 +117,6 @@ public class ProfileFragment extends Fragment {
                                 Log.d(TAG, "onFailure: " + e.toString() );
                             }
                         });
-
             }
         });
         return view;

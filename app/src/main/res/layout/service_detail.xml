@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/service_top_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/service_detail_image"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:alpha="1.0"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/service" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@drawable/gradient_up" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/service_detail_name"
+            style="@style/AppTheme.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            tools:text="Some Restaurant" />
+
+        <RatingBar
+            android:id="@+id/service_detail_rating"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/service_detail_name"
+            android:layout_alignStart="@+id/service_detail_name"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/service_detail_num_ratings"
+            style="@style/AppTheme.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/service_detail_rating"
+            android:layout_alignBottom="@+id/service_detail_rating"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/service_detail_rating"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            tools:text="(10)" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/service_detail_category"
+            style="@style/AppTheme.Subheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/service_detail_rating"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@android:color/white"
+            tools:text="Italian" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/service_city_divider"
+            style="@style/AppTheme.TextDivider"
+            android:layout_alignTop="@+id/service_detail_category"
+            android:layout_toEndOf="@+id/service_detail_category"
+            android:text="•"
+            android:textColor="@android:color/white" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/service_detail_city"
+            style="@style/AppTheme.Subheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/service_detail_category"
+            android:layout_alignTop="@+id/service_detail_category"
+            android:layout_toEndOf="@+id/service_city_divider"
+            android:textColor="@android:color/white"
+            tools:text="San Francisco" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/service_detail_contact_number"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/service_detail_category"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_profile_phone"
+            android:drawablePadding="2dp"
+            android:drawableTint="@color/white"
+            android:text="0154879639"
+            android:textColor="@android:color/white" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/service_detail_website_link"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/service_detail_contact_number"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_profile_link"
+            android:drawablePadding="2dp"
+            android:drawableTint="@color/white"
+            android:inputType="textUri"
+            android:text="mywebsite.com"
+            android:textColor="@android:color/white" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/service_detail_experience"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/service_detail_website_link"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:drawableStart="@drawable/ic_work"
+            android:drawablePadding="2dp"
+            android:drawableTint="@color/white"
+            android:inputType="text"
+            android:textColor="@android:color/white"
+            tools:text="4 years" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_service_detail_add_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/service_top_card"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="-15dp"
+        app:backgroundTint="#FF1744"
+        app:rippleColor="#00E676"
+        app:srcCompat="@drawable/add_service" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/service_detail_description"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fab_service_detail_add_review"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:drawableStart="@drawable/ic_profile_hot"
+        android:drawablePadding="10dp"
+        android:text="@string/service_description" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/service_detail_options_array"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/service_detail_description"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:drawableStart="@drawable/ic_menu_order"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/black"
+        android:inputType="text"
+        tools:text="Inidan , Chinese, Korean, Indian street" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/service_detail_hire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/service_detail_options_array"
+        android:layout_margin="8dp"
+        android:background="#FF1744"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Hire"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:rippleColor="@color/black" />
+
+    <!-- Ratings -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_ratings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/service_detail_hire"
+        android:background="@android:color/transparent"
+        android:clipToPadding="false"
+        android:paddingTop="28dp"
+        android:paddingBottom="16dp"
+        android:visibility="gone"
+        tools:listitem="@layout/item_rating" />
+
+    <!-- View for empty ratings -->
+    <LinearLayout
+        android:id="@+id/view_empty_ratings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/service_detail_hire"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#E0E0E0"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/lonely_guy" />
+
+        <TextView
+            style="@style/AppTheme.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_no_reviews"
+            android:textColor="@color/greyDisabled" />
+
+    </LinearLayout>
+
+</RelativeLayout>
