@@ -36,7 +36,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class MainHomeScreen extends AppCompatActivity implements
@@ -137,7 +136,7 @@ public class MainHomeScreen extends AppCompatActivity implements
         }
         userEmail = findViewById(R.id.nav_bar_user_email);
         userName = findViewById(R.id.nav_bar_user_name) ;
-        //fecthNameOfUser(auth.getUid(),userName, userEmail );
+        ChangeDisplayInfo(auth.getUid(),userName, userEmail );
 
         switch (menuItemId) {
             case R.id.nav_home:
@@ -195,6 +194,26 @@ public class MainHomeScreen extends AppCompatActivity implements
 
         return true;
     }
+    private void ChangeDisplayInfo(String uid, final TextView userName, final TextView userEmail) {
+        String userNameInProfile;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference proRef = db.collection("profile").document(uid);
+        proRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map<String, Object> map = documentSnapshot.getData();
+                        userName.setText((CharSequence) map.get("fullname"));
+                        userEmail.setText(String.valueOf(auth.getCurrentUser().getEmail()));
 
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainHomeScreen.this, "Select My Profile!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
 }
