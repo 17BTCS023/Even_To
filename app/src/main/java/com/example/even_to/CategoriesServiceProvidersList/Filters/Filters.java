@@ -10,15 +10,17 @@ import com.google.firebase.firestore.Query;
 public class Filters {
     private String category = null;
     private String city = null;
-    private int price = -1;
+    private String experience = null;
+    private String capacity = null;
     private String sortBy = null;
     private Query.Direction sortDirection = null;
 
     public Filters() {}
 
+
     public static Filters getDefault() {
         Filters filters = new Filters();
-        filters.setSortBy(Service.FIELD_AVG_RATING);
+        filters.setSortBy(Service.KEY_AVG_RATING);
         filters.setSortDirection(Query.Direction.DESCENDING);
 
         return filters;
@@ -33,7 +35,10 @@ public class Filters {
     }
 
     public boolean hasExperience() {
-        return (price > 0);
+        return  !(TextUtils.isEmpty(experience)) ;
+    }
+    public boolean hasCapacity() {
+        return  !(TextUtils.isEmpty(capacity)) ;
     }
 
     public boolean hasSortBy() {
@@ -56,13 +61,21 @@ public class Filters {
         this.city = city;
     }
 
-    public int getPrice() {
-        return price;
+    public String getExperience() {
+        return experience;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
+    public String getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
+    }
+
 
     public String getSortBy() {
         return sortBy;
@@ -105,10 +118,16 @@ public class Filters {
             desc.append("</b>");
         }
 
-        if (price > 0) {
+        if (experience != null) {
             desc.append(" for ");
             desc.append("<b>");
-            desc.append("dummy value");
+            desc.append(experience);
+            desc.append("</b>");
+        }
+        if (capacity!= null) {
+            desc.append(" for ");
+            desc.append("<b>");
+            desc.append(capacity);
             desc.append("</b>");
         }
 
@@ -116,11 +135,16 @@ public class Filters {
     }
 
     public String getOrderDescription(Context context) {
-        if (Service.FIELD_PRICE.equals(sortBy)) {
+        if (Service.KEY_EXPERIENCE.equals(sortBy)) {
             return context.getString(R.string.sorted_by_experience);
-        } else if (Service.FIELD_POPULARITY.equals(sortBy)) {
+        }
+        else if (Service.KEY_NUMBER_RATINGS.equals(sortBy)) {
             return context.getString(R.string.sorted_by_place);
-        } else {
+        }
+        else if (Service.KEY_CAPACITY.equals(sortBy)) {
+            return context.getString(R.string.sorted_by_capacity);
+        }
+        else {
             return context.getString(R.string.sorted_by_rating);
         }
     }

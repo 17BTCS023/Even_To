@@ -10,19 +10,17 @@ public class Service {
 
     }
 
-    private static final String KEY_NAME = "name";
-    private static final String KEY_SERVICE_TYPE = "type";
-    private static final String KEY_CATEGORY = "category";
-    private static final String KEY_DESCRIPTION = "description";
-    private static final String KEY_EXPERIENCE = "experience";
-    private static final String KEY_PHONE_NO = "phone";
-    private static final String KEY_LOGO = "imageLogo";
-    private static final String KEY_WEBSITE_URL = "link";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_SERVICE_TYPE = "type";
+    public static final String KEY_CATEGORY = "category";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_EXPERIENCE = "experience";
+    public static final String KEY_PHONE_NO = "phone";
+    public static final String KEY_LOGO = "imageLogo";
+    public static final String KEY_WEBSITE_URL = "link";
     public static final String KEY_NUMBER_RATINGS = "numRatings";
     public static final String KEY_AVG_RATING = "avgRating";
-    public static final String FIELD_PRICE = "price";
-    public static final String FIELD_POPULARITY = "numRatings";
-    public static final String FIELD_AVG_RATING = "avgRating";
+    public static final String KEY_CAPACITY = "capacity";
 
     private String name;
     private String type;

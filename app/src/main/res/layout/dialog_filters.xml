@@ -24,7 +24,7 @@
             style="@style/AppTheme.FilterIcon"
             android:layout_centerVertical="true"
             android:tint="@color/greySecondary"
-            app:srcCompat="@drawable/ic_food" />
+            android:src="@drawable/ic_menu_service" />
 
         <Spinner
             android:id="@+id/spinner_category"

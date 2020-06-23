@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
@@ -14,7 +15,14 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.even_to.R;
 import com.example.even_to.model.Service;
+import com.example.even_to.utils.SubCategoriesArray;
 import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.even_to.R.string.category_drinks;
+import static com.example.even_to.R.string.category_food;
 
 public class FilterDialogFragment extends DialogFragment {
 
@@ -34,7 +42,6 @@ public class FilterDialogFragment extends DialogFragment {
     private Spinner mCapacitySpinner;
     private Spinner mExperienceSpinner;
     Button mCancel , mApplyFilter;
-
     private FilterListener mFilterListener;
 
     @Nullable
@@ -50,6 +57,37 @@ public class FilterDialogFragment extends DialogFragment {
         mExperienceSpinner = mRootView.findViewById(R.id.spinner_experience);
         mCapacitySpinner = mRootView.findViewById(R.id.spinner_capacity);
 
+        SubCategoriesArray cat = new SubCategoriesArray(this);
+        String category = getArguments().getString("category");
+
+        assert category != null;
+        switch (category){
+
+            case "Food" :
+                ArrayAdapter foodAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getFoodSubCategory());
+                mCategorySpinner.setAdapter(foodAdapter);
+                break;
+                case "Drinks":
+                ArrayAdapter drinkAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getDrinksSubCategory());
+                    mCategorySpinner.setAdapter(drinkAdapter);
+                break;
+            case "Bakery" :
+                ArrayAdapter bakeryAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getBakerySubCategory());
+                mCategorySpinner.setAdapter(bakeryAdapter);
+                break;
+            case "Gift":
+                ArrayAdapter giftAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getGiftSubCategory());
+                mCategorySpinner.setAdapter(giftAdapter);
+                break;
+            case "Decor" :
+                ArrayAdapter decorAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getDecorSubCategory());
+                mCategorySpinner.setAdapter(decorAdapter);
+                break;
+            case "Photography":
+                ArrayAdapter photoAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getPhotographySubCategory());
+                mCategorySpinner.setAdapter(photoAdapter);
+                break;
+        }
 
         mCancel = mRootView.findViewById(R.id.button_cancel);
         mApplyFilter = mRootView.findViewById(R.id.button_search);
@@ -120,16 +158,21 @@ public class FilterDialogFragment extends DialogFragment {
         }
     }
 
-    private int getSelectedPrice() {
+    private String getSelectedExperience() {
         String selected = (String) mExperienceSpinner.getSelectedItem();
-        if (selected.equals(getString(R.string.experience_1))) {
-            return 1;
-        } else if (selected.equals(getString(R.string.experience_2))) {
-            return 2;
-        } else if (selected.equals(getString(R.string.experience_3))) {
-            return 3;
+        if (selected.equals(getString(R.string.value_any_experience))) {
+            return null;
         } else {
-            return -1;
+            return selected;
+        }
+    }
+
+    private String getSelectedCapacity() {
+        String selected = (String) mCapacitySpinner.getSelectedItem();
+        if (selected.equals(getString(R.string.value_any_capacity))) {
+            return null;
+        } else {
+            return selected;
         }
     }
 
@@ -137,13 +180,16 @@ public class FilterDialogFragment extends DialogFragment {
     private String getSelectedSortBy() {
         String selected = (String) mSortSpinner.getSelectedItem();
         if (getString(R.string.sort_by_rating).equals(selected)) {
-            return Service.FIELD_AVG_RATING;
+            return Service.KEY_AVG_RATING;
         }
         if (getString(R.string.sort_by_experience).equals(selected)) {
-            return Service.FIELD_PRICE;
+            return Service.KEY_EXPERIENCE;
         }
         if (getString(R.string.sort_by_place).equals(selected)) {
-            return Service.FIELD_POPULARITY;
+            return Service.KEY_NUMBER_RATINGS;
+        }
+        if (getString(R.string.sort_by_capacity).equals(selected)) {
+            return Service.KEY_CAPACITY;
         }
 
         return null;
@@ -156,7 +202,10 @@ public class FilterDialogFragment extends DialogFragment {
             return Query.Direction.DESCENDING;
         }
         if (getString(R.string.sort_by_experience).equals(selected)) {
-            return Query.Direction.ASCENDING;
+            return Query.Direction.DESCENDING;
+        }
+        if (getString(R.string.sort_by_capacity).equals(selected)) {
+            return Query.Direction.DESCENDING;
         }
         if (getString(R.string.sort_by_place).equals(selected)) {
             return Query.Direction.DESCENDING;
@@ -168,6 +217,7 @@ public class FilterDialogFragment extends DialogFragment {
     public void resetFilters() {
         if (mRootView != null) {
             mCategorySpinner.setSelection(0);
+            mCapacitySpinner.setSelection(0);
             mCitySpinner.setSelection(0);
             mExperienceSpinner.setSelection(0);
             mSortSpinner.setSelection(0);
@@ -180,7 +230,8 @@ public class FilterDialogFragment extends DialogFragment {
         if (mRootView != null) {
             filters.setCategory(getSelectedCategory());
             filters.setCity(getSelectedCity());
-            filters.setPrice(getSelectedPrice());
+            filters.setExperience(getSelectedExperience());
+            filters.setCapacity(getSelectedCapacity());
             filters.setSortBy(getSelectedSortBy());
             filters.setSortDirection(getSortDirection());
         }

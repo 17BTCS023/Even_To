@@ -52,6 +52,14 @@
     <string name="value_any_experience">Any Experience</string>
     <string name="value_any_capacity">Any Capacity </string>
 
+    <string name="category_food">Food</string>
+    <string name="category_drinks">Drinks</string>
+    <string name="category_bakery">Bakery </string>
+    <string name="category_gifts">Gifts</string>
+    <string name="category_decor">Decor</string>
+    <string name="category_photo">Photography</string>
+
+
     <string name="experience_1">1–6 months</string>
     <string name="experience_2">7–10 months</string>
     <string name="experience_3">1–2 year</string>
@@ -81,7 +89,7 @@
 
     <string name="sorted_by_rating">sorted by rating</string>
     <string name="sorted_by_experience">sorted by experience</string>
-    <string name="sorted_by_cacapcity">sorted by capacity</string>
+    <string name="sorted_by_capacity">sorted by capacity</string>
     <string name="sorted_by_place">sorted by place</string>
 
     <string name="add_random_items">Add Random Items</string>

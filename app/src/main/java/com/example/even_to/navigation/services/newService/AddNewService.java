@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.even_to.R;
+import com.example.even_to.utils.SubCategoriesArray;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,7 +30,7 @@ public class AddNewService extends AppCompatActivity {
     private static final String TAG = "AddNewService";
 
     TextInputEditText name, phone, description, link, city;
-    AutoCompleteTextView experience, capacity;
+    AutoCompleteTextView experience, capacity, type;
     Button addService;
 
     //getting reference for StorageReference
@@ -47,7 +48,6 @@ public class AddNewService extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_service);
 
-
         name = findViewById(R.id.new_service_name);
         capacity = findViewById(R.id.new_service_capacity);
         phone = findViewById(R.id.new_service_mobile_number);
@@ -56,7 +56,39 @@ public class AddNewService extends AppCompatActivity {
         link = findViewById(R.id.new_service_additional_info);
         addService = findViewById(R.id.add_service);
         city = findViewById(R.id.new_service_city);
+        type = findViewById(R.id.new_service_type);
+
         mCategory = getIntent().getStringExtra("category");
+        SubCategoriesArray cat = new SubCategoriesArray(this);
+
+        assert mCategory!= null;
+        switch (mCategory){
+
+            case "Food" :
+                ArrayAdapter foodAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, cat.getFoodSubCategory());
+                type.setAdapter(foodAdapter);
+                break;
+            case "Drinks":
+                ArrayAdapter drinkAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, cat.getDrinksSubCategory());
+                type.setAdapter(drinkAdapter);
+                break;
+            case "Bakery" :
+                ArrayAdapter bakeryAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, cat.getBakerySubCategory());
+                type.setAdapter(bakeryAdapter);
+                break;
+            case "Gift":
+                ArrayAdapter giftAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, cat.getGiftSubCategory());
+                type.setAdapter(giftAdapter);
+                break;
+            case "Decor" :
+                ArrayAdapter decorAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, cat.getDecorSubCategory());
+                type.setAdapter(decorAdapter);
+                break;
+            case "Photography":
+                ArrayAdapter photoAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, cat.getPhotographySubCategory());
+                type.setAdapter(photoAdapter);
+                break;
+        }
 
         // get the reference of the database
         mStorageReference = FirebaseStorage.getInstance().getReference("serviceLogo ");
@@ -68,8 +100,6 @@ public class AddNewService extends AppCompatActivity {
         ArrayAdapter adapter2 =
                 new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, CAPACITY);
         capacity.setAdapter(adapter2);
-
-
         addService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,15 +124,12 @@ public class AddNewService extends AppCompatActivity {
         }
         Log.d("CHECK", "onClick: " + mName + ", " + mCapacity + ", " + mCategory + ", " + mDescription + ", " + mPhone + ", " + mExperience + "," + mLink );
 
-        ServiceModel newService = new ServiceModel(mName, mPhone, mCapacity, mCategory, mExperience,
-                mLink,  mDescription, mCity);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        ServiceModel newService = new ServiceModel(mName, mPhone, mCapacity, mCategory, mExperience, mLink,  mDescription, mCity,auth.getCurrentUser().getUid());
 
         //get the user id
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-
         manyServiceReference = dbInstance
-                .collection("services").document(auth.getCurrentUser().getUid())
-                .collection("myServices").document(mCategory);
+                .collection("services").document();
         manyServiceReference.set(newService)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

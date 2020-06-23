@@ -20,16 +20,15 @@ public class ServiceModel {
     String documentId;
     long phone;
     String  imageUri,city;
+    String userId;
 
 
     public ServiceModel(){
         // used by Firestore
     }
 
-
-
     public ServiceModel(String name, String phone, String capacity, String category, String experience,
-                        String link, String description, String city) {
+                        String link, String description, String city, String userId) {
         this.name = name;
         this.phone = Integer.parseInt(phone);
         this.capacity = capacity;
@@ -38,6 +37,7 @@ public class ServiceModel {
         this.link = link;
         this.description = description;
         this.city = city;
+        this.userId = userId;
     }
     public String getCity() {
         return city;
@@ -115,6 +115,14 @@ public class ServiceModel {
 
     public void setPhone(long phone) {
         this.phone = phone;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 }
