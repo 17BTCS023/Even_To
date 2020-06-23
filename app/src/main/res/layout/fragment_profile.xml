@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -45,7 +44,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_imageview"
+            android:id="@+id/user_profile_pic"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginStart="8dp"
@@ -63,14 +62,15 @@
             android:id="@+id/fab_add_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:src="@drawable/ic_edit_profile_pic"
             app:backgroundTint="#FF5252"
             app:fabSize="mini"
-            app:layout_constraintBottom_toBottomOf="@+id/user_imageview"
-            app:layout_constraintEnd_toEndOf="@+id/user_imageview"
+            app:layout_constraintBottom_toBottomOf="@+id/user_profile_pic"
+            app:layout_constraintEnd_toEndOf="@+id/user_profile_pic"
             app:layout_constraintHorizontal_bias="0.928"
-            app:layout_constraintStart_toStartOf="@+id/user_imageview"
-            app:layout_constraintTop_toTopOf="@+id/user_imageview"
+            app:layout_constraintStart_toStartOf="@+id/user_profile_pic"
+            app:layout_constraintTop_toTopOf="@+id/user_profile_pic"
             app:layout_constraintVertical_bias="0.885" />
 
         <LinearLayout
@@ -83,7 +83,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/user_profile_pic"
             app:layout_constraintVertical_bias="1.0">
 
             <TextView
@@ -241,7 +241,6 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </ScrollView>
