@@ -42,31 +42,38 @@
     </string>
     <string name="divider_bullet">•</string>
 
-    <string name="value_any_category">All food</string>
+    <string name="value_any_category_food">All food</string>
+    <string name="value_any_category_drinks">All drinks</string>
+    <string name="value_any_category_bakery">All bakery </string>
+    <string name="value_any_category_gifts">All Gifts</string>
+    <string name="value_any_category_decor">All Decor</string>
+    <string name="value_any_category_photo">All Photography</string>
     <string name="value_any_city">Anywhere</string>
-    <string name="value_any_price">Any price</string>
+    <string name="value_any_experience">Any Experience</string>
 
-    <string name="price_1">$</string>
-    <string name="price_2">$$</string>
-    <string name="price_3">$$$</string>
+    <string name="experience_1">1–6 months</string>
+    <string name="experience_2">7–10 months</string>
+    <string name="experience_3">1–2 year</string>
+    <string name="experience_4">2–3 year</string>
+    <string name="experience_5">more than 3 years</string>
 
     <string name="label_category">Category</string>
     <string name="label_city">City</string>
-    <string name="label_price">Price</string>
+    <string name="label_experience">Experience</string>
     <string name="label_sort_by">Sort By</string>
 
     <string name="fmt_num_ratings" translatable="false">(%d)</string>
-    <string name="all_restaurants">All Restaurants</string>
+    <string name="all_services">All Services</string>
     <string name="header_filters">Filter</string>
     <string name="search">Search</string>
 
     <string name="sort_by_rating">Sort by Rating</string>
-    <string name="sort_by_popularity">Sort by Popularity</string>
-    <string name="sort_by_price">Sort by Price</string>
+    <string name="sort_by_experience">Sort by Experience</string>
+    <string name="sort_by_place">Sort by Place</string>
 
     <string name="sorted_by_rating">sorted by rating</string>
-    <string name="sorted_by_price">sorted by price</string>
-    <string name="sorted_by_popularity">sorted by popularity</string>
+    <string name="sorted_by_experience">sorted by experience</string>
+    <string name="sorted_by_place">sorted by place</string>
 
     <string name="add_random_items">Add Random Items</string>
     <string name="sign_out">Sign Out</string>
@@ -79,15 +86,13 @@
     <string name="submit">Submit</string>
     <string name="filter_add_review">Add review</string>
 
-    <!-- Types of food I could think of in 5 minutes -->
-    <string-array name="categories">
-        <item>@string/value_any_category</item>
+    <string-array name="food_sub_categories">
+        <item>@string/value_any_category_food</item>
 
         <item>Brunch</item>
         <item>Burgers</item>
-        <item>Coffee</item>
-        <item>Deli</item>
-        <item>Dim Sum</item>
+        <item>Chinese</item>
+        <item>Japanese</item>
         <item>Indian</item>
         <item>Italian</item>
         <item>Mediterranean</item>
@@ -95,28 +100,96 @@
         <item>Pizza</item>
         <item>Ramen</item>
         <item>Sushi</item>
+        <item>French</item>
+        <item>American</item>
+        <item>Korean</item>
+        <item>Junk</item>
+        <item>South Indian</item>
     </string-array>
-    ite
+    <string-array name="drinks_sub_categories">
+        <item>@string/value_any_category_drinks</item>
+
+        <item>Fruit juices</item>
+        <item>Fruit drinks</item>
+        <item>Fruit Nectar</item>
+        <item>Coffee</item>
+        <item>Health Product</item>
+        <item>Tea</item>
+        <item>Soda</item>
+        <item>Soft Drinks</item>
+        <item>Tonic water</item>
+        <item>Milk</item>
+        <item>Ceral-based beverages</item>
+    </string-array>
+
+    <string-array name="gifts_sub_categories">
+        <item>@string/value_any_category_gifts</item>
+
+        <item>Children</item>
+        <item>Stuffed gifts</item>
+        <item>Art and Craft</item>
+        <item>Jewelry</item>
+        <item>Health Product</item>
+        <item>Sapling</item>
+        <item>Bookey</item>
+        <item>Flower pots</item>
+        <item>Handmade</item>
+        <item>Clothing</item>
+        <item>Knitted stuff</item>
+    </string-array>
+
+    <string-array name="bakery_sub_categories">
+        <item>@string/value_any_category_bakery</item>
+        <item>Unsweetened goods</item>
+        <item>Sweetened goods</item>
+        <item>Filled goods</item>
+    </string-array>
+
+    <string-array name="decor_sub_categories">
+        <item>@string/value_any_category_decor</item>
+
+        <item>Graffiti</item>
+        <item>Botanical</item>
+        <item>Florall</item>
+        <item>Party</item>
+        <item>Diwali</item>
+        <item>Holi</item>
+    </string-array>
+
+    <string-array name="photography_sub_categories">
+        <item>@string/value_any_category_photo</item>
+
+        <item>Wedding</item>
+        <item>Pre-Wedding</item>
+        <item>Post-Wedding</item>
+        <item>Party</item>
+        <item>Invocation</item>
+        <item>Festival</item>
+        <item>Birthday</item>
+        <item>Professional Shoot</item>
+        <item>Instagram Shoot</item>
+
+    </string-array>
 
     <!-- 50 most populous cities in the US -->
     <string-array name="cities">
         <item>@string/value_any_city</item>
 
-        <item>Albuquerque</item>
-        <item>Arlington</item>
-        <item>Atlanta</item>
-        <item>Austin</item>
-        <item>Baltimore</item>
-        <item>Boston</item>
-        <item>Charlotte</item>
-        <item>Chicago</item>
-        <item>Cleveland</item>
-        <item>Colorado Springs</item>
-        <item>Columbus</item>
-        <item>Dallas</item>
-        <item>Denver</item>
-        <item>Detroit</item>
-        <item>El Paso</item>
+        <item>Ahemdabad</item>
+        <item>Banaglore</item>
+        <item>Chennai</item>
+        <item>Hydrerabad</item>
+        <item>Kolkata</item>
+        <item>Mumbai</item>
+        <item>Delhi</item>
+        <item>Surat</item>
+        <item>Pune</item>
+        <item>Jaipur</item>
+        <item>Lucknow</item>
+        <item>Kanpur</item>
+        <item>Nagpur</item>
+        <item>Vishakapatnam</item>
+        <item>Indore</item>
         <item>Fort Worth</item>
         <item>Fresno</item>
         <item>Houston</item>
@@ -152,19 +225,21 @@
     </string-array>
 
     <!-- Price filters -->
-    <string-array name="prices">
-        <item>@string/value_any_price</item>
+    <string-array name="experience">
+        <item>@string/value_any_experience</item>
 
-        <item>@string/price_1</item>
-        <item>@string/price_2</item>
-        <item>@string/price_3</item>
+        <item>@string/experience_1</item>
+        <item>@string/experience_2</item>
+        <item>@string/experience_3</item>
+        <item>@string/experience_4</item>
+        <item>@string/experience_5</item>
     </string-array>
 
     <!-- Ways you can sort restaurants -->
     <string-array name="sort_by">
         <item>@string/sort_by_rating</item>
-        <item>@string/sort_by_popularity</item>
-        <item>@string/sort_by_price</item>
+        <item>@string/sort_by_experience</item>
+        <item>@string/sort_by_place</item>
     </string-array>
 </resources>
 
