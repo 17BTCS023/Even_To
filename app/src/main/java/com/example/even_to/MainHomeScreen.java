@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
 import com.example.even_to.CategorySelection.SelectCategory;
 import com.example.even_to.navigation.home.HomeFragment;
 import com.example.even_to.navigation.messages.MessagesFragment;
@@ -41,6 +43,7 @@ import java.util.Map;
 public class MainHomeScreen extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String KEY_PROFILE_PIC = "photo";
     AppBarConfiguration mAppBarConfiguration;
     DrawerLayout drawer;
     FloatingActionButton fab;
@@ -48,6 +51,8 @@ public class MainHomeScreen extends AppCompatActivity implements
     Toolbar toolbar;
     TextView userEmail, userName;
     FirebaseAuth auth;
+
+    ImageView mProfileImage;
 
     @Override
     protected void onStop() {
@@ -136,7 +141,8 @@ public class MainHomeScreen extends AppCompatActivity implements
         }
         userEmail = findViewById(R.id.nav_bar_user_email);
         userName = findViewById(R.id.nav_bar_user_name) ;
-        ChangeDisplayInfo(auth.getUid(),userName, userEmail );
+        mProfileImage = findViewById(R.id.profile_image);
+        ChangeDisplayInfo(auth.getUid(),userName, userEmail, mProfileImage );
 
         switch (menuItemId) {
             case R.id.nav_home:
@@ -194,8 +200,7 @@ public class MainHomeScreen extends AppCompatActivity implements
 
         return true;
     }
-    private void ChangeDisplayInfo(String uid, final TextView userName, final TextView userEmail) {
-        String userNameInProfile;
+    private void ChangeDisplayInfo(String uid, final TextView userName, final TextView userEmail, final ImageView mProfileImage) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference proRef = db.collection("profile").document(uid);
         proRef.get()
@@ -205,6 +210,12 @@ public class MainHomeScreen extends AppCompatActivity implements
                         Map<String, Object> map = documentSnapshot.getData();
                         userName.setText((CharSequence) map.get("fullname"));
                         userEmail.setText(String.valueOf(auth.getCurrentUser().getEmail()));
+                        if (map.containsKey("photo")) {
+                            Glide.with(mProfileImage.getContext())
+                                    .load(map.get(KEY_PROFILE_PIC))
+                                    .into(mProfileImage);
+                        }
+
 
                     }
                 })
