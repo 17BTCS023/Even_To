@@ -1,4 +1,4 @@
-package com.example.even_to.introduction_to_evento;
+package com.example.even_to.IntroductionToApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.example.even_to.MainHomeScreen;
 import com.example.even_to.R;
 import com.example.even_to.utils.SharedPref;
-import com.example.even_to.login_signup.LoginActivity;
+import com.example.even_to.LoginAndSignup.LoginActivity;
 
 public class IntroductionActivity extends AppCompatActivity {
 
@@ -30,7 +30,7 @@ public class IntroductionActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnSkip;
     private  Button btnNext;
-    private MyPageAdapter myPageAdapter;
+    private IntroductionAdapter introductionAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +85,8 @@ public class IntroductionActivity extends AppCompatActivity {
         layouts = new int[] { R.layout.intro_slide_screen1, R.layout.intro_slide_screen2 ,
                 R.layout.intro_slide_screen3,R.layout.intro_slide_screen4,
                 R.layout.intro_slide_screen5,R.layout.intro_slide_screen6};
-        myPageAdapter = new MyPageAdapter(layouts,getApplicationContext());
-        viewPager.setAdapter(myPageAdapter);
+        introductionAdapter = new IntroductionAdapter(layouts,getApplicationContext());
+        viewPager.setAdapter(introductionAdapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

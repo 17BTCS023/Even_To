@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,7 +25,7 @@ public class ServicesFragment extends Fragment {
     private RecyclerView serviceRecyclerViewList;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
-    private ViewGroup mEmptyView;
+    private ImageView mEmptyView;
     private Query mQuery;
     private MyServiceAdapter mAdapter;
 

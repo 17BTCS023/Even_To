@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CategoriesServiceProvidersList.ListOfServiceProviders">
+    android:background="#E0E0E0"
+    tools:context=".CategoriesServiceProvidersList.AllServices">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="?attr/colorPrimary"-->
-<!--        android:theme="@style/AppTheme"-->
-<!--        app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"-->
-<!--        app:title="@string/app_name"-->
-<!--        app:titleMarginStart="24dp"-->
-<!--        app:titleTextColor="@android:color/white" />-->
 
     <FrameLayout
         android:id="@+id/filter_bar_container"
@@ -105,47 +96,21 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_services"
+            android:layout_below="@id/filter_bar_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
             tools:listitem="@layout/item_service"/>
 
-    <LinearLayout
+
+    <ImageView
         android:id="@+id/view_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="gone">
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:src="@drawable/no_match_found_guy"
+        tools:ignore="ContentDescription"
+        android:visibility="gone"/>
 
-        <ImageView
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:src="@drawable/no_service_added_one"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            style="@style/AppTheme.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/message_no_results"
-            android:textColor="@color/greyDisabled" />
-
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/recycler_restaurants"
-        android:layout_alignTop="@+id/recycler_restaurants"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
-
-
-</LinearLayout>
+</RelativeLayout>

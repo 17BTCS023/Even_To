@@ -1,4 +1,4 @@
-package com.example.even_to.login_signup;
+package com.example.even_to.LoginAndSignup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

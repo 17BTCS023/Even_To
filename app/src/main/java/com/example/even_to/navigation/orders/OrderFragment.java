@@ -12,11 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.even_to.R;
-import com.example.even_to.adapter.ListAdapter;
+import com.example.even_to.adapter.OrderAdapter;
 
 public class OrderFragment extends Fragment {
 
-    private OrderViewModel orderViewModel;
     private RecyclerView orderRecyclerView;
 
 
@@ -30,7 +29,7 @@ public class OrderFragment extends Fragment {
         orderRecyclerView = view.findViewById(R.id.orders_recycler_view_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         orderRecyclerView.setLayoutManager(layoutManager);
-        ListAdapter orderAdapter = new ListAdapter();
+        OrderAdapter orderAdapter = new OrderAdapter();
         orderRecyclerView.setAdapter(orderAdapter);
 
     }

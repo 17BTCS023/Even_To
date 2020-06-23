@@ -1,16 +1,12 @@
 package com.example.even_to.navigation.profile;
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,9 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.even_to.MainHomeScreen;
 import com.example.even_to.R;
-import com.example.even_to.navigation.services.newService.AddServiceImage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
@@ -34,16 +28,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
 
-import static android.app.Activity.RESULT_OK;
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class ProfileFragment extends Fragment {
@@ -61,9 +51,8 @@ public class ProfileFragment extends Fragment {
     }
 
     //variables
-    private ProfileViewModel profileViewModel;
     ImageView mProfilePic;
-    TextInputEditText mFullName, mPhoneNumber, mEmail, mPassword, mLocation, mAbout, mOccupartion;
+    TextInputEditText mFullName, mPhoneNumber,  mLocation, mAbout, mOccupation;
     MaterialButton mUpdateProfile;
     TextView mDisplayName, mDisplayAbout, mDisplayOccupation;
     FirebaseDatabase firebaseDatabase;
@@ -96,12 +85,10 @@ public class ProfileFragment extends Fragment {
         mProfilePic = view.findViewById(R.id.user_profile_pic);
         mFullName = view.findViewById(R.id.user_profile_full_name);
         mPhoneNumber = view.findViewById(R.id.user_profile_phone_no);
-//        mEmail =  view.findViewById(R.id.user_profile_email);
-//        mPassword =  view.findViewById(R.id.user_profile_password);
         mLocation = view.findViewById(R.id.user_profile_location);
 
         mAbout = view.findViewById(R.id.et_user_profile_about);
-        mOccupartion = view.findViewById(R.id.et_user_profile_occupation);
+        mOccupation = view.findViewById(R.id.et_user_profile_occupation);
         mDisplayName = view.findViewById(R.id.tv_user_profile_name);
         mDisplayAbout = view.findViewById(R.id.tv_user_profile_about);
         mDisplayOccupation = view.findViewById(R.id.tv_user_profile_occupation);
@@ -139,7 +126,7 @@ public class ProfileFragment extends Fragment {
 //                dbPassword =mPassword.getText().toString().trim();;
         dbLocation = mLocation.getText().toString().trim();
         dbAbout = mAbout.getText().toString().trim();
-        dbOccupation = mOccupartion.getText().toString().trim();
+        dbOccupation = mOccupation.getText().toString().trim();
 
         Log.d(TAG, "onClick: " + dbFullName + ", " + dbAbout
                 + ",  + dbEmail" + ", " + dbLocation
@@ -189,7 +176,7 @@ public class ProfileFragment extends Fragment {
 //                            mPassword.setText((CharSequence) loadedProfile.get(KEY_PASSWORD));
                             mPhoneNumber.setText((CharSequence) loadedProfile.get(KEY_PHONE_NO));
                             mLocation.setText((CharSequence) loadedProfile.get(KEY_LOCATION));
-                            mOccupartion.setText((CharSequence) loadedProfile.get(KEY_OCCUPATION));
+                            mOccupation.setText((CharSequence) loadedProfile.get(KEY_OCCUPATION));
                             mDisplayOccupation.setText((CharSequence) loadedProfile.get(KEY_OCCUPATION));
 
                             if (loadedProfile.containsKey("photo")) {

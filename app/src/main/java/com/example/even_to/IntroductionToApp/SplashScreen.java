@@ -1,4 +1,4 @@
-package com.example.even_to;
+package com.example.even_to.IntroductionToApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.even_to.MainHomeScreen;
+import com.example.even_to.R;
 import com.example.even_to.utils.SharedPref;
-import com.example.even_to.introduction_to_evento.IntroductionActivity;
 
 
 public class SplashScreen extends AppCompatActivity {

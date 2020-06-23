@@ -13,25 +13,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.even_to.R;
-import com.example.even_to.navigation.orders.OrderViewModel;
 
 public class MessagesFragment extends Fragment {
-
-    private OrderViewModel orderViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        orderViewModel =
-                ViewModelProviders.of(this).get(OrderViewModel.class);
         View root = inflater.inflate(R.layout.fragment_messages, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
-        orderViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 }

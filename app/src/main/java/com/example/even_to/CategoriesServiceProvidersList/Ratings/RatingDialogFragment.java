@@ -1,4 +1,4 @@
-package com.example.even_to.CategoriesServiceProvidersList;
+package com.example.even_to.CategoriesServiceProvidersList.Ratings;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -26,7 +26,7 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
     private RatingBar mRatingBar;
     private EditText mRatingText;
 
-    interface RatingListener {
+    public interface RatingListener {
 
         void onRating(Rating rating);
 

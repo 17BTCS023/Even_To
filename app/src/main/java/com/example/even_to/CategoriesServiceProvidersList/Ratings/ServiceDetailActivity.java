@@ -1,4 +1,4 @@
-package com.example.even_to.CategoriesServiceProvidersList;
+package com.example.even_to.CategoriesServiceProvidersList.Ratings;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

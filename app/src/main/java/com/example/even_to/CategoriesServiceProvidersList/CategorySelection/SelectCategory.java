@@ -1,4 +1,4 @@
-package com.example.even_to.CategorySelection;
+package com.example.even_to.CategoriesServiceProvidersList.CategorySelection;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.even_to.R;
 import com.example.even_to.navigation.services.newService.AddNewService;
-import com.example.even_to.navigation.services.newService.AddServiceImage;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;

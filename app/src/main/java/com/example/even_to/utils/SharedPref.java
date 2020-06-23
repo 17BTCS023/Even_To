@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.example.even_to.login_signup.LoginActivity;
+import com.example.even_to.LoginAndSignup.LoginActivity;
 
 public class SharedPref {
 

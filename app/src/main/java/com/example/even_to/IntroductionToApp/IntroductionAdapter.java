@@ -1,4 +1,4 @@
-package com.example.even_to.introduction_to_evento;
+package com.example.even_to.IntroductionToApp;
 
 
 import android.content.Context;
@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-public class MyPageAdapter extends PagerAdapter {
+public class IntroductionAdapter extends PagerAdapter {
 
     private LayoutInflater inflater;
     private int[] layouts;
     private Context context;
 
-    public MyPageAdapter(int[] layouts, Context context){
+    public IntroductionAdapter(int[] layouts, Context context){
         this.layouts =layouts;
         this.context = context;
     }

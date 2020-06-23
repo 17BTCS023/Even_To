@@ -10,20 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".navigation.profile.SelectProfilePic"></activity>
-        <activity android:name=".CategoriesServiceProvidersList.ServiceDetailActivity" />
+        <activity android:name=".CategoriesServiceProvidersList.Ratings.ServiceDetailActivity" />
         <activity android:name=".navigation.services.newService.AddServiceImage" />
-        <activity android:name=".CategorySelection.SelectCategory" />
+        <activity android:name=".CategoriesServiceProvidersList.CategorySelection.SelectCategory" />
         <activity android:name=".navigation.services.newService.AddNewService" />
         <activity android:name=".CategoriesServiceProvidersList.ServiceProviderProfile" />
-        <activity android:name=".CategoriesServiceProvidersList.ListOfServiceProviders" />
+        <activity android:name=".CategoriesServiceProvidersList.AllServices" />
         <activity
             android:name=".MainHomeScreen"
             android:label="@string/title_activity_main_home_screen"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".login_signup.SignUpActivity" />
-        <activity android:name=".login_signup.LoginActivity" />
+        <activity android:name=".LoginAndSignup.SignUpActivity" />
+        <activity android:name=".LoginAndSignup.LoginActivity" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".IntroductionToApp.SplashScreen"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".introduction_to_evento.IntroductionActivity"
+            android:name=".IntroductionToApp.IntroductionActivity"
             android:theme="@style/SplashScreen" />
     </application>
 

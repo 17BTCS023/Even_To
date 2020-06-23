@@ -20,6 +20,9 @@ public class Service {
     private static final String KEY_WEBSITE_URL = "link";
     public static final String KEY_NUMBER_RATINGS = "numRatings";
     public static final String KEY_AVG_RATING = "avgRating";
+    public static final String FIELD_PRICE = "price";
+    public static final String FIELD_POPULARITY = "numRatings";
+    public static final String FIELD_AVG_RATING = "avgRating";
 
     private String name;
     private String type;

@@ -22,7 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bumptech.glide.Glide;
-import com.example.even_to.CategorySelection.SelectCategory;
+import com.example.even_to.CategoriesServiceProvidersList.CategorySelection.SelectCategory;
 import com.example.even_to.navigation.home.HomeFragment;
 import com.example.even_to.navigation.messages.MessagesFragment;
 import com.example.even_to.navigation.orders.OrderFragment;

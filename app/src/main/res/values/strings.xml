@@ -42,7 +42,7 @@
     </string>
     <string name="divider_bullet">•</string>
 
-    <string name="value_any_category_food">All food</string>
+    <string name="value_any_category_food">All Categories</string>
     <string name="value_any_category_drinks">All drinks</string>
     <string name="value_any_category_bakery">All bakery </string>
     <string name="value_any_category_gifts">All Gifts</string>
@@ -50,6 +50,7 @@
     <string name="value_any_category_photo">All Photography</string>
     <string name="value_any_city">Anywhere</string>
     <string name="value_any_experience">Any Experience</string>
+    <string name="value_any_capacity">Any Capacity </string>
 
     <string name="experience_1">1–6 months</string>
     <string name="experience_2">7–10 months</string>
@@ -57,9 +58,15 @@
     <string name="experience_4">2–3 year</string>
     <string name="experience_5">more than 3 years</string>
 
+    <string name="capacity_1">individual</string>
+    <string name="capacity_2">10-30</string>
+    <string name="capacity_3">50-100</string>
+    <string name="capacity_4">100-500</string>
+
     <string name="label_category">Category</string>
     <string name="label_city">City</string>
     <string name="label_experience">Experience</string>
+    <string name="label_capacity">Capacity</string>
     <string name="label_sort_by">Sort By</string>
 
     <string name="fmt_num_ratings" translatable="false">(%d)</string>
@@ -69,10 +76,12 @@
 
     <string name="sort_by_rating">Sort by Rating</string>
     <string name="sort_by_experience">Sort by Experience</string>
+    <string name="sort_by_capacity">Sort by Capacity</string>
     <string name="sort_by_place">Sort by Place</string>
 
     <string name="sorted_by_rating">sorted by rating</string>
     <string name="sorted_by_experience">sorted by experience</string>
+    <string name="sorted_by_cacapcity">sorted by capacity</string>
     <string name="sorted_by_place">sorted by place</string>
 
     <string name="add_random_items">Add Random Items</string>
@@ -224,7 +233,7 @@
         <item>Washington</item>
     </string-array>
 
-    <!-- Price filters -->
+    <!-- Experience filters -->
     <string-array name="experience">
         <item>@string/value_any_experience</item>
 
@@ -234,12 +243,24 @@
         <item>@string/experience_4</item>
         <item>@string/experience_5</item>
     </string-array>
+    <!-- Experience filters -->
+    <string-array name="capacity">
+        <item>@string/value_any_capacity</item>
 
-    <!-- Ways you can sort restaurants -->
+        <item>@string/capacity_1</item>
+        <item>@string/capacity_2</item>
+        <item>@string/capacity_3</item>
+        <item>@string/capacity_4</item>
+    </string-array>
+
+
+    <!-- Ways you can sort services -->
     <string-array name="sort_by">
         <item>@string/sort_by_rating</item>
         <item>@string/sort_by_experience</item>
         <item>@string/sort_by_place</item>
+        <item>@string/sort_by_capacity</item>
+
     </string-array>
 </resources>
 

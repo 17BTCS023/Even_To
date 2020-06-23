@@ -13,7 +13,7 @@ import com.example.even_to.R;
 import com.example.even_to.model.Order;
 import com.google.android.material.button.MaterialButton;
 
-public class ListAdapter extends RecyclerView.Adapter{
+public class OrderAdapter extends RecyclerView.Adapter{
 
 
     @NonNull
