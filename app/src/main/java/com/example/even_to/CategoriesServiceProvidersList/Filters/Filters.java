@@ -8,7 +8,7 @@ import com.example.even_to.model.Service;
 import com.google.firebase.firestore.Query;
 
 public class Filters {
-    private String category = null;
+    private String type = null;
     private String city = null;
     private String experience = null;
     private String capacity = null;
@@ -20,14 +20,14 @@ public class Filters {
 
     public static Filters getDefault() {
         Filters filters = new Filters();
-        filters.setSortBy(Service.KEY_AVG_RATING);
-        filters.setSortDirection(Query.Direction.DESCENDING);
+        filters.setSortBy(Service.KEY_NAME);
+        filters.setSortDirection(Query.Direction.ASCENDING);
 
         return filters;
     }
 
     public boolean hasCategory() {
-        return !(TextUtils.isEmpty(category));
+        return !(TextUtils.isEmpty(type));
     }
 
     public boolean hasCity() {
@@ -45,12 +45,12 @@ public class Filters {
         return !(TextUtils.isEmpty(sortBy));
     }
 
-    public String getCategory() {
-        return category;
+    public String getType() {
+        return type;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getCity() {
@@ -96,19 +96,19 @@ public class Filters {
     public String getSearchDescription(Context context) {
         StringBuilder desc = new StringBuilder();
 
-        if (category == null && city == null) {
+        if (type == null && city == null) {
             desc.append("<b>");
             desc.append(context.getString(R.string.all_services));
             desc.append("</b>");
         }
 
-        if (category != null) {
+        if (type != null) {
             desc.append("<b>");
-            desc.append(category);
+            desc.append(type);
             desc.append("</b>");
         }
 
-        if (category != null && city != null) {
+        if (type != null && city != null) {
             desc.append(" in ");
         }
 
@@ -117,12 +117,17 @@ public class Filters {
             desc.append(city);
             desc.append("</b>");
         }
-
+        if (type != null && city != null && experience!= null) {
+            desc.append(" with exp ");
+        }
         if (experience != null) {
             desc.append(" for ");
             desc.append("<b>");
-            desc.append(experience);
+            desc.append(experience );
             desc.append("</b>");
+        }
+        if (type != null && city != null && experience!= null && capacity != null) {
+            desc.append(" capacity ");
         }
         if (capacity!= null) {
             desc.append(" for ");

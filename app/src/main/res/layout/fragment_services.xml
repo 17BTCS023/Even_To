@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/activity_service_provider_listi_tem" />
+        tools:listitem="@layout/service_item" />
 
     <ImageView
         android:id="@+id/view_empty"
@@ -26,7 +26,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="216dp"
         android:padding="20dp"
-        android:src="@drawable/no_match_found_guy"
+        android:src="@drawable/no_service_guy"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

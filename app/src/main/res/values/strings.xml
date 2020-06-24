@@ -102,6 +102,7 @@
     <string name="hint_review">How was your experience?</string>
     <string name="submit">Submit</string>
     <string name="filter_add_review">Add review</string>
+    <string name="hire">Hire</string>
 
     <string-array name="food_sub_categories">
         <item>@string/value_any_category_food</item>

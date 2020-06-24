@@ -67,10 +67,13 @@ public class ServiceAdapter extends FirestoreAdapter<ServiceAdapter.ViewHolder>{
         }
         public void bind(final DocumentSnapshot snapshot, final OnServiceSelectedListener mListener) {
             Service service = snapshot.toObject(Service.class);
+            service.setImageLogo((String) snapshot.get(Service.KEY_LOGO));
+            Log.d("MANNNUUU", "bind: "+ snapshot.toString());
             Resources resources = itemView.getResources();
             // Load image
             assert service != null;
             Glide.with(imageView.getContext()).load(service.getImageLogo()).into(imageView);
+
             nameView.setText(service.getName());
             ratingBar.setRating((float) service.getAvgRating());
             cityView.setText(service.getCity());
@@ -78,7 +81,7 @@ public class ServiceAdapter extends FirestoreAdapter<ServiceAdapter.ViewHolder>{
             numRatingsView.setText(resources.getString(R.string.fmt_num_ratings, service.getNumRatings()));
             experienceView.setText(service.getExperience());
             capacityView.setText(service.getCapacity());
-            categoryView.setText(service.getCategory());
+            categoryView.setText(service.getType());
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

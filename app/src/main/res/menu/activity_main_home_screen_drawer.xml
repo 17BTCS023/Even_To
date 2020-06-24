@@ -21,10 +21,10 @@
         android:id="@+id/nav_my_services"
         android:icon="@drawable/ic_menu_service"
         android:title="My Services" />
-    <item
-        android:id="@+id/nav_messages"
-        android:icon="@drawable/ic_menu_message"
-        android:title="Messages" />
+<!--    <item-->
+<!--        android:id="@+id/nav_messages"-->
+<!--        android:icon="@drawable/ic_menu_message"-->
+<!--        android:title="Messages" />-->
     <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/ic_menu_logout"

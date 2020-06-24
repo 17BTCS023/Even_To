@@ -121,18 +121,18 @@
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_service_detail_add_review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/service_top_card"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="28dp"
-            android:layout_marginBottom="-31dp"
-            app:backgroundTint="#FF1744"
-            app:fabSize="mini"
-            app:rippleColor="@color/colorAccent"
-            app:srcCompat="@drawable/ic_edit" />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/fab_service_detail_add_review"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignBottom="@+id/service_top_card"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginRight="28dp"-->
+<!--            android:layout_marginBottom="-31dp"-->
+<!--            app:backgroundTint="#FF1744"-->
+<!--            app:fabSize="mini"-->
+<!--            app:rippleColor="@color/colorAccent"-->
+<!--            app:srcCompat="@drawable/ic_edit" />-->
     </RelativeLayout>
 
 

@@ -159,41 +159,44 @@
         android:layout_below="@id/fab_service_detail_add_review"
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
-        android:drawableStart="@drawable/ic_profile_hot"
         android:drawablePadding="10dp"
         android:text="@string/service_description" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/service_detail_options_array"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/service_detail_description"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:drawableStart="@drawable/ic_menu_order"
-        android:drawablePadding="10dp"
-        android:drawableTint="@color/black"
-        android:inputType="text"
-        tools:text="Inidan , Chinese, Korean, Indian street" />
+<!--    <com.google.android.material.textview.MaterialTextView-->
+<!--        android:id="@+id/service_detail_options_array"-->
+<!--        style="@style/TextAppearance.AppCompat.Body1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/service_detail_description"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:drawableStart="@drawable/ic_menu_order"-->
+<!--        android:drawablePadding="10dp"-->
+<!--        android:drawableTint="@color/black"-->
+<!--        android:inputType="text"-->
+<!--        tools:text="Inidan , Chinese, Korean, Indian street" />-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/service_detail_hire"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/service_detail_options_array"
+        android:layout_below="@id/service_detail_description"
         android:layout_margin="8dp"
-        android:background="#FF1744"
+        android:layout_marginTop="8dp"
+        android:textColor="#FF1744"
         android:clickable="true"
         android:focusable="true"
-        android:text="Hire"
+        android:text="@string/hire"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:backgroundTint="@android:color/transparent"
         android:textSize="18sp"
-        app:rippleColor="@color/black" />
+        app:rippleColor="@color/greySecondary" />
 
     <!-- Ratings -->
     <androidx.recyclerview.widget.RecyclerView
+        android:backgroundTint="@color/white"
         android:id="@+id/recycler_ratings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

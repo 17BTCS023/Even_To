@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.even_to.R;
+import com.example.even_to.model.Service;
 import com.example.even_to.utils.SubCategoriesArray;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,7 +39,7 @@ public class AddNewService extends AppCompatActivity {
 
     FirebaseFirestore dbInstance = FirebaseFirestore.getInstance();
     private DocumentReference manyServiceReference;
-    String mName, mCapacity, mCategory, mDescription, mExperience, mLink, mPhone,mCity;
+    String mName, mCapacity, mCategory, mDescription, mExperience, mLink, mPhone,mCity, mType;
 
     String[] EXPERIENCE = new String[]{"1-6 months", "7-10 months", "1-2 year", "2-3years", "more than 3 years"};
     String[] CAPACITY = new String[]{"10-30", "50-100", "100-500"};
@@ -118,14 +119,16 @@ public class AddNewService extends AppCompatActivity {
         mExperience = experience.getText().toString().trim();
         mLink = link.getText().toString().trim();
         mCity = city.getText().toString().trim();
-        if(mName.isEmpty()||mCategory.isEmpty() || mDescription.isEmpty() || mExperience.isEmpty()|| mLink.isEmpty() || mCity.isEmpty()){
+        mType = type.getText().toString().trim();
+
+        if(mName.isEmpty()||mCategory.isEmpty() || mDescription.isEmpty() || mExperience.isEmpty()|| mLink.isEmpty() || mCity.isEmpty() || mType.isEmpty()){
             Toast.makeText(this, "Fill everything! '_' ", LENGTH_SHORT).show();
             return;
         }
         Log.d("CHECK", "onClick: " + mName + ", " + mCapacity + ", " + mCategory + ", " + mDescription + ", " + mPhone + ", " + mExperience + "," + mLink );
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        ServiceModel newService = new ServiceModel(mName, mPhone, mCapacity, mCategory, mExperience, mLink,  mDescription, mCity,auth.getCurrentUser().getUid());
+        Service newService = new Service(mName, mPhone,mType, mCapacity, mCategory, mExperience, mLink,  mDescription, mCity,auth.getUid());
 
         //get the user id
         manyServiceReference = dbInstance

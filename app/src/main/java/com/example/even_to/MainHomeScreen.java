@@ -27,7 +27,7 @@ import com.example.even_to.navigation.home.HomeFragment;
 import com.example.even_to.navigation.messages.MessagesFragment;
 import com.example.even_to.navigation.orders.OrderFragment;
 import com.example.even_to.navigation.profile.ProfileFragment;
-import com.example.even_to.navigation.services.myService.ServicesFragment;
+import com.example.even_to.navigation.services.myService.MyServicesFragment;
 import com.example.even_to.utils.SharedPref;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,6 +44,9 @@ public class MainHomeScreen extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     private static final String KEY_PROFILE_PIC = "photo";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_EMAIL = "email";
+    public static final String KEY_PROFILE_UPDATED = "profileUpdated";
     AppBarConfiguration mAppBarConfiguration;
     DrawerLayout drawer;
     FloatingActionButton fab;
@@ -51,6 +54,8 @@ public class MainHomeScreen extends AppCompatActivity implements
     Toolbar toolbar;
     TextView userEmail, userName;
     FirebaseAuth auth;
+
+    SharedPref sharedPref;
 
     ImageView mProfileImage;
 
@@ -66,13 +71,12 @@ public class MainHomeScreen extends AppCompatActivity implements
         setContentView(R.layout.activity_main_home_screen);
 
         auth = FirebaseAuth.getInstance();
-
+        sharedPref = new SharedPref(this);
         /*** finding the toolbar for our main screen ****/
         toolbar = findViewById(R.id.toolbar);
         // setSupportActionBar sets up the toolbar as the actionbar
         setSupportActionBar(toolbar);
 
-        /*** finding the fab button ****/
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +84,6 @@ public class MainHomeScreen extends AppCompatActivity implements
                 startActivity(new Intent(MainHomeScreen.this, SelectCategory.class));
             }
         });
-
-        /****  finding and inflating drawer layout ***/
         drawer = findViewById(R.id.drawer_layout);
 
         /*** To have an hamburger icon with rotation action ***/
@@ -142,7 +144,9 @@ public class MainHomeScreen extends AppCompatActivity implements
         userEmail = findViewById(R.id.nav_bar_user_email);
         userName = findViewById(R.id.nav_bar_user_name) ;
         mProfileImage = findViewById(R.id.profile_image);
-        ChangeDisplayInfo(auth.getUid(),userName, userEmail, mProfileImage );
+        if (sharedPref.getProfileStatus()) {
+            ChangeDisplayInfo(auth.getUid(), userName, userEmail, mProfileImage);
+        }
 
         switch (menuItemId) {
             case R.id.nav_home:
@@ -172,25 +176,26 @@ public class MainHomeScreen extends AppCompatActivity implements
 
             case R.id.nav_my_services:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment, new ServicesFragment())
+                        .replace(R.id.nav_host_fragment, new MyServicesFragment())
                         .commit();
                 fab.setImageResource(R.drawable.add_service);
                 toolbar.setTitle(R.string.my_services);
                 break;
 
-            case R.id.nav_messages:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment, new MessagesFragment())
-                        .commit();
-                fab.setImageResource(R.drawable.ic_edit);
-                toolbar.setTitle(R.string.my_messages);
-
-                break;
+//            case R.id.nav_messages:
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.nav_host_fragment, new MessagesFragment())
+//                        .commit();
+//                fab.setImageResource(R.drawable.ic_edit);
+//                toolbar.setTitle(R.string.my_messages);
+//
+//                break;
 
             case R.id.nav_logout:
                 /*** Set sharedPref remember as false ***/
                 SharedPref sharedPref = new SharedPref(this);
                 sharedPref.setDefault();
+                sharedPref.setProfileDefault();
                 sharedPref.setRememberFirst();
                 Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
                 break;
@@ -208,8 +213,8 @@ public class MainHomeScreen extends AppCompatActivity implements
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Map<String, Object> map = documentSnapshot.getData();
-                        userName.setText((CharSequence) map.get("fullname"));
-                        userEmail.setText(String.valueOf(auth.getCurrentUser().getEmail()));
+                        userName.setText((CharSequence) map.get(KEY_NAME));
+                        userEmail.setText((CharSequence) map.get(KEY_EMAIL));
                         if (map.containsKey("photo")) {
                             Glide.with(mProfileImage.getContext())
                                     .load(map.get(KEY_PROFILE_PIC))

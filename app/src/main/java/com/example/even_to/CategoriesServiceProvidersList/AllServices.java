@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,12 +32,13 @@ public class AllServices extends AppCompatActivity implements
 
     private static final String TAG = "CHECK THIS";
     private static final int LIMIT = 50;
+
     private TextView mCurrentSearchView;
     private TextView mCurrentSortByView;
     private RecyclerView mServicesRecycler;
     private ImageView mEmptyView;
 
-    private FirebaseFirestore mFirestore;
+    private FirebaseFirestore dbInstance;
     private Query mQuery;
 
     private FilterDialogFragment mFilterDialog;
@@ -55,12 +55,15 @@ public class AllServices extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_services);
+
         mCategory = getIntent().getStringExtra("category");
 
         mCurrentSearchView = findViewById(R.id.text_current_search);
         mCurrentSortByView = findViewById(R.id.text_current_sort_by);
         mServicesRecycler = findViewById(R.id.recycler_services);
         mEmptyView = findViewById(R.id.view_empty);
+
+
         mFilterBar = findViewById(R.id.filter_bar);
         mFilter = findViewById(R.id.button_filter);
         mClearFilter = findViewById(R.id.button_clear_filter);
@@ -81,7 +84,6 @@ public class AllServices extends AppCompatActivity implements
                 onFilterClicked();
             }
         });
-
         mClearFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,10 +93,9 @@ public class AllServices extends AppCompatActivity implements
     }
 
     public void onFilterClicked() {
-        // Show the dialog containing filter options
+
         Bundle bundle = new Bundle();
-        bundle.putString("category",mCategory);
-        // set Fragmentclass Arguments
+        bundle.putString("category", mCategory);
         mFilterDialog.setArguments(bundle);
         mFilterDialog.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
     }
@@ -102,14 +103,13 @@ public class AllServices extends AppCompatActivity implements
     public void onClearFilterClicked() {
         mFilterDialog.resetFilters();
         onFilter(Filters.getDefault());
-        Toast.makeText(this, "Clear cliked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Removing Filter", Toast.LENGTH_SHORT).show();
     }
 
     private void initFirestore() {
-        mFirestore = FirebaseFirestore.getInstance();
-        // Get the 50 highest rated restaurants
-        mQuery = mFirestore.collection("service")
-                .orderBy("avgRating", Query.Direction.DESCENDING);
+        dbInstance = FirebaseFirestore.getInstance();
+        mQuery = dbInstance.collection("services")
+                .limit(LIMIT);
     }
 
     private void initRecyclerView() {
@@ -144,7 +144,7 @@ public class AllServices extends AppCompatActivity implements
     public void onServiceSelected(DocumentSnapshot service) {
         // Go to the details page for the selected restaurant
         Intent intent = new Intent(this, ServiceDetailActivity.class);
-        intent.putExtra("service_id", service.getId());
+        intent.putExtra("serviceId", service.getId());
         startActivity(intent);
     }
     @Override
@@ -167,12 +167,12 @@ public class AllServices extends AppCompatActivity implements
     }
     @Override
     public void onFilter(Filters filters) {
-        // Construct a basic querry
-        Query query = mFirestore.collection("listservice");
+        // Construct a basic query
+        Query query = dbInstance.collection("services").whereEqualTo("category",mCategory);
 
         // Category (equality filter)
         if(filters.hasCategory()){
-            query = query.whereEqualTo("category", filters.getCategory());
+            query = query.whereEqualTo("type", filters.getType());
         }
         // City (equality filter)
         if(filters.hasCity()){
@@ -195,7 +195,7 @@ public class AllServices extends AppCompatActivity implements
 
         // Update the query
         mQuery = query;
-        mAdapter.setQuery(query);
+        mAdapter.setQuery(mQuery);
         // Set header
         mCurrentSearchView.setText(Html.fromHtml(filters.getSearchDescription(this)));
         mCurrentSortByView.setText(filters.getOrderDescription(this));

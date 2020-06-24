@@ -39,6 +39,8 @@ public class SelectProfilePic extends AppCompatActivity {
 
     private static final String TAG = "SelectProfilePic";
 
+    private static final String KEY_PROFILE_PIC = "photo";
+
     private static final int PICK_IMAGE_REQUEST = 1;
     private  boolean IMAGE_UPLOADED = false ;
     private boolean USER_ATTACHED_FILE = false;
@@ -47,6 +49,7 @@ public class SelectProfilePic extends AppCompatActivity {
     ImageView mProfilePic;
 
     UploadTask UploadTask;
+    FirebaseAuth auth;
 
     MaterialButton btnSelect, btnUplaod;
     //getting reference for StorageReference
@@ -76,8 +79,8 @@ public class SelectProfilePic extends AppCompatActivity {
         mStorageReference = FirebaseStorage.getInstance().getReference("profilePic");
 
         //get the user id
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        profileReference = dbInstance.collection("profile").document(auth.getCurrentUser().getUid());
+        auth = FirebaseAuth.getInstance();
+        profileReference = dbInstance.collection("profile").document(auth.getUid());
 
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,12 +185,11 @@ public class SelectProfilePic extends AppCompatActivity {
 
     private void UploadImageToFirestore(String imageUri) {
         Map<String, Object> photo = new HashMap<>();
-        photo.put("photo", imageUri);
+        photo.put(KEY_PROFILE_PIC, imageUri);
         profileReference.set(photo, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("ERRRROOOORRRR!!!", "onSuccess:  Profile Uploaded");
                         Intent intent = new Intent(getApplicationContext(), MainHomeScreen.class);
                         startActivity(intent);
                         finish();

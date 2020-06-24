@@ -19,9 +19,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
-public class ServicesFragment extends Fragment {
+public class MyServicesFragment extends Fragment {
 
-    private static final String TAG = "ServicesFragment";
+    private static final String TAG = "MyServicesFragment";
     private RecyclerView serviceRecyclerViewList;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
@@ -29,9 +29,8 @@ public class ServicesFragment extends Fragment {
     private Query mQuery;
     private MyServiceAdapter mAdapter;
 
-
     //constructor
-    public ServicesFragment() {
+    public MyServicesFragment() {
         // simply
     }
 
@@ -43,6 +42,7 @@ public class ServicesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the Profile fragment
         View view = inflater.inflate(R.layout.fragment_services, container, false);
+
         mEmptyView = view.findViewById(R.id.view_empty);
         serviceRecyclerViewList = view.findViewById(R.id.service_recycler_view_list);
         // Initialize Firestore and the main RecyclerView
@@ -54,9 +54,7 @@ public class ServicesFragment extends Fragment {
     private void initFirestore() {
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        mQuery = db.collection("services").document(firebaseAuth.getUid())
-                .collection("myServices");
-
+        mQuery = db.collection("services").whereEqualTo("userId", firebaseAuth.getUid());
     }
 
     private void initRecyclerView() {
@@ -79,11 +77,10 @@ public class ServicesFragment extends Fragment {
                     mEmptyView.setVisibility(View.GONE);
                 }
             }
-
             @Override
             protected void onError(FirebaseFirestoreException e) {
                 // Show a snackbar on errors
-                Log.d("ERRROOOOORRRRRR!!!", e.toString());
+                Log.d(TAG , e.toString());
 
             }
         };

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.even_to.R;
 import com.example.even_to.adapter.RatingAdapter;
+import com.example.even_to.model.Order;
 import com.example.even_to.model.Rating;
 import com.example.even_to.model.Service;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,6 +29,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -41,9 +43,9 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         View.OnClickListener,
         EventListener<DocumentSnapshot>,
         RatingDialogFragment.RatingListener {
-    private static final String TAG = "RestaurantDetail";
+    private static final String TAG = "ServiceDetail";
 
-    public static final String KEY_SERVCE_ID = "service_id";
+    public static final String KEY_SERVICE_ID = "serviceId";
 
     private ImageView mImageView;
     private RatingBar mRatingIndicator;
@@ -57,11 +59,14 @@ public class ServiceDetailActivity extends AppCompatActivity implements
 
     private RatingDialogFragment mRatingDialog;
 
-    private FirebaseFirestore mFirestore;
+    private FirebaseFirestore dbInstance;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     private DocumentReference mServiceRef;
     private ListenerRegistration mServiceRegistration;
 
     private RatingAdapter mRatingAdapter;
+
+    String serviceId, userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,20 +82,15 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         mWebsiteView = findViewById(R.id.service_detail_website_link);
         mCategoryView = findViewById(R.id.service_detail_category);
         mDescriptionView= findViewById(R.id.service_detail_description);
-        mOptionsView = findViewById(R.id.service_detail_options_array);
+//        mOptionsView = findViewById(R.id.service_detail_options_array);
         mExperienceView = findViewById(R.id.service_detail_experience);
         mHire = findViewById(R.id.service_detail_hire);
         mEmptyView = findViewById(R.id.view_empty_ratings);
         mRatingsRecycler = findViewById(R.id.recycler_ratings);
         mAddReview = findViewById(R.id.fab_service_detail_add_review);
 
-        mHire.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        userId = auth.getUid();
 
-                Toast.makeText(ServiceDetailActivity.this, "Hired!", Toast.LENGTH_SHORT).show();
-            }
-        });
         mAddReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,24 +98,28 @@ public class ServiceDetailActivity extends AppCompatActivity implements
             }
         });
 
-
         // Get service ID from extras
-        String serviceId = getIntent().getExtras().getString(KEY_SERVCE_ID);
+        serviceId = getIntent().getStringExtra(KEY_SERVICE_ID);
         if (serviceId == null) {
-            throw new IllegalArgumentException("Must pass extra " + KEY_SERVCE_ID);
+            throw new IllegalArgumentException("Must pass extra " + KEY_SERVICE_ID);
         }
-
         // Initialize Firestore
-        mFirestore = FirebaseFirestore.getInstance();
+        dbInstance = FirebaseFirestore.getInstance();
 
         // Get reference to the restaurant
-        mServiceRef = mFirestore.collection("listservices").document(serviceId);
+        mServiceRef = dbInstance.collection("services").document(serviceId);
+        mHire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hire();
+            }
+        });
+
 
         // Get ratings
         Query ratingsQuery = mServiceRef
                 .collection("ratings")
                 .limit(50);
-
         // RecyclerView
         mRatingAdapter = new RatingAdapter(ratingsQuery) {
             @Override
@@ -134,6 +138,24 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         mRatingsRecycler.setAdapter(mRatingAdapter);
 
         mRatingDialog = new RatingDialogFragment();
+    }
+
+    private void hire() {
+        DocumentReference orderRef = dbInstance.collection("orders").document();
+        Order order = new Order(userId, "vRhbdFaEh5AO7Yvk1mg5");
+        orderRef.set(order)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(ServiceDetailActivity.this, "Hired!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ServiceDetailActivity.this, "Couldn't Hire, Try after sometime!", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
@@ -176,12 +198,13 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         final DocumentReference ratingRef = serviceRef.collection("ratings")
                 .document();
         // In a transaction add a new rating and update the aggregate totals
-        return mFirestore.runTransaction(new Transaction.Function<Void>() {
+        return dbInstance.runTransaction(new Transaction.Function<Void>() {
             @Nullable
             @Override
             public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
                 Service service = transaction.get(serviceRef).toObject(Service.class);
                 // Compute new number of ratings
+                assert service != null;
                 int newNumRating = service.getNumRatings() +1;
 
                 // compute new average rating
@@ -235,7 +258,7 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         mCategoryView.setText(service.getCategory());
         mExperienceView.setText(service.getExperience());
         mDescriptionView.setText(service.getDescription());
-        mOptionsView.setText("Here there will be an array of type of sub categories of service");
+//        mOptionsView.setText("Here there will be an array of type of sub categories of service");
         mWebsiteView.setText(service.getLink());
         mContactView.setText(String.valueOf(  service.getPhoneNumber()));
         // Background image
@@ -246,7 +269,7 @@ public class ServiceDetailActivity extends AppCompatActivity implements
     @Override
     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
         if (e != null) {
-            Log.w(TAG, "restaurant:onEvent", e);
+            Log.w(TAG, "Service:onEvent", e);
             return;
         }
         assert documentSnapshot != null;

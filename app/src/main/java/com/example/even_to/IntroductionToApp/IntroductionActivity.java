@@ -43,6 +43,8 @@ public class IntroductionActivity extends AppCompatActivity {
 
         SharedPref sharedPreferences = new SharedPref(getApplicationContext());
         sharedPreferences.setDefault();
+        sharedPreferences.setProfileDefault();
+
         /*Setting Up status bar transparent
          ******************************************/
 

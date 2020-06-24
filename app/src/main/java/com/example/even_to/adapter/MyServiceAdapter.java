@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.even_to.R;
-import com.example.even_to.navigation.services.newService.ServiceModel;
+import com.example.even_to.model.Service;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
@@ -23,17 +23,7 @@ import com.google.firebase.firestore.Query;
  * RecyclerView adapter for a list of Services.
  */
 public class MyServiceAdapter extends FirestoreAdapter<MyServiceAdapter.ViewHolder> {
-//
-//    public interface OnRestaurantSelectedListener {
-//
-//        void onRestaurantSelected(DocumentSnapshot restaurant);
-//    }
 
-    //    private OnRestaurantSelectedListener mListener;
-    /*public RestaurantAdapter(Query query, OnRestaurantSelectedListener listener) {
-        super(query);
-        mListener = listener;
-    }*/
     public MyServiceAdapter(Query query) {
         super(query);
     }
@@ -43,7 +33,7 @@ public class MyServiceAdapter extends FirestoreAdapter<MyServiceAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new ViewHolder(inflater.inflate(R.layout.activity_service_provider_listi_tem, parent, false));
+        return new ViewHolder(inflater.inflate(R.layout.service_item, parent, false));
     }
 
     @Override
@@ -63,7 +53,6 @@ public class MyServiceAdapter extends FirestoreAdapter<MyServiceAdapter.ViewHold
 
         public ViewHolder(View itemView) {
             super(itemView);
-            Log.d("ERRROOOOORRRRRR!!!", "ViewHolder: INSIDE VIEW HOLDER");
             imageView = itemView.findViewById(R.id.service_detail_image);
             nameView = itemView.findViewById(R.id.service_detail_name);
             edit = itemView.findViewById(R.id.fab_service_detail_add_review);
@@ -78,21 +67,21 @@ public class MyServiceAdapter extends FirestoreAdapter<MyServiceAdapter.ViewHold
 //                         final OnRestaurantSelectedListener listener) {
         public void bind(final DocumentSnapshot snapshot) {
 
-            Log.d("ERRROOOOORRRRRR!!!", "bind: REACHED HERE IN BIND ");
-            ServiceModel serviceModel = snapshot.toObject(ServiceModel.class);
+            Service serviceModel = snapshot.toObject(Service.class);
+            serviceModel.setImageLogo((String) snapshot.get(Service.KEY_LOGO));
             Resources resources = itemView.getResources();
 
-            Log.d("ERRROOOOORRRRRR!!!", "bind: " +"uri :" +serviceModel.getImageUri()+
+            Log.d("MANNU!!!", "bind: " +"uri :" +serviceModel.getImageLogo()+
                     "\nname:"+ serviceModel.getName()+
                     "\ncity: " +serviceModel.getCity()+
                     "\ncategory: " + serviceModel.getCategory()+
                     "\ndescription" + serviceModel.getDescription()+
                     "\nlink: " + serviceModel.getLink()+
-                    "\ncontact: "+ serviceModel.getPhone()) ;
+                    "\ncontact: "+ serviceModel.getPhoneNumber()) ;
 
             assert serviceModel != null;
             Glide.with(imageView.getContext())
-                    .load(serviceModel.getImageUri())
+                    .load(serviceModel.getImageLogo())
                     .into(imageView);
 
             nameView.setText(serviceModel.getName());
@@ -100,17 +89,9 @@ public class MyServiceAdapter extends FirestoreAdapter<MyServiceAdapter.ViewHold
             categoryView.setText(serviceModel.getCategory());
             descriptionView.setText(serviceModel.getDescription());
             linkView.setText(serviceModel.getLink());
-            contactView.setText(String.valueOf(serviceModel.getPhone()));
+            contactView.setText(String.valueOf(serviceModel.getPhoneNumber()));
 
-//            // Click listener
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if (listener != null) {
-//                        listener.onRestaurantSelected(snapshot);
-//                    }
-//                }
-//            });
+
         }
 
     }

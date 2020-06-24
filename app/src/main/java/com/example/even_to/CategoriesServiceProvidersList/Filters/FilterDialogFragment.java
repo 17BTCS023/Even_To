@@ -18,12 +18,6 @@ import com.example.even_to.model.Service;
 import com.example.even_to.utils.SubCategoriesArray;
 import com.google.firebase.firestore.Query;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.example.even_to.R.string.category_drinks;
-import static com.example.even_to.R.string.category_food;
-
 public class FilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "FilterDialog";
@@ -36,7 +30,7 @@ public class FilterDialogFragment extends DialogFragment {
 
     private View mRootView;
 
-    private Spinner mCategorySpinner;
+    private Spinner mTypeSpinner;
     private Spinner mCitySpinner;
     private Spinner mSortSpinner;
     private Spinner mCapacitySpinner;
@@ -51,7 +45,7 @@ public class FilterDialogFragment extends DialogFragment {
                              @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.dialog_filters, container, false);
 
-        mCategorySpinner = mRootView.findViewById(R.id.spinner_category);
+        mTypeSpinner = mRootView.findViewById(R.id.spinner_category);
         mCitySpinner = mRootView.findViewById(R.id.spinner_city);
         mSortSpinner = mRootView.findViewById(R.id.spinner_sort);
         mExperienceSpinner = mRootView.findViewById(R.id.spinner_experience);
@@ -65,27 +59,27 @@ public class FilterDialogFragment extends DialogFragment {
 
             case "Food" :
                 ArrayAdapter foodAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getFoodSubCategory());
-                mCategorySpinner.setAdapter(foodAdapter);
+                mTypeSpinner.setAdapter(foodAdapter);
                 break;
                 case "Drinks":
                 ArrayAdapter drinkAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getDrinksSubCategory());
-                    mCategorySpinner.setAdapter(drinkAdapter);
+                    mTypeSpinner.setAdapter(drinkAdapter);
                 break;
             case "Bakery" :
                 ArrayAdapter bakeryAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getBakerySubCategory());
-                mCategorySpinner.setAdapter(bakeryAdapter);
+                mTypeSpinner.setAdapter(bakeryAdapter);
                 break;
             case "Gift":
                 ArrayAdapter giftAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getGiftSubCategory());
-                mCategorySpinner.setAdapter(giftAdapter);
+                mTypeSpinner.setAdapter(giftAdapter);
                 break;
             case "Decor" :
                 ArrayAdapter decorAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getDecorSubCategory());
-                mCategorySpinner.setAdapter(decorAdapter);
+                mTypeSpinner.setAdapter(decorAdapter);
                 break;
             case "Photography":
                 ArrayAdapter photoAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getPhotographySubCategory());
-                mCategorySpinner.setAdapter(photoAdapter);
+                mTypeSpinner.setAdapter(photoAdapter);
                 break;
         }
 
@@ -95,14 +89,15 @@ public class FilterDialogFragment extends DialogFragment {
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSearchClicked();
+                onCancelClicked();
             }
         });
 
         mApplyFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onCancelClicked();
+                onSearchClicked();
+
             }
         });
 
@@ -139,8 +134,8 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     @Nullable
-    private String getSelectedCategory() {
-        String selected = (String) mCategorySpinner.getSelectedItem();
+    private String getSelectedType() {
+        String selected = (String) mTypeSpinner.getSelectedItem();
         if (getString(R.string.value_any_category_food).equals(selected)) {
             return null;
         } else {
@@ -202,13 +197,13 @@ public class FilterDialogFragment extends DialogFragment {
             return Query.Direction.DESCENDING;
         }
         if (getString(R.string.sort_by_experience).equals(selected)) {
-            return Query.Direction.DESCENDING;
+            return Query.Direction.ASCENDING;
         }
         if (getString(R.string.sort_by_capacity).equals(selected)) {
-            return Query.Direction.DESCENDING;
+            return Query.Direction.ASCENDING;
         }
         if (getString(R.string.sort_by_place).equals(selected)) {
-            return Query.Direction.DESCENDING;
+            return Query.Direction.ASCENDING;
         }
 
         return null;
@@ -216,7 +211,7 @@ public class FilterDialogFragment extends DialogFragment {
 
     public void resetFilters() {
         if (mRootView != null) {
-            mCategorySpinner.setSelection(0);
+            mTypeSpinner.setSelection(0);
             mCapacitySpinner.setSelection(0);
             mCitySpinner.setSelection(0);
             mExperienceSpinner.setSelection(0);
@@ -225,10 +220,11 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     public Filters getFilters() {
+
         Filters filters = new Filters();
 
         if (mRootView != null) {
-            filters.setCategory(getSelectedCategory());
+            filters.setType(getSelectedType());
             filters.setCity(getSelectedCity());
             filters.setExperience(getSelectedExperience());
             filters.setCapacity(getSelectedCapacity());

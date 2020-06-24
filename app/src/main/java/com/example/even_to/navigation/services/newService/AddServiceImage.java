@@ -18,13 +18,19 @@ import android.widget.Toast;
 
 import com.example.even_to.MainHomeScreen;
 import com.example.even_to.R;
+import com.example.even_to.model.Service;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -167,34 +173,51 @@ public class AddServiceImage extends AppCompatActivity {
                         Log.d("CHECK", "onFailure: " + e.getMessage());
                     }
                 });
-
-
     }
 
-
-    private void UploadImageToFirestore(String imageUri) {
+    private void UploadImageToFirestore(final String imageUri) {
         //get the user id
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        serviceRef = dbInstance
-                .collection("services").document(auth.getCurrentUser().getUid())
-                .collection("myServices").document(mCategory);
+        final String userId = auth.getCurrentUser().getUid();
+        final Query mQuery = dbInstance.collection("services")
+                .whereEqualTo("category", mCategory).whereEqualTo("userId", userId).limit(1);
 
-        Map<String, Object> photo = new HashMap<>();
-        photo.put("imageUri", imageUri);
-        serviceRef.set(photo, SetOptions.merge())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        mQuery.get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(AddServiceImage.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                       for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                           Service nService = documentSnapshot.toObject(Service.class);
+                           nService.setDocumentId(documentSnapshot.getId());
+                           String docId = nService.getDocumentId();
+                           serviceRef = dbInstance
+                                   .collection("services").document(docId);
+
+                           Map<String, Object> photo = new HashMap<>();
+                           photo.put(Service.KEY_LOGO, imageUri);
+                           serviceRef.set(photo, SetOptions.merge())
+                                   .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                       @Override
+                                       public void onSuccess(Void aVoid) {
+                                           Toast.makeText(AddServiceImage.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+                                       }
+                                   })
+                                   .addOnFailureListener(new OnFailureListener() {
+                                       @Override
+                                       public void onFailure(@NonNull Exception e) {
+                                           Log.d(TAG, e.toString());
+                                       }
+                                   });
+                           break;
+                       }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, e.toString());
+                        Toast.makeText(AddServiceImage.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
-
 }

@@ -6,25 +6,17 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.even_to.LoginAndSignup.LoginActivity;
+import com.example.even_to.MainHomeScreen;
 
 public class SharedPref {
-
-    // creating shared preferences file
     private SharedPreferences sharedPreferences;
-
-    // to edit the shared preferences file
     private SharedPreferences.Editor editor;
-
-    // Context will pass the reference to other class
     private Context context;
 
     // name of the SP file
     private String FileName = "sharedPrefFile";
-
-    // A boolean variable: true, if key present; false, if key not present
     private String Remember;
-
-    // Constructor that will save memory for file during runtime
+    public static final String KEY_PROFILE_UPDATED = "profileUpdated";
 
 
     public SharedPref(Context context) {
@@ -33,14 +25,22 @@ public class SharedPref {
         editor = sharedPreferences.edit();
     }
 
+    public void setProfileDefault(){
+        editor.putBoolean(KEY_PROFILE_UPDATED, false);
+        editor.apply();
+    }
+    public void setProfileStatus(){
+        editor.putBoolean(KEY_PROFILE_UPDATED, true);
+        editor.apply();
+    }
+    public boolean getProfileStatus() {
+        return sharedPreferences.getBoolean(KEY_PROFILE_UPDATED, false);
+    }
 
     // If a user is opening application for second time, after logging In in first time
     public void setRememberSecond() {
         editor.putString("Remember", "true");
         editor.apply();
-        String demo = sharedPreferences.getString("Remember", "dumb");
-        Log.i("TEST", demo + "inside set Remember second");
-
     }
 
     // If the user logs in freshly
@@ -60,8 +60,6 @@ public class SharedPref {
     public void setDefault() {
         editor.putString("Remember", "false");
         editor.apply();
-        String demo = sharedPreferences.getString("Remember", "dummyValue");
-        //Log.i("TEST", demo + "inside set default");
     }
 
     public String getRemember() {

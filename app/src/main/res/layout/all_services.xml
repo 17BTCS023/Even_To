@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0"
     android:orientation="vertical"
     tools:context=".CategoriesServiceProvidersList.AllServices">
 
@@ -101,15 +101,21 @@
         android:scrollbars="vertical"
         tools:listitem="@layout/item_service" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/filter_bar_container"
+        android:backgroundTint="#E0E0E0">
 
-    <ImageView
-        android:id="@+id/view_empty"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:src="@drawable/no_match_found_guy"
-        android:visibility="gone"
-        tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/view_empty"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:src="@drawable/no_match_found_guy"
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

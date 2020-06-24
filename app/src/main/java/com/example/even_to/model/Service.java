@@ -6,7 +6,7 @@ package com.example.even_to.model;
 
 public class Service {
 
-    public Service(){
+    public Service() {
 
     }
 
@@ -33,29 +33,25 @@ public class Service {
     private String capacity;
     private double avgRating;
 
-    private int phoneNumber,numRatings;
+    public String documentId, userId;
+
+    private String phoneNumber;
+    int numRatings;
 
 
-    public Service(String name, String type, String category, String description, String experience,
-                   String imageLogo, String link, double avgRating,
-                   int phoneNumber, int numRatings, String city, String capacity)
-    {
+    public Service(String name, String phoneNumber, String type, String capacity, String category, String experience, String link, String description, String city, String userId) {
         this.name = name;
+        this.phoneNumber =phoneNumber;
         this.type = type;
-        this.category = category;
-        this.description = description;
-        this.experience = experience;
-        this.imageLogo = imageLogo;
-        this.link = link;
-        this.avgRating = avgRating;
-        this.phoneNumber = phoneNumber;
-        this.numRatings = numRatings;
-        this.city = city;
         this.capacity = capacity;
+        this.category = category;
+        this.experience = experience;
+        this.link = link;
+        this.description = description;
+        this.city = city;
+        this.userId = userId;
 
     }
-
-
 
     public String getName() {
         return name;
@@ -121,11 +117,11 @@ public class Service {
         this.avgRating = mAvgRating;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -136,6 +132,7 @@ public class Service {
     public void setNumRatings(int numRatings) {
         this.numRatings = numRatings;
     }
+
     public String getCity() {
         return city;
     }
@@ -143,6 +140,7 @@ public class Service {
     public void setCity(String city) {
         this.city = city;
     }
+
     public String getCapacity() {
         return capacity;
     }
@@ -151,4 +149,11 @@ public class Service {
         this.capacity = capacity;
     }
 
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
 }

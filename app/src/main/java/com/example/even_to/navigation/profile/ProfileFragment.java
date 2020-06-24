@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.even_to.R;
+import com.example.even_to.model.User;
+import com.example.even_to.utils.SharedPref;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
@@ -38,13 +40,6 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class ProfileFragment extends Fragment {
 
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private boolean IMAGE_UPLOADED = false;
-    private boolean USER_ATTACHED_FILE = false;
-    String displayNameOfFile, imageUri;
-    private Uri selectedImageUri, downloadedImageUri;
-    UploadTask UploadTask;
-
     //constructor
     public ProfileFragment() {
         // simply
@@ -55,14 +50,15 @@ public class ProfileFragment extends Fragment {
     TextInputEditText mFullName, mPhoneNumber,  mLocation, mAbout, mOccupation;
     MaterialButton mUpdateProfile;
     TextView mDisplayName, mDisplayAbout, mDisplayOccupation;
-    FirebaseDatabase firebaseDatabase;
     FloatingActionButton mSelectProfilePic;
-    //getting reference for StorageReference
     StorageReference mStorageReference;
 
+    SharedPref sharedPref;
+
     private static final String TAG = "ProfileFragment";
-    private static final String KEY_NAME = "fullname";
-    private static final String KEY_PHONE_NO = "phone";
+
+    private static final String KEY_NAME = "name";
+    private static final String KEY_PHONE_NO = "phoneNumber";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_USER_ID = "userId";
     private static final String KEY_LOCATION = "location";
@@ -81,6 +77,8 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the Profile fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        sharedPref = new SharedPref(getContext().getApplicationContext());
 
         mProfilePic = view.findViewById(R.id.user_profile_pic);
         mFullName = view.findViewById(R.id.user_profile_full_name);
@@ -119,29 +117,20 @@ public class ProfileFragment extends Fragment {
 
 
     private void UpdateProfile() {
-        String dbFullName, dbPhoneNumber, dbEmail, dbPassword, dbLocation, dbAbout, dbOccupation;
+        String dbFullName, dbPhoneNumber, dbLocation, dbAbout, dbOccupation;
         dbFullName = mFullName.getText().toString().trim();
         dbPhoneNumber = mPhoneNumber.getText().toString().trim();
-//                dbEmail = mEmail.getText().toString().trim();
-//                dbPassword =mPassword.getText().toString().trim();;
         dbLocation = mLocation.getText().toString().trim();
         dbAbout = mAbout.getText().toString().trim();
         dbOccupation = mOccupation.getText().toString().trim();
+        userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        Log.d(TAG, "onClick: " + dbFullName + ", " + dbAbout
-                + ",  + dbEmail" + ", " + dbLocation
-                + ",  + dbPassword " + ", " + dbPhoneNumber + ", " + dbOccupation);
+        //Log.d(TAG, "onClick: " + dbFullName + ", " + dbAbout + ",  + dbEmail" + ", " + dbLocation + ",  + dbPassword " + ", " + dbPhoneNumber + ", " + dbOccupation);
 
-        HashMap<String, Object> profile = new HashMap<>();
-        profile.put(KEY_NAME, dbFullName);
-        profile.put(KEY_EMAIL, FirebaseAuth.getInstance().getCurrentUser().getEmail());
-        profile.put(KEY_USER_ID, FirebaseAuth.getInstance().getCurrentUser().getUid());
-        profile.put(KEY_PHONE_NO, dbPhoneNumber);
-        profile.put(KEY_LOCATION, dbLocation);
-        profile.put(KEY_ABOUT, dbAbout);
-        profile.put(KEY_OCCUPATION, dbOccupation);
+        User user = new User(dbFullName, userEmail, userId, dbPhoneNumber, dbAbout, dbOccupation, dbLocation);
 
-        profileReference.set(profile)
+        profileReference.set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -172,17 +161,16 @@ public class ProfileFragment extends Fragment {
                             mFullName.setText((CharSequence) loadedProfile.get(KEY_NAME));
                             mAbout.setText((CharSequence) loadedProfile.get(KEY_ABOUT));
                             mDisplayAbout.setText((CharSequence) loadedProfile.get(KEY_ABOUT));
-//                            mEmail.setText((CharSequence) loadedProfile.get(KEY_EMAIL));
-//                            mPassword.setText((CharSequence) loadedProfile.get(KEY_PASSWORD));
                             mPhoneNumber.setText((CharSequence) loadedProfile.get(KEY_PHONE_NO));
                             mLocation.setText((CharSequence) loadedProfile.get(KEY_LOCATION));
                             mOccupation.setText((CharSequence) loadedProfile.get(KEY_OCCUPATION));
                             mDisplayOccupation.setText((CharSequence) loadedProfile.get(KEY_OCCUPATION));
 
-                            if (loadedProfile.containsKey("photo")) {
+                            if (loadedProfile.containsKey(KEY_PROFILE_PIC)) {
                                 Glide.with(mProfilePic.getContext())
                                         .load(loadedProfile.get(KEY_PROFILE_PIC))
                                         .into(mProfilePic);
+                                sharedPref.setProfileStatus();
                             }
 
                         } else {
