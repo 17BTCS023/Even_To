@@ -93,12 +93,12 @@ public class ServiceDetailActivity extends AppCompatActivity implements
 
         userId = auth.getUid();
 
-        mAddReview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onAddRatingClicked(v);
-            }
-        });
+//        mAddReview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onAddRatingClicked(v);
+//            }
+//        });
 
         // Get service ID from extras
         serviceId = getIntent().getStringExtra(KEY_SERVICE_ID);

@@ -13,7 +13,7 @@
         android:elevation="4dp">
 
         <ImageView
-            android:id="@+id/service_detail_image"
+            android:id="@+id/order_detail_image"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:alpha="1.0"
@@ -27,7 +27,7 @@
             android:background="@drawable/gradient_up" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/service_detail_name"
+            android:id="@+id/order_detail_name"
             style="@style/AppTheme.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,34 +38,34 @@
             tools:text="Some Restaurant" />
 
         <RatingBar
-            android:id="@+id/service_detail_rating"
+            android:id="@+id/order_detail_rating"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/service_detail_name"
-            android:layout_alignStart="@+id/service_detail_name"
+            android:layout_below="@id/order_detail_name"
+            android:layout_alignStart="@+id/order_detail_name"
             />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/service_detail_num_ratings"
+            android:id="@+id/order_detail_num_ratings"
             style="@style/AppTheme.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/service_detail_rating"
-            android:layout_alignBottom="@+id/service_detail_rating"
+            android:layout_alignTop="@+id/order_detail_rating"
+            android:layout_alignBottom="@+id/order_detail_rating"
             android:layout_marginStart="4dp"
-            android:layout_toEndOf="@+id/service_detail_rating"
+            android:layout_toEndOf="@+id/order_detail_rating"
             android:gravity="center"
             android:textColor="@android:color/white"
             tools:text="(10)" />
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/service_detail_category"
+            android:id="@+id/order_detail_category"
             style="@style/AppTheme.Subheader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/service_detail_rating"
+            android:layout_below="@id/order_detail_rating"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
@@ -73,30 +73,30 @@
             tools:text="Italian" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/service_city_divider"
+            android:id="@+id/order_city_divider"
             style="@style/AppTheme.TextDivider"
-            android:layout_alignTop="@+id/service_detail_category"
-            android:layout_toEndOf="@+id/service_detail_category"
+            android:layout_alignTop="@+id/order_detail_category"
+            android:layout_toEndOf="@+id/order_detail_category"
             android:text="•"
             android:textColor="@android:color/white" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/service_detail_city"
+            android:id="@+id/order_detail_city"
             style="@style/AppTheme.Subheader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/service_detail_category"
-            android:layout_alignTop="@+id/service_detail_category"
-            android:layout_toEndOf="@+id/service_city_divider"
+            android:layout_below="@+id/order_detail_category"
+            android:layout_alignTop="@+id/order_detail_category"
+            android:layout_toEndOf="@+id/order_city_divider"
             android:textColor="@android:color/white"
             tools:text="San Francisco" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/service_detail_contact_number"
+            android:id="@+id/order_detail_contact_number"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/service_detail_category"
+            android:layout_below="@+id/order_detail_category"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:drawableStart="@drawable/ic_profile_phone"
@@ -106,11 +106,11 @@
             android:textColor="@android:color/white" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/service_detail_website_link"
+            android:id="@+id/order_detail_website_link"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/service_detail_contact_number"
+            android:layout_below="@id/order_detail_contact_number"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:drawableStart="@drawable/ic_profile_link"
@@ -121,11 +121,11 @@
             android:textColor="@android:color/white" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/service_detail_experience"
+            android:id="@+id/order_detail_experience"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/service_detail_website_link"
+            android:layout_below="@id/order_detail_website_link"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -138,73 +138,56 @@
 
     </RelativeLayout>
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab_service_detail_add_review"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignBottom="@id/service_top_card"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:layout_marginBottom="-15dp"-->
-<!--        app:backgroundTint="#FF1744"-->
-<!--        app:rippleColor="#00E676"-->
-<!--        app:srcCompat="@drawable/add_service" />-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/fab_service_detail_add_review"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignBottom="@id/service_top_card"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:layout_marginBottom="-15dp"-->
+    <!--        app:backgroundTint="#FF1744"-->
+    <!--        app:rippleColor="#00E676"-->
+    <!--        app:srcCompat="@drawable/add_service" />-->
 
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/service_detail_description"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/order_top_card"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="8dp"
-        android:drawablePadding="10dp"
-        android:text="@string/service_description" />
 
 <!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:id="@+id/service_detail_options_array"-->
+<!--        android:id="@+id/order_detail_description"-->
 <!--        style="@style/TextAppearance.AppCompat.Body1"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/service_detail_description"-->
-<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_below="@id/order_top_card"-->
+<!--        android:layout_marginTop="10dp"-->
 <!--        android:layout_marginStart="8dp"-->
-<!--        android:drawableStart="@drawable/ic_menu_order"-->
 <!--        android:drawablePadding="10dp"-->
-<!--        android:drawableTint="@color/black"-->
-<!--        android:inputType="text"-->
-<!--        tools:text="Inidan , Chinese, Korean, Indian street" />-->
+<!--        android:text="@string/service_description" />-->
+
+    <!--    <com.google.android.material.textview.MaterialTextView-->
+    <!--        android:id="@+id/service_detail_options_array"-->
+    <!--        style="@style/TextAppearance.AppCompat.Body1"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/service_detail_description"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:layout_marginStart="8dp"-->
+    <!--        android:drawableStart="@drawable/ic_menu_order"-->
+    <!--        android:drawablePadding="10dp"-->
+    <!--        android:drawableTint="@color/black"-->
+    <!--        android:inputType="text"-->
+    <!--        tools:text="Inidan , Chinese, Korean, Indian street" />-->
 
     <!-- Buttons -->
-
-    <LinearLayout
-        android:id="@+id/option_buttons"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_show_rating_dialog"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/service_detail_description"
-        android:orientation="horizontal">
+        android:layout_alignBottom="@+id/order_top_card"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        app:rippleColor="@color/colorPrimary"
+        android:layout_marginBottom="-28dp"
+        app:srcCompat="@drawable/add_service" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/service_detail_hire"
-            style="?attr/borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/greyDisabled"
-            android:textColor="@color/design_default_color_primary"
-            android:text="@string/action_hire" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_view_service_provider_profile"
-            style="?attr/borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/action_view_service_provider_profile"
-            android:textColor="@color/colorPrimary" />
-    </LinearLayout>
 
     <!-- Ratings -->
     <androidx.recyclerview.widget.RecyclerView
@@ -212,7 +195,7 @@
         android:id="@+id/recycler_ratings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/option_buttons"
+        android:layout_below="@+id/fab_show_rating_dialog"
         android:background="@android:color/transparent"
         android:clipToPadding="false"
         android:paddingTop="28dp"
@@ -225,7 +208,7 @@
         android:id="@+id/view_empty_ratings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/option_buttons"
+        android:layout_below="@+id/fab_show_rating_dialog"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#E0E0E0"

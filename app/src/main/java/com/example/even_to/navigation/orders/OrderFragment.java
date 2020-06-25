@@ -163,7 +163,7 @@ public class OrderFragment extends Fragment implements
 
     @Override
     public void onViewProfileClick(DocumentSnapshot order) {
-        Intent intent = new Intent(getContext(), ServiceDetailActivity.class);
+        Intent intent = new Intent(getContext(), OrderDetailActivity.class);
         Order order1 = order.toObject(Order.class);
         String serviceId = order1.getDocumentId();
         intent.putExtra("serviceId", serviceId);

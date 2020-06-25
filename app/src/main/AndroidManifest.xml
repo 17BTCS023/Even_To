@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".navigation.profile.SelectProfilePic"></activity>
+        <activity android:name=".navigation.orders.OrderDetailActivity"></activity>
+        <activity android:name=".navigation.profile.SelectProfilePic" />
         <activity android:name=".CategoriesServiceProvidersList.Ratings.ServiceDetailActivity" />
         <activity android:name=".navigation.services.newService.AddServiceImage" />
         <activity android:name=".CategoriesServiceProvidersList.CategorySelection.SelectCategory" />
