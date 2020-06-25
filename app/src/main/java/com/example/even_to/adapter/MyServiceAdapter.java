@@ -55,7 +55,6 @@ public class MyServiceAdapter extends FirestoreAdapter<MyServiceAdapter.ViewHold
             super(itemView);
             imageView = itemView.findViewById(R.id.service_detail_image);
             nameView = itemView.findViewById(R.id.service_detail_name);
-            edit = itemView.findViewById(R.id.fab_service_detail_add_review);
             descriptionView = itemView.findViewById(R.id.service_detail_description);
             linkView = itemView.findViewById(R.id.service_detail_website_link);
             categoryView = itemView.findViewById(R.id.service_detail_category);

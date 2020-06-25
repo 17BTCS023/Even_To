@@ -161,4 +161,13 @@ public class Service {
     public void setDocumentId(String documentId) {
         this.documentId = documentId;
     }
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

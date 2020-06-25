@@ -138,17 +138,17 @@
 
     </RelativeLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_service_detail_add_review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/service_top_card"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="-15dp"
-        app:backgroundTint="#FF1744"
-        app:rippleColor="#00E676"
-        app:srcCompat="@drawable/add_service" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fab_service_detail_add_review"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignBottom="@id/service_top_card"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginBottom="-15dp"-->
+<!--        app:backgroundTint="#FF1744"-->
+<!--        app:rippleColor="#00E676"-->
+<!--        app:srcCompat="@drawable/add_service" />-->
 
 
     <com.google.android.material.textview.MaterialTextView
@@ -156,7 +156,7 @@
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fab_service_detail_add_review"
+        android:layout_below="@id/service_top_card"
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
         android:drawablePadding="10dp"
@@ -176,23 +176,35 @@
 <!--        android:inputType="text"-->
 <!--        tools:text="Inidan , Chinese, Korean, Indian street" />-->
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/service_detail_hire"
-        android:layout_width="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+    <!-- Buttons -->
+
+    <LinearLayout
+        android:id="@+id/option_buttons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/service_detail_description"
-        android:layout_margin="8dp"
-        android:layout_marginTop="8dp"
-        android:textColor="#FF1744"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="@string/hire"
-        android:textAlignment="center"
-        android:backgroundTint="@android:color/transparent"
-        android:textSize="18sp"
-        app:rippleColor="@color/greySecondary" />
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/service_detail_hire"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/greyDisabled"
+            android:textColor="@color/design_default_color_primary"
+            android:text="@string/action_hire" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_view_service_provider_profile"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/action_view_service_provider_profile"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
 
     <!-- Ratings -->
     <androidx.recyclerview.widget.RecyclerView
@@ -200,7 +212,7 @@
         android:id="@+id/recycler_ratings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/service_detail_hire"
+        android:layout_below="@+id/option_buttons"
         android:background="@android:color/transparent"
         android:clipToPadding="false"
         android:paddingTop="28dp"
@@ -213,7 +225,7 @@
         android:id="@+id/view_empty_ratings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/service_detail_hire"
+        android:layout_below="@+id/option_buttons"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#E0E0E0"
@@ -231,7 +243,7 @@
             style="@style/AppTheme.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/message_no_reviews"
+            android:text="@string/message_not_hired_review"
             android:textColor="@color/greyDisabled" />
 
     </LinearLayout>

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.even_to.CategoriesServiceProvidersList.ServiceProviderProfile;
 import com.example.even_to.R;
 import com.example.even_to.adapter.RatingAdapter;
 import com.example.even_to.model.Order;
@@ -40,7 +42,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 
 public class ServiceDetailActivity extends AppCompatActivity implements
-        View.OnClickListener,
         EventListener<DocumentSnapshot>,
         RatingDialogFragment.RatingListener {
     private static final String TAG = "ServiceDetail";
@@ -50,7 +51,7 @@ public class ServiceDetailActivity extends AppCompatActivity implements
     private ImageView mImageView;
     private RatingBar mRatingIndicator;
     private MaterialTextView mNameView, mNumRatingsView, mCityView, mContactView, mWebsiteView, mCategoryView, mDescriptionView, mOptionsView, mExperienceView;
-    private MaterialButton mHire;
+    private MaterialButton mHire, mViewProfile;
     FloatingActionButton mAddReview;
 
 
@@ -82,12 +83,13 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         mWebsiteView = findViewById(R.id.service_detail_website_link);
         mCategoryView = findViewById(R.id.service_detail_category);
         mDescriptionView = findViewById(R.id.service_detail_description);
-//        mOptionsView = findViewById(R.id.service_detail_options_array);
         mExperienceView = findViewById(R.id.service_detail_experience);
+
         mHire = findViewById(R.id.service_detail_hire);
+        mViewProfile = findViewById(R.id.btn_view_service_provider_profile);
+
         mEmptyView = findViewById(R.id.view_empty_ratings);
         mRatingsRecycler = findViewById(R.id.recycler_ratings);
-        mAddReview = findViewById(R.id.fab_service_detail_add_review);
 
         userId = auth.getUid();
 
@@ -114,6 +116,12 @@ public class ServiceDetailActivity extends AppCompatActivity implements
                 hire();
             }
         });
+        mViewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProfile();
+            }
+        });
 
 
         // Get ratings
@@ -138,6 +146,13 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         mRatingsRecycler.setAdapter(mRatingAdapter);
 
         mRatingDialog = new RatingDialogFragment();
+    }
+
+    private void showProfile() {
+        Intent intent = new Intent(ServiceDetailActivity.this, ServiceProviderProfile.class);
+        String serviceUserId = service.getUserId();
+        intent.putExtra("serviceUserId", serviceUserId);
+        startActivity(intent);
     }
 
     private void hire() {
@@ -179,18 +194,6 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         if (mServiceRegistration != null) {
             mServiceRegistration.remove();
             mServiceRegistration = null;
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fab_service_detail_add_review:
-
-                break;
-            case R.id.service_detail_hire:
-                Toast.makeText(this, "Hired!", Toast.LENGTH_SHORT).show();
-
         }
     }
 
@@ -257,7 +260,6 @@ public class ServiceDetailActivity extends AppCompatActivity implements
     }
 
     private void onServiceLoaded(Service service) {
-
         mNameView.setText(service.getName());
         mRatingIndicator.setRating((float) service.getAvgRating());
         mNumRatingsView.setText(getString(R.string.fmt_num_ratings, service.getNumRatings()));

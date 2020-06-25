@@ -29,14 +29,11 @@ public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder>{
 
     }
 
-
     private OnOrderSelectedListener mListener;
-
     public OrderAdapter(Query query, OnOrderSelectedListener listener) {
         super(query);
         this.mListener = listener;
     }
-
 
     @NonNull
     @Override
@@ -44,7 +41,6 @@ public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder>{
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         return new ViewHolder(inflater.inflate(R.layout.order_item, parent, false));
     }
-
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder, int position) {
         holder.bind(getSnapshot(position), mListener);
@@ -61,7 +57,6 @@ public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder>{
             super(itemView);
             imageView = itemView.findViewById(R.id.service_detail_image);
             nameView = itemView.findViewById(R.id.service_detail_name);
-            edit = itemView.findViewById(R.id.fab_service_detail_add_review);
             mUnHire = itemView.findViewById(R.id.btn_unhire);
             mViewService = itemView.findViewById(R.id.btn_view_service);
             descriptionView = itemView.findViewById(R.id.service_detail_description);

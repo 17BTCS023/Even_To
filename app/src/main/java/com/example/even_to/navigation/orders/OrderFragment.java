@@ -124,7 +124,7 @@ public class OrderFragment extends Fragment implements
         Log.d(TAG, "onUnHireClick: REACHED INSIDE UNHIRING");
         dbInstance.collection("orders")
                 .whereEqualTo("userId", order.get("userId"))
-                .whereEqualTo("documentId",order.get("documentId"))
+                .whereEqualTo("documentId", order.get("documentId"))
                 .limit(1)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -166,7 +166,7 @@ public class OrderFragment extends Fragment implements
         Intent intent = new Intent(getContext(), ServiceDetailActivity.class);
         Order order1 = order.toObject(Order.class);
         String serviceId = order1.getDocumentId();
-        intent.putExtra("serviceId", serviceId );
+        intent.putExtra("serviceId", serviceId);
         startActivity(intent);
     }
 
