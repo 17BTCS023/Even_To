@@ -71,7 +71,7 @@ public class MyServiceAdapter extends FirestoreAdapter<MyServiceAdapter.ViewHold
             serviceModel.setImageLogo((String) snapshot.get(Service.KEY_LOGO));
             Resources resources = itemView.getResources();
 
-            Log.d("MANNU!!!", "bind: " +"uri :" +serviceModel.getImageLogo()+
+            Log.d("M!!!", "bind: " +"uri :" +serviceModel.getImageLogo()+
                     "\nname:"+ serviceModel.getName()+
                     "\ncity: " +serviceModel.getCity()+
                     "\ncategory: " + serviceModel.getCategory()+
@@ -91,7 +91,15 @@ public class MyServiceAdapter extends FirestoreAdapter<MyServiceAdapter.ViewHold
             linkView.setText(serviceModel.getLink());
             contactView.setText(String.valueOf(serviceModel.getPhoneNumber()));
 
-
+//            // Click listener
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (listener != null) {
+//                        listener.onRestaurantSelected(snapshot);
+//                    }
+//                }
+//            });
         }
 
     }

@@ -1,5 +1,7 @@
 package com.example.even_to.adapter;
 
+import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,58 +11,95 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.even_to.R;
 import com.example.even_to.model.Order;
+import com.example.even_to.model.Service;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 
-public class OrderAdapter extends RecyclerView.Adapter{
+public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder>{
 
+    public OrderAdapter(Query query) {
+        super(query);
+    }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_order_list_item, parent, false);
-        return new ListViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        return new ViewHolder(inflater.inflate(R.layout.order_item, parent, false));
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ListViewHolder) holder).bindView(position);
+    public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder, int position) {
+//        holder.bind(getSnapshot(position), mListener);
+        holder.bind(getSnapshot(position));
     }
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-    @Override
-    public int getItemCount() {
-        return Order.ServiceProviderImages.length;
-    }
-    private class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView mServiceProviderImage;
-        private TextView mServiceProviderName, mServiceProviderCategory, mServiceProviderDescription;
-        private MaterialButton mActionChat, mActionUnhire;
+        ImageView imageView;
+        TextView nameView, descriptionView, linkView, categoryView, cityView, contactView;
+        FloatingActionButton edit;
+        MaterialButton mUnHire, mViewService;
 
-        public ListViewHolder(View itemView){
+
+        public ViewHolder(View itemView) {
             super(itemView);
-            mServiceProviderImage = itemView.findViewById(R.id.service_provider_image);
-            mServiceProviderName = itemView.findViewById(R.id.service_provider_name);
-            mServiceProviderCategory =  itemView.findViewById(R.id.service_provider_category);
-            mServiceProviderDescription =  itemView.findViewById(R.id.service_detail_description);
-            mActionChat =  itemView.findViewById(R.id.service_provider_chat);
-            mActionUnhire =   itemView.findViewById(R.id.service_provider_unhire);
-            itemView.setOnClickListener(this);
+            imageView = itemView.findViewById(R.id.service_detail_image);
+            nameView = itemView.findViewById(R.id.service_detail_name);
+            edit = itemView.findViewById(R.id.fab_service_detail_add_review);
+            mUnHire = itemView.findViewById(R.id.btn_unhire);
+            mViewService = itemView.findViewById(R.id.btn_view_service);
+            descriptionView = itemView.findViewById(R.id.service_detail_description);
+            linkView = itemView.findViewById(R.id.service_detail_website_link);
+            categoryView = itemView.findViewById(R.id.service_detail_category);
+            cityView = itemView.findViewById(R.id.service_detail_city);
+            contactView = itemView.findViewById(R.id.service_detail_contact_number);
+        }
+        public void bind(final DocumentSnapshot snapshot) {
+
+            Order order = snapshot.toObject(Order.class);
+            order.setImageLogo((String) snapshot.get(Service.KEY_LOGO));
+            Resources resources = itemView.getResources();
+
+            Log.d("M!!!", "bind: " +"uri :" +order.getImageLogo()+
+                    "\nname:"+ order.getName()+
+                    "\ncity: " +order.getCity()+
+                    "\ncategory: " + order.getCategory()+
+                    "\ndescription" + order.getDescription()+
+                    "\nlink: " + order.getLink()+
+                    "\ncontact: "+ order.getPhoneNumber()) ;
+
+            assert order != null;
+            Glide.with(imageView.getContext())
+                    .load(order.getImageLogo())
+                    .into(imageView);
+
+            nameView.setText(order.getName());
+            cityView.setText(order.getCity());
+            categoryView.setText(order.getCategory());
+            descriptionView.setText(order.getDescription());
+            linkView.setText(order.getLink());
+            contactView.setText(String.valueOf(order.getPhoneNumber()));
+
+//            // Click listener
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (listener != null) {
+//                        listener.onOrderSelected(snapshot);
+//                    }
+//                }
+//            });
         }
 
-        public void bindView(int position){
-            mServiceProviderImage.setImageResource(Order.ServiceProviderImages[position]);
-            mServiceProviderName.setText(Order.ServiceProviderName[position]);
-            mServiceProviderDescription.setText(Order.ServiceProviderDescription[position]);
-            mServiceProviderCategory.setText(Order.ServiceProviderCategory[position]);
-        }
-
-        @Override
-        public void onClick(View v) {
-
-        }
     }
 }
+
 
 
 

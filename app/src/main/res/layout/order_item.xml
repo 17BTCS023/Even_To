@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/ordered_service_top_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/service_item"/>
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/ordered_service_top_card">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_unhire"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#73A89B"
+            android:text="@string/action_unhire" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_view_service"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#7B60B5"
+            android:text="VIEW SERVICE" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -43,12 +43,13 @@
     <string name="divider_bullet">•</string>
 
     <string name="value_any_category_food">All Categories</string>
-    <string name="value_any_category_drinks">All drinks</string>
-    <string name="value_any_category_bakery">All bakery </string>
-    <string name="value_any_category_gifts">All Gifts</string>
-    <string name="value_any_category_decor">All Decor</string>
-    <string name="value_any_category_photo">All Photography</string>
+    <string name="value_any_category_drinks">All Categories</string>
+    <string name="value_any_category_bakery">All Categories</string>
+    <string name="value_any_category_gifts">All Categories</string>
+    <string name="value_any_category_decor">All Categories</string>
+    <string name="value_any_category_photo">All Categories</string>
     <string name="value_any_city">Anywhere</string>
+    <string name="value_any_type">Any Type</string>
     <string name="value_any_experience">Any Experience</string>
     <string name="value_any_capacity">Any Capacity </string>
 
@@ -103,6 +104,7 @@
     <string name="submit">Submit</string>
     <string name="filter_add_review">Add review</string>
     <string name="hire">Hire</string>
+    <string name="rate">RATE</string>
 
     <string-array name="food_sub_categories">
         <item>@string/value_any_category_food</item>
@@ -194,7 +196,7 @@
         <item>@string/value_any_city</item>
 
         <item>Ahemdabad</item>
-        <item>Banaglore</item>
+        <item>Bangalore</item>
         <item>Chennai</item>
         <item>Hydrerabad</item>
         <item>Kolkata</item>

@@ -20,6 +20,11 @@ public class Service {
     public static final String KEY_WEBSITE_URL = "link";
     public static final String KEY_NUMBER_RATINGS = "numRatings";
     public static final String KEY_AVG_RATING = "avgRating";
+    public static final String KEY_CITY = "city";
+    public static final String KEY_USER_ID = "userId";
+    public static final String KEY_DOCUMENT_ID = "documentId";
+
+
     public static final String KEY_CAPACITY = "capacity";
 
     private String name;

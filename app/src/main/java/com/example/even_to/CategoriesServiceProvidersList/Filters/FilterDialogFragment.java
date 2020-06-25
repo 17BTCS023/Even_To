@@ -35,7 +35,7 @@ public class FilterDialogFragment extends DialogFragment {
     private Spinner mSortSpinner;
     private Spinner mCapacitySpinner;
     private Spinner mExperienceSpinner;
-    Button mCancel , mApplyFilter;
+    Button mCancel, mApplyFilter;
     private FilterListener mFilterListener;
 
     @Nullable
@@ -55,17 +55,17 @@ public class FilterDialogFragment extends DialogFragment {
         String category = getArguments().getString("category");
 
         assert category != null;
-        switch (category){
+        switch (category) {
 
-            case "Food" :
+            case "Food":
                 ArrayAdapter foodAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getFoodSubCategory());
                 mTypeSpinner.setAdapter(foodAdapter);
                 break;
-                case "Drinks":
+            case "Drinks":
                 ArrayAdapter drinkAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getDrinksSubCategory());
-                    mTypeSpinner.setAdapter(drinkAdapter);
+                mTypeSpinner.setAdapter(drinkAdapter);
                 break;
-            case "Bakery" :
+            case "Bakery":
                 ArrayAdapter bakeryAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getBakerySubCategory());
                 mTypeSpinner.setAdapter(bakeryAdapter);
                 break;
@@ -73,7 +73,7 @@ public class FilterDialogFragment extends DialogFragment {
                 ArrayAdapter giftAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getGiftSubCategory());
                 mTypeSpinner.setAdapter(giftAdapter);
                 break;
-            case "Decor" :
+            case "Decor":
                 ArrayAdapter decorAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, cat.getDecorSubCategory());
                 mTypeSpinner.setAdapter(decorAdapter);
                 break;

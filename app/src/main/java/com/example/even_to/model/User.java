@@ -5,7 +5,7 @@ public class User {
     private static final String KEY_NAME = "name";
     private static final String KEY_PHONE_NO = "phone";
     private static final String KEY_EMAIL = "email";
-    private static final String KEY_USER_ID = "userId";
+    public static final String KEY_USER_ID = "userId";
     private static final String KEY_LOCATION = "location";
     private static final String KEY_ABOUT = "about";
     private static final String KEY_OCCUPATION = "occupation";

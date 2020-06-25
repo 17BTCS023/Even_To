@@ -15,7 +15,8 @@ public class Filters {
     private String sortBy = null;
     private Query.Direction sortDirection = null;
 
-    public Filters() {}
+    public Filters() {
+    }
 
 
     public static Filters getDefault() {
@@ -26,7 +27,7 @@ public class Filters {
         return filters;
     }
 
-    public boolean hasCategory() {
+    public boolean hasType() {
         return !(TextUtils.isEmpty(type));
     }
 
@@ -35,15 +36,17 @@ public class Filters {
     }
 
     public boolean hasExperience() {
-        return  !(TextUtils.isEmpty(experience)) ;
+        return !(TextUtils.isEmpty(experience));
     }
+
     public boolean hasCapacity() {
-        return  !(TextUtils.isEmpty(capacity)) ;
+        return !(TextUtils.isEmpty(capacity));
     }
 
     public boolean hasSortBy() {
         return !(TextUtils.isEmpty(sortBy));
     }
+
 
     public String getType() {
         return type;
@@ -68,6 +71,7 @@ public class Filters {
     public void setExperience(String experience) {
         this.experience = experience;
     }
+
     public String getCapacity() {
         return capacity;
     }
@@ -84,6 +88,7 @@ public class Filters {
     public void setSortBy(String sortBy) {
         this.sortBy = sortBy;
     }
+
 
     public Query.Direction getSortDirection() {
         return sortDirection;
@@ -117,22 +122,22 @@ public class Filters {
             desc.append(city);
             desc.append("</b>");
         }
-        if (type != null && city != null && experience!= null) {
-            desc.append(" with exp ");
+        if (type != null && city != null && experience != null) {
+            desc.append(" has ");
         }
         if (experience != null) {
             desc.append(" for ");
             desc.append("<b>");
-            desc.append(experience );
+            desc.append(experience + " exp");
             desc.append("</b>");
         }
-        if (type != null && city != null && experience!= null && capacity != null) {
-            desc.append(" capacity ");
+        if (type != null && city != null && experience != null && capacity != null) {
+            desc.append(" of ");
         }
-        if (capacity!= null) {
+        if (capacity != null) {
             desc.append(" for ");
             desc.append("<b>");
-            desc.append(capacity);
+            desc.append(capacity + " size");
             desc.append("</b>");
         }
 
@@ -142,14 +147,11 @@ public class Filters {
     public String getOrderDescription(Context context) {
         if (Service.KEY_EXPERIENCE.equals(sortBy)) {
             return context.getString(R.string.sorted_by_experience);
-        }
-        else if (Service.KEY_NUMBER_RATINGS.equals(sortBy)) {
+        } else if (Service.KEY_NUMBER_RATINGS.equals(sortBy)) {
             return context.getString(R.string.sorted_by_place);
-        }
-        else if (Service.KEY_CAPACITY.equals(sortBy)) {
+        } else if (Service.KEY_CAPACITY.equals(sortBy)) {
             return context.getString(R.string.sorted_by_capacity);
-        }
-        else {
+        } else {
             return context.getString(R.string.sorted_by_rating);
         }
     }

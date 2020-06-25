@@ -46,10 +46,10 @@ public class ServiceDetailActivity extends AppCompatActivity implements
     private static final String TAG = "ServiceDetail";
 
     public static final String KEY_SERVICE_ID = "serviceId";
-
+    Service service;
     private ImageView mImageView;
     private RatingBar mRatingIndicator;
-    private MaterialTextView mNameView,mNumRatingsView, mCityView,mContactView,mWebsiteView, mCategoryView,mDescriptionView, mOptionsView,mExperienceView;
+    private MaterialTextView mNameView, mNumRatingsView, mCityView, mContactView, mWebsiteView, mCategoryView, mDescriptionView, mOptionsView, mExperienceView;
     private MaterialButton mHire;
     FloatingActionButton mAddReview;
 
@@ -81,7 +81,7 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         mContactView = findViewById(R.id.service_detail_contact_number);
         mWebsiteView = findViewById(R.id.service_detail_website_link);
         mCategoryView = findViewById(R.id.service_detail_category);
-        mDescriptionView= findViewById(R.id.service_detail_description);
+        mDescriptionView = findViewById(R.id.service_detail_description);
 //        mOptionsView = findViewById(R.id.service_detail_options_array);
         mExperienceView = findViewById(R.id.service_detail_experience);
         mHire = findViewById(R.id.service_detail_hire);
@@ -142,7 +142,11 @@ public class ServiceDetailActivity extends AppCompatActivity implements
 
     private void hire() {
         DocumentReference orderRef = dbInstance.collection("orders").document();
-        Order order = new Order(userId, "vRhbdFaEh5AO7Yvk1mg5");
+        Order order = new Order(userId, service.getDocumentId(), service.getCategory(),
+                service.getImageLogo(), service.getAvgRating(),
+                service.getCapacity(), service.getCity(), service.getDescription(),
+                service.getPhoneNumber(), service.getLink(), service.userId,
+                service.getName(), service.getExperience(), service.getNumRatings(), service.getType());
         orderRef.set(order)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -177,6 +181,7 @@ public class ServiceDetailActivity extends AppCompatActivity implements
             mServiceRegistration = null;
         }
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -185,9 +190,10 @@ public class ServiceDetailActivity extends AppCompatActivity implements
                 break;
             case R.id.service_detail_hire:
                 Toast.makeText(this, "Hired!", Toast.LENGTH_SHORT).show();
-                
+
         }
     }
+
     public void onAddRatingClicked(View view) {
         mRatingDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
     }
@@ -205,7 +211,7 @@ public class ServiceDetailActivity extends AppCompatActivity implements
                 Service service = transaction.get(serviceRef).toObject(Service.class);
                 // Compute new number of ratings
                 assert service != null;
-                int newNumRating = service.getNumRatings() +1;
+                int newNumRating = service.getNumRatings() + 1;
 
                 // compute new average rating
                 double oldRatingTotal = service.getAvgRating() * service.getNumRatings();
@@ -251,6 +257,7 @@ public class ServiceDetailActivity extends AppCompatActivity implements
     }
 
     private void onServiceLoaded(Service service) {
+
         mNameView.setText(service.getName());
         mRatingIndicator.setRating((float) service.getAvgRating());
         mNumRatingsView.setText(getString(R.string.fmt_num_ratings, service.getNumRatings()));
@@ -260,12 +267,13 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         mDescriptionView.setText(service.getDescription());
 //        mOptionsView.setText("Here there will be an array of type of sub categories of service");
         mWebsiteView.setText(service.getLink());
-        mContactView.setText(String.valueOf(  service.getPhoneNumber()));
+        mContactView.setText(String.valueOf(service.getPhoneNumber()));
         // Background image
         Glide.with(mImageView.getContext())
                 .load(service.getImageLogo())
                 .into(mImageView);
     }
+
     @Override
     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
         if (e != null) {
@@ -273,7 +281,9 @@ public class ServiceDetailActivity extends AppCompatActivity implements
             return;
         }
         assert documentSnapshot != null;
-        onServiceLoaded(documentSnapshot.toObject(Service.class));
+        service = documentSnapshot.toObject(Service.class);
+        service.setDocumentId(documentSnapshot.getId());
+        onServiceLoaded(service);
     }
 
     private void hideKeyboard() {

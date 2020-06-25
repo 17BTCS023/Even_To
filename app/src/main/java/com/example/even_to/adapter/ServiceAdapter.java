@@ -67,8 +67,8 @@ public class ServiceAdapter extends FirestoreAdapter<ServiceAdapter.ViewHolder>{
         }
         public void bind(final DocumentSnapshot snapshot, final OnServiceSelectedListener mListener) {
             Service service = snapshot.toObject(Service.class);
+            assert service != null;
             service.setImageLogo((String) snapshot.get(Service.KEY_LOGO));
-            Log.d("MANNNUUU", "bind: "+ snapshot.toString());
             Resources resources = itemView.getResources();
             // Load image
             assert service != null;

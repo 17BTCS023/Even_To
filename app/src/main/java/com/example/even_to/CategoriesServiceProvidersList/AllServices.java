@@ -20,6 +20,7 @@ import com.example.even_to.CategoriesServiceProvidersList.Filters.Filters;
 import com.example.even_to.CategoriesServiceProvidersList.Ratings.ServiceDetailActivity;
 import com.example.even_to.R;
 import com.example.even_to.adapter.ServiceAdapter;
+import com.example.even_to.model.Service;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,7 +39,7 @@ public class AllServices extends AppCompatActivity implements
     private RecyclerView mServicesRecycler;
     private ImageView mEmptyView;
 
-    private FirebaseFirestore dbInstance;
+    private FirebaseFirestore mFirestore;
     private Query mQuery;
 
     private FilterDialogFragment mFilterDialog;
@@ -93,7 +94,6 @@ public class AllServices extends AppCompatActivity implements
     }
 
     public void onFilterClicked() {
-
         Bundle bundle = new Bundle();
         bundle.putString("category", mCategory);
         mFilterDialog.setArguments(bundle);
@@ -107,10 +107,14 @@ public class AllServices extends AppCompatActivity implements
     }
 
     private void initFirestore() {
-        dbInstance = FirebaseFirestore.getInstance();
-        mQuery = dbInstance.collection("services")
+        mFirestore = FirebaseFirestore.getInstance();
+        // Get the 50 highest rated restaurants
+        mQuery = mFirestore.collection("services")
+                .orderBy("avgRating", Query.Direction.DESCENDING)
                 .limit(LIMIT);
+
     }
+
 
     private void initRecyclerView() {
         if (mQuery == null) {
@@ -168,10 +172,11 @@ public class AllServices extends AppCompatActivity implements
     @Override
     public void onFilter(Filters filters) {
         // Construct a basic query
-        Query query = dbInstance.collection("services").whereEqualTo("category",mCategory);
+        Query query = mFirestore.collection("services").whereEqualTo("category", mCategory);
+        Log.d("Kitty Category", "onFilter: "+  mCategory);
 
         // Category (equality filter)
-        if(filters.hasCategory()){
+        if(filters.hasType()){
             query = query.whereEqualTo("type", filters.getType());
         }
         // City (equality filter)
@@ -195,7 +200,7 @@ public class AllServices extends AppCompatActivity implements
 
         // Update the query
         mQuery = query;
-        mAdapter.setQuery(mQuery);
+        mAdapter.setQuery(query);
         // Set header
         mCurrentSearchView.setText(Html.fromHtml(filters.getSearchDescription(this)));
         mCurrentSortByView.setText(filters.getOrderDescription(this));
