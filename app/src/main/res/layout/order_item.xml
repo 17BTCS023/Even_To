@@ -1,41 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginBottom="1dp">
 
-    <include
+    <RelativeLayout
         android:id="@+id/ordered_service_top_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/service_item"/>
-    <!-- Buttons -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:orientation="horizontal"
-        android:layout_below="@id/ordered_service_top_card">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_unhire"
-            style="?attr/borderlessButtonStyle"
-            android:layout_width="0dp"
+        <RelativeLayout
+            android:id="@+id/service_top_card"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:backgroundTint="#73A89B"
-            android:text="@string/action_unhire" />
+            android:elevation="4dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_view_service"
-            style="?attr/borderlessButtonStyle"
-            android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/service_detail_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:alpha="1.0"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/service" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/gradient_up" />
+
+            <TextView
+                android:id="@+id/service_detail_name"
+                style="@style/AppTheme.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/service_detail_category"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                tools:text="Some Restaurant" />
+
+            <TextView
+                android:id="@+id/service_detail_category"
+                style="@style/AppTheme.Subheader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/service_detail_name"
+                android:layout_alignBottom="@+id/service_detail_image"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@android:color/white"
+                tools:text="Italian" />
+
+            <TextView
+                android:id="@+id/service_city_divider"
+                style="@style/AppTheme.TextDivider"
+                android:layout_alignTop="@+id/service_detail_category"
+                android:layout_toRightOf="@+id/service_detail_category"
+                android:text="•"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/service_detail_city"
+                style="@style/AppTheme.Subheader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/service_detail_category"
+                android:layout_alignTop="@+id/service_detail_category"
+                android:layout_toRightOf="@+id/service_city_divider"
+                android:textColor="@android:color/white"
+                tools:text="San Francisco" />
+
+        </RelativeLayout>
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#7B60B5"
-            android:text="VIEW SERVICE" />
-    </LinearLayout>
+            android:layout_below="@id/service_top_card"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
 
-</RelativeLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/service_detail_description"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableStart="@drawable/ic_profile_hot"
+                android:drawablePadding="10dp"
+                android:text="@string/service_description" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/service_detail_contact_number"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:drawableStart="@drawable/ic_profile_phone"
+                android:drawablePadding="10dp"
+                android:text="0154879639" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/service_detail_website_link"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:drawableStart="@drawable/ic_profile_link"
+                android:drawablePadding="10dp"
+                android:inputType="textUri"
+                android:text="mywebsite.com" />
+
+
+            <!-- Buttons -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ordered_service_top_card"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_unhire"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/greyDisabled"
+                    android:textColor="@color/design_default_color_primary"
+                    android:text="@string/action_unhire" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_view_service"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="view service"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -22,22 +22,32 @@ import com.google.firebase.firestore.Query;
 
 public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder>{
 
-    public OrderAdapter(Query query) {
-        super(query);
+    public interface OnOrderSelectedListener {
+//        void onOrderSelected(DocumentSnapshot order);
+        void onUnHireClick(DocumentSnapshot order);
+        void onViewProfileClick(DocumentSnapshot order);
+
     }
+
+
+    private OnOrderSelectedListener mListener;
+
+    public OrderAdapter(Query query, OnOrderSelectedListener listener) {
+        super(query);
+        this.mListener = listener;
+    }
+
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         return new ViewHolder(inflater.inflate(R.layout.order_item, parent, false));
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder, int position) {
-//        holder.bind(getSnapshot(position), mListener);
-        holder.bind(getSnapshot(position));
+        holder.bind(getSnapshot(position), mListener);
     }
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -60,7 +70,8 @@ public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder>{
             cityView = itemView.findViewById(R.id.service_detail_city);
             contactView = itemView.findViewById(R.id.service_detail_contact_number);
         }
-        public void bind(final DocumentSnapshot snapshot) {
+        public void bind(final DocumentSnapshot snapshot,
+                         final OnOrderSelectedListener listener) {
 
             Order order = snapshot.toObject(Order.class);
             order.setImageLogo((String) snapshot.get(Service.KEY_LOGO));
@@ -86,15 +97,24 @@ public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder>{
             linkView.setText(order.getLink());
             contactView.setText(String.valueOf(order.getPhoneNumber()));
 
-//            // Click listener
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if (listener != null) {
-//                        listener.onOrderSelected(snapshot);
-//                    }
-//                }
-//            });
+            // Click listener
+            mUnHire.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.onUnHireClick(snapshot);
+                    }
+                }
+            });
+            mViewService.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        listener.onViewProfileClick(snapshot);
+                    }
+                }
+            });
+
         }
 
     }
