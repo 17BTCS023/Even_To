@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class ServiceProviderProfile extends AppCompatActivity {
 
+    ProgressBar progressBar ;
 
     private static final String TAG = "ServiceProviderProfile";
     //variables
@@ -69,6 +72,9 @@ public class ServiceProviderProfile extends AppCompatActivity {
         mDisplayOccupation =findViewById(R.id.tv_user_profile_occupation);
         mUpdateProfile = findViewById(R.id.profile_update);
 
+        progressBar = findViewById(R.id.progress_bar);
+
+
         profileReference = dbInstance.collection("profile").document(userId);
 
     }
@@ -76,7 +82,8 @@ public class ServiceProviderProfile extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
         profileReference.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -97,7 +104,8 @@ public class ServiceProviderProfile extends AppCompatActivity {
                                         .load(loadedProfile.get(KEY_PROFILE_PIC))
                                         .into(mProfilePic);
                             }
-
+                            progressBar.setVisibility(View.GONE);
+                            progressBar.setIndeterminate(false);
                         } else {
                             Toast.makeText(ServiceProviderProfile.this, "Document Not Found", LENGTH_SHORT).show();
                         }
