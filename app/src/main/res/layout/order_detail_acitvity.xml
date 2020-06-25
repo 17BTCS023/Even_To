@@ -43,8 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/order_detail_name"
-            android:layout_alignStart="@+id/order_detail_name"
-            />
+            android:layout_alignStart="@+id/order_detail_name" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/order_detail_num_ratings"
@@ -137,45 +136,6 @@
             tools:text="4 years" />
 
     </RelativeLayout>
-
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--        android:id="@+id/fab_service_detail_add_review"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignBottom="@id/service_top_card"-->
-    <!--        android:layout_alignParentEnd="true"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:layout_marginBottom="-15dp"-->
-    <!--        app:backgroundTint="#FF1744"-->
-    <!--        app:rippleColor="#00E676"-->
-    <!--        app:srcCompat="@drawable/add_service" />-->
-
-
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:id="@+id/order_detail_description"-->
-<!--        style="@style/TextAppearance.AppCompat.Body1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/order_top_card"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:drawablePadding="10dp"-->
-<!--        android:text="@string/service_description" />-->
-
-    <!--    <com.google.android.material.textview.MaterialTextView-->
-    <!--        android:id="@+id/service_detail_options_array"-->
-    <!--        style="@style/TextAppearance.AppCompat.Body1"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_below="@id/service_detail_description"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:layout_marginStart="8dp"-->
-    <!--        android:drawableStart="@drawable/ic_menu_order"-->
-    <!--        android:drawablePadding="10dp"-->
-    <!--        android:drawableTint="@color/black"-->
-    <!--        android:inputType="text"-->
-    <!--        tools:text="Inidan , Chinese, Korean, Indian street" />-->
-
     <!-- Buttons -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_show_rating_dialog"
@@ -184,19 +144,17 @@
         android:layout_alignBottom="@+id/order_top_card"
         android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
-        app:rippleColor="@color/colorPrimary"
         android:layout_marginBottom="-28dp"
+        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/add_service" />
-
-
     <!-- Ratings -->
     <androidx.recyclerview.widget.RecyclerView
-        android:backgroundTint="@color/white"
         android:id="@+id/recycler_ratings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fab_show_rating_dialog"
         android:background="@android:color/transparent"
+        android:backgroundTint="@color/white"
         android:clipToPadding="false"
         android:paddingTop="28dp"
         android:paddingBottom="16dp"
@@ -230,5 +188,12 @@
             android:textColor="@color/greyDisabled" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

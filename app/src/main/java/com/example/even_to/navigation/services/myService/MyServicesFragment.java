@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,6 +30,8 @@ public class MyServicesFragment extends Fragment {
     private Query mQuery;
     private MyServiceAdapter mAdapter;
 
+    ProgressBar progressBar ;
+
     //constructor
     public MyServicesFragment() {
         // simply
@@ -45,6 +48,8 @@ public class MyServicesFragment extends Fragment {
 
         mEmptyView = view.findViewById(R.id.view_empty);
         serviceRecyclerViewList = view.findViewById(R.id.service_recycler_view_list);
+        progressBar = view.findViewById(R.id.progress_bar);
+
         // Initialize Firestore and the main RecyclerView
         initFirestore();
         initRecyclerView();
@@ -67,7 +72,8 @@ public class MyServicesFragment extends Fragment {
             @Override
             protected void onDataChanged() {
                 // Show/hide content if the query returns empty.
-
+                progressBar.setVisibility(View.GONE);
+                progressBar.setIndeterminate(false);
                 if (getItemCount() == 0) {
                     serviceRecyclerViewList.setVisibility(View.GONE);
                     mEmptyView.setVisibility(View.VISIBLE);
@@ -91,7 +97,8 @@ public class MyServicesFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
-
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
         // Start listening for Firestore updates
         if (mAdapter != null) {
             mAdapter.startListening();

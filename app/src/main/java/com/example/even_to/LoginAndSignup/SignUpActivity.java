@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.even_to.R;
@@ -26,6 +27,8 @@ public class SignUpActivity extends AppCompatActivity {
     //Adding FirebaseAuth
     private FirebaseAuth firebaseAuth;
 
+    ProgressBar progressBar ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,8 @@ public class SignUpActivity extends AppCompatActivity {
         password = findViewById(R.id.etPassword);
         signUp =findViewById(R.id.btnSignUp);
         goBackToLogIn = findViewById(R.id.btnGoBackToLogIN);
+        progressBar = findViewById(R.id.progress_bar);
+
 
         //if login button is pressed
         goBackToLogIn.setOnClickListener(new View.OnClickListener() {
@@ -51,19 +56,27 @@ public class SignUpActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setIndeterminate(true);
                 // take input from 2 edit texts in form of Strings
                 String inputEmail =emailId.getText().toString().trim();
                 String inputPassword =password.getText().toString().trim();
                 firebaseAuth = FirebaseAuth.getInstance();  // Calling the variable for FirebaseAuth
 
                 if(inputEmail.isEmpty()){  // If user submits null info
+                    progressBar.setVisibility(View.GONE);
+                    progressBar.setIndeterminate(false);
                     emailId.setError("Please enter your email id!");  // display error
                     emailId.requestFocus();
                 }else if (inputPassword.isEmpty() ){  // check if password field is empty
+                    progressBar.setVisibility(View.GONE);
+                    progressBar.setIndeterminate(false);
                     password.setError("Please enter a password");  // display error
                     password.requestFocus();
 
                 }else if(inputPassword.length() < 8 ){
+                    progressBar.setVisibility(View.GONE);
+                    progressBar.setIndeterminate(false);
                     password.setError("Min password length is 8");  // display error
                     password.requestFocus();
                 }
@@ -71,6 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
                     /*check both conditions
                       Using the FA variable add the user by passing the two strings : inputemail and inputPassword
                     */
+
                     firebaseAuth.createUserWithEmailAndPassword(inputEmail,inputPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         /*
                         If the user id added then,
@@ -82,6 +96,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.makeText(SignUpActivity.this, "Account created!",Toast.LENGTH_SHORT).show();
                                 // if the signup was successful, go to LogIn activity using intent
                                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                                progressBar.setVisibility(View.GONE);
+                                progressBar.setIndeterminate(false);
                                 finish();
                                 // show this toast
                             }else{

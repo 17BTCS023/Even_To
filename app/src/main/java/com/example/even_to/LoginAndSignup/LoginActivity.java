@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.even_to.MainHomeScreen;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox rememberMe;
     //Adding FirebaseAuth
     FirebaseAuth firebaseAuth;
+    ProgressBar progressBar;
 
     @Override
     protected void onStart() {
@@ -49,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonlogIn = findViewById(R.id.btnLogIn);
         goToSignUp = findViewById(R.id.btnCreateAccount_GoToSignUp);
         rememberMe = findViewById(R.id.checkBox);
+        progressBar = findViewById(R.id.progress_bar);
 
 
         // If NO, continue and let user login
@@ -57,14 +60,20 @@ public class LoginActivity extends AppCompatActivity {
         buttonlogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setIndeterminate(true);
                 final String logInEmailString = logInEmail.getText().toString().trim();
                 final String logInPasswordString = logInPassword.getText().toString().trim();
                 firebaseAuth = FirebaseAuth.getInstance();
 
                 if (logInEmailString.isEmpty()) {
+                    progressBar.setVisibility(View.GONE);
+                    progressBar.setIndeterminate(false);
                     logInEmail.setError("Please enter your email id");
                     logInEmail.requestFocus();
                 } else if (logInPasswordString.isEmpty()) {
+                    progressBar.setVisibility(View.GONE);
+                    progressBar.setIndeterminate(false);
                     logInPassword.setError("Please enter a password");
                     logInPassword.requestFocus();
                 } else if (!logInEmailString.isEmpty() && !logInPasswordString.isEmpty()) {
@@ -79,21 +88,23 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Welcome Back! ", Toast.LENGTH_SHORT).show();
-                                    // If user has checked the remember me then store the values
-                                    if (rememberMe.isChecked()) {
-                                        // If the login is successful save the email and password for the user
-                                        Log.i("TEST", "The box was checked ");
-                                        SharedPref sharedPreferences = new SharedPref(getApplicationContext());
-                                        sharedPreferences.setRememberSecond();
-                                    }
+                                // If user has checked the remember me then store the values
+                                if (rememberMe.isChecked()) {
+                                    // If the login is successful save the email and password for the user
+                                    Log.i("TEST", "The box was checked ");
+                                    SharedPref sharedPreferences = new SharedPref(getApplicationContext());
+                                    sharedPreferences.setRememberSecond();
+                                }
 
+                                progressBar.setVisibility(View.GONE);
+                                progressBar.setIndeterminate(false);
                                 // if the signup was successful, go to LogIn activity using intent
                                 startActivity(new Intent(LoginActivity.this, MainHomeScreen.class));
                                 finish();
 
                             } else {
                                 // if not added
-                                Toast.makeText(LoginActivity.this,  task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,12 +20,14 @@ import com.example.even_to.CategoriesServiceProvidersList.Ratings.ServiceDetailA
 import com.example.even_to.R;
 import com.example.even_to.adapter.OrderAdapter;
 import com.example.even_to.model.Order;
+import com.example.even_to.model.Service;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -41,7 +44,10 @@ public class OrderFragment extends Fragment implements
     private ImageView mEmptyView;
     private Query mQuery;
     private OrderAdapter mAdapter;
+    Order order;
     MaterialButton mUnHire, mViewService;
+
+    ProgressBar progressBar ;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -55,6 +61,8 @@ public class OrderFragment extends Fragment implements
         orderRecyclerView = view.findViewById(R.id.orders_recycler_view_list);
         mUnHire = view.findViewById(R.id.btn_unhire);
         mViewService = view.findViewById(R.id.btn_view_service);
+        progressBar = view.findViewById(R.id.progress_bar);
+
 
         initFirestore();
         initRecyclerView();
@@ -78,7 +86,8 @@ public class OrderFragment extends Fragment implements
             @Override
             protected void onDataChanged() {
                 // Show/hide content if the query returns empty.
-
+                progressBar.setVisibility(View.GONE);
+                progressBar.setIndeterminate(false);
                 if (getItemCount() == 0) {
                     orderRecyclerView.setVisibility(View.GONE);
                     mEmptyView.setVisibility(View.VISIBLE);
@@ -104,7 +113,8 @@ public class OrderFragment extends Fragment implements
 
     public void onStart() {
         super.onStart();
-
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
         // Start listening for Firestore updates
         if (mAdapter != null) {
             mAdapter.startListening();
@@ -121,7 +131,8 @@ public class OrderFragment extends Fragment implements
 
     @Override
     public void onUnHireClick(final DocumentSnapshot order) {
-        Log.d(TAG, "onUnHireClick: REACHED INSIDE UNHIRING");
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
         dbInstance.collection("orders")
                 .whereEqualTo("userId", order.get("userId"))
                 .whereEqualTo("documentId", order.get("documentId"))
@@ -138,8 +149,10 @@ public class OrderFragment extends Fragment implements
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+                                            progressBar.setVisibility(View.GONE);
+                                            progressBar.setIndeterminate(false);
+                                            mUnHire.setText("FIRED .");
                                             Toast.makeText(getContext(), "Fired!", Toast.LENGTH_SHORT).show();
-                                            Log.d(TAG, "FIREEEEEEEEEED");
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -169,5 +182,6 @@ public class OrderFragment extends Fragment implements
         intent.putExtra("serviceId", serviceId);
         startActivity(intent);
     }
+
 
 }

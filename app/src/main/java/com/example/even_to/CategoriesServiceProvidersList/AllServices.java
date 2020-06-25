@@ -12,6 +12,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ import com.google.firebase.firestore.Query;
 public class AllServices extends AppCompatActivity implements
         FilterDialogFragment.FilterListener,
         ServiceAdapter.OnServiceSelectedListener {
+
+    ProgressBar progressBar ;
 
     private static final String TAG = "CHECK THIS";
     private static final int LIMIT = 50;
@@ -63,6 +66,8 @@ public class AllServices extends AppCompatActivity implements
         mCurrentSortByView = findViewById(R.id.text_current_sort_by);
         mServicesRecycler = findViewById(R.id.recycler_services);
         mEmptyView = findViewById(R.id.view_empty);
+
+        progressBar = findViewById(R.id.progress_bar);
 
 
         mFilterBar = findViewById(R.id.filter_bar);
@@ -122,8 +127,11 @@ public class AllServices extends AppCompatActivity implements
         }
 
         mAdapter = new ServiceAdapter(mQuery, this) {
+
             @Override
             protected void onDataChanged() {
+                progressBar.setVisibility(View.GONE);
+                progressBar.setIndeterminate(false);
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
                     mServicesRecycler.setVisibility(View.GONE);
@@ -154,6 +162,8 @@ public class AllServices extends AppCompatActivity implements
     @Override
     public void onStart() {
         super.onStart();
+        progressBar.setVisibility(View.GONE);
+        progressBar.setIndeterminate(false);
         // Apply filters
         onFilter(mViewModel.getFilters());
 
@@ -164,6 +174,7 @@ public class AllServices extends AppCompatActivity implements
     }
     @Override
     public void onStop() {
+
         super.onStop();
         if (mAdapter != null) {
             mAdapter.stopListening();

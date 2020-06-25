@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,11 +48,13 @@ public class ProfileFragment extends Fragment {
 
     //variables
     ImageView mProfilePic;
-    TextInputEditText mFullName, mPhoneNumber,  mLocation, mAbout, mOccupation;
+    TextInputEditText mFullName, mPhoneNumber, mLocation, mAbout, mOccupation;
     MaterialButton mUpdateProfile;
     TextView mDisplayName, mDisplayAbout, mDisplayOccupation;
     FloatingActionButton mSelectProfilePic;
     StorageReference mStorageReference;
+
+    ProgressBar progressBar ;
 
     SharedPref sharedPref;
 
@@ -92,7 +95,7 @@ public class ProfileFragment extends Fragment {
         mDisplayOccupation = view.findViewById(R.id.tv_user_profile_occupation);
         mUpdateProfile = view.findViewById(R.id.profile_update);
         mSelectProfilePic = view.findViewById(R.id.fab_add_picture);
-
+        progressBar = view.findViewById(R.id.progress_bar);
         mStorageReference = FirebaseStorage.getInstance().getReference("profilePic");
 
         //get the user id
@@ -150,7 +153,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
         profileReference.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -172,6 +176,8 @@ public class ProfileFragment extends Fragment {
                                         .into(mProfilePic);
                                 sharedPref.setProfileStatus();
                             }
+                            progressBar.setVisibility(View.GONE);
+                            progressBar.setIndeterminate(false);
 
                         } else {
                             Toast.makeText(getContext(), "Document Not Found", LENGTH_SHORT).show();

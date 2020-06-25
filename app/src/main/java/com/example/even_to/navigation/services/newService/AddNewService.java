@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class AddNewService extends AppCompatActivity {
     TextInputEditText name, phone, description, link, city;
     AutoCompleteTextView experience, capacity, type;
     Button addService;
+    ProgressBar progressBar ;
 
     //getting reference for StorageReference
     StorageReference mStorageReference;
@@ -58,6 +60,9 @@ public class AddNewService extends AppCompatActivity {
         addService = findViewById(R.id.add_service);
         city = findViewById(R.id.new_service_city);
         type = findViewById(R.id.new_service_type);
+
+        progressBar = findViewById(R.id.progress_bar);
+
 
         mCategory = getIntent().getStringExtra("category");
         SubCategoriesArray cat = new SubCategoriesArray(this);
@@ -104,6 +109,8 @@ public class AddNewService extends AppCompatActivity {
         addService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setIndeterminate(true);
                 UploadService();
 
             }
@@ -140,7 +147,10 @@ public class AddNewService extends AppCompatActivity {
                         Toast.makeText(AddNewService.this, "Service Added", LENGTH_SHORT).show();
                         Intent intent = new Intent(AddNewService.this, AddServiceImage.class);
                         intent.putExtra("category", mCategory);
+                        progressBar.setVisibility(View.GONE);
+                        progressBar.setIndeterminate(false);
                         startActivity(intent);
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

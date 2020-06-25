@@ -1,5 +1,6 @@
 package com.example.even_to.navigation.profile;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.even_to.MainHomeScreen;
@@ -48,6 +50,8 @@ public class SelectProfilePic extends AppCompatActivity {
     private Uri selectedImageUri,downloadedImageUri;
     ImageView mProfilePic;
 
+    ProgressBar progressBar ;
+
     UploadTask UploadTask;
     FirebaseAuth auth;
 
@@ -55,15 +59,18 @@ public class SelectProfilePic extends AppCompatActivity {
     //getting reference for StorageReference
     StorageReference mStorageReference;
     private DocumentReference profileReference;
-
+    int count = 0;
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(!USER_ATTACHED_FILE) {
+        if(count == 0) {
             chooseFile();
-        }
+            count = -1;
+        };
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +80,9 @@ public class SelectProfilePic extends AppCompatActivity {
         mProfilePic = findViewById(R.id.selected_profile_pic);
         btnSelect = findViewById(R.id.btn_select_image_again);
         btnUplaod = findViewById(R.id.btn_ok);
+
+        progressBar = findViewById(R.id.progress_bar);
+
 
         FirebaseFirestore dbInstance = FirebaseFirestore.getInstance();
 
@@ -93,6 +103,8 @@ public class SelectProfilePic extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(USER_ATTACHED_FILE) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setIndeterminate(true);
                     UploadImageToStorage();
                 }
                 else{
@@ -103,6 +115,7 @@ public class SelectProfilePic extends AppCompatActivity {
         });
 
     }
+
     private String getFileExtension(Uri uri) {
         // Find the extension of the file, so that it can be stored in that form
         ContentResolver typeOfFile = getApplicationContext().getContentResolver();
@@ -161,14 +174,12 @@ public class SelectProfilePic extends AppCompatActivity {
                                 IMAGE_UPLOADED = true;
                                 downloadedImageUri = uri;
                                 imageUri = downloadedImageUri.toString().trim();
-                                Log.d("CHECK", "URL" + downloadedImageUri);
-                                Log.d("CHECK", "String of URL" + imageUri);
                                 UploadImageToFirestore(imageUri);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.d("CHECK", "onFailure: Could not get URL");
+                                Log.d(TAG, "onFailure: Could not get URL");
                             }
                         });
                     }
@@ -176,7 +187,7 @@ public class SelectProfilePic extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("CHECK", "onFailure: " + e.getMessage());
+                        Log.d(TAG, "onFailure: " + e.getMessage());
                     }
                 });
     }
@@ -191,6 +202,8 @@ public class SelectProfilePic extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Intent intent = new Intent(getApplicationContext(), MainHomeScreen.class);
+                        progressBar.setVisibility(View.GONE);
+                        progressBar.setIndeterminate(false);
                         startActivity(intent);
                         finish();
                     }

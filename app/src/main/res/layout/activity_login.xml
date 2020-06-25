@@ -1,112 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginAndSignup.LoginActivity"
+    android:layout_margin="16dp"
     android:orientation="vertical"
-    android:layout_margin="16dp">
+    tools:context=".LoginAndSignup.LoginActivity">
 
-    <TextView
-        android:id="@+id/tvOpenYourExistingAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/top_padding_login_signup_activities"
-        android:layout_marginBottom="@dimen/bottom_padding_login_signup_activities"
-        android:text="Log In"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:layout_gravity="center_horizontal"
-        />
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="Email..."
-        android:layout_marginTop="@dimen/top_padding_login_signup_activities"
-        android:layout_marginBottom="@dimen/bottom_padding_login_signup_activities">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id = "@+id/etLogInEmailName"
+        <TextView
+            android:id="@+id/tvOpenYourExistingAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/top_padding_login_signup_activities"
+            android:layout_marginBottom="@dimen/bottom_padding_login_signup_activities"
+            android:text="Log In"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:autofillHints="true"
-            />
+            android:layout_margin="5dp"
+            android:layout_marginTop="@dimen/top_padding_login_signup_activities"
+            android:layout_marginBottom="@dimen/bottom_padding_login_signup_activities"
+            android:hint="Email...">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLogInEmailName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="true"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="password..."
-        android:layout_marginTop="@dimen/top_padding_login_signup_activities"
-        android:layout_marginBottom="@dimen/bottom_padding_login_signup_activities">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etLogInPassword"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:layout_margin="5dp"
+            android:layout_marginTop="@dimen/top_padding_login_signup_activities"
+            android:layout_marginBottom="@dimen/bottom_padding_login_signup_activities"
+            android:hint="password...">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLogInPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="20dp"
+            android:layout_marginTop="10dp"
+            android:outlineAmbientShadowColor="@color/colorPrimaryDark"
+            android:paddingLeft="5dp"
+            android:text="Remember Me"
+
             />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:text="Remember Me"
-        android:outlineAmbientShadowColor="@color/colorPrimaryDark"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginVertical="20dp"
-
-        />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogIn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Log In"
-        android:elevation="5dp"
-        android:layout_gravity="center_horizontal"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:layout_margin="20dp"
-        android:padding="10dp"
-        />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:elevation="5dp"
+            android:padding="10dp"
+            android:text="Log In"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
 
-    <TextView
-        android:id="@+id/textViewHaveAccount"
+        <TextView
+            android:id="@+id/textViewHaveAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="Don't Have an account?"
+            android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCreateAccount_GoToSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:elevation="5dp"
+            android:padding="10dp"
+            android:text="Sign Up"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don't Have an account?"
-        android:textSize="16sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp" />
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnCreateAccount_GoToSignUp"
-        android:text="Sign Up"
-        android:layout_margin="20dp"
-        android:elevation="5dp"
-        android:layout_gravity="center_horizontal"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:padding="10dp"
-        />
-
-</LinearLayout>
+</RelativeLayout>

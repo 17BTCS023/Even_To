@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
@@ -69,6 +70,8 @@ public class ServiceDetailActivity extends AppCompatActivity implements
 
     String serviceId, userId;
 
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +93,8 @@ public class ServiceDetailActivity extends AppCompatActivity implements
 
         mEmptyView = findViewById(R.id.view_empty_ratings);
         mRatingsRecycler = findViewById(R.id.recycler_ratings);
+
+        progressBar = findViewById(R.id.progress_bar);
 
         userId = auth.getUid();
 
@@ -113,6 +118,8 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         mHire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setIndeterminate(true);
                 hire();
             }
         });
@@ -166,6 +173,8 @@ public class ServiceDetailActivity extends AppCompatActivity implements
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        progressBar.setVisibility(View.GONE);
+                        progressBar.setIndeterminate(false);
                         Toast.makeText(ServiceDetailActivity.this, "Hired!", Toast.LENGTH_SHORT).show();
                     }
                 })

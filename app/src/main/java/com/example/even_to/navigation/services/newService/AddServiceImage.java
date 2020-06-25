@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.even_to.MainHomeScreen;
@@ -51,6 +52,7 @@ public class AddServiceImage extends AppCompatActivity {
     String displayNameOfFile, mCategory, imageUri;
     Uri selectedImageUri, downloadedImageUri;
     UploadTask UploadTask;
+    ProgressBar progressBar ;
 
     //getting reference for StorageReference
     StorageReference mStorageReference;
@@ -69,6 +71,9 @@ public class AddServiceImage extends AppCompatActivity {
         materialButtonUplaodFile = findViewById(R.id.btn_upload_file);
         serviceImage = findViewById(R.id.image_view_service);
         mCategory = getIntent().getStringExtra("category");
+        progressBar = findViewById(R.id.progress_bar);
+
+
         //Log.d(TAG, "onCreate: " + mCategory);
         // get the reference of the database
         mStorageReference = FirebaseStorage.getInstance().getReference("serviceLogo ");
@@ -84,7 +89,10 @@ public class AddServiceImage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (USER_ATTACHED_FILE) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setIndeterminate(true);
                     UploadImageToStorage();
+
                 }
 
             }
@@ -149,7 +157,7 @@ public class AddServiceImage extends AppCompatActivity {
                                 IMAGE_UPLOADED = true;
                                 downloadedImageUri = uri;
                                 imageUri = downloadedImageUri.toString().trim();
-                                Toast.makeText(AddServiceImage.this, imageUri, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(AddServiceImage.this, imageUri, Toast.LENGTH_SHORT).show();
                                 //Log.d("CHECK", "URL" + downloadedImageUri);
                                 //Log.d("CHECK", "String of URL" + imageUri);
                                 UploadImageToFirestore(imageUri);
@@ -200,6 +208,8 @@ public class AddServiceImage extends AppCompatActivity {
                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                        @Override
                                        public void onSuccess(Void aVoid) {
+                                           progressBar.setVisibility(View.GONE);
+                                           progressBar.setIndeterminate(false);
                                            Toast.makeText(AddServiceImage.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
                                        }
                                    })
