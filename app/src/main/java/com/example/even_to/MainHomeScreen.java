@@ -232,4 +232,8 @@ public class MainHomeScreen extends AppCompatActivity implements
                 });
     }
 
+    public void goBackToHome(MenuItem item) {
+        startActivity(new Intent(getApplicationContext(), MainHomeScreen.class ));
+        finish();
+    }
 }

@@ -226,6 +226,8 @@ public class AddServiceImage extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.GONE);
+                        progressBar.setIndeterminate(false);
                         Toast.makeText(AddServiceImage.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });

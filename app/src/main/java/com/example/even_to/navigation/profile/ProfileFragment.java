@@ -180,6 +180,8 @@ public class ProfileFragment extends Fragment {
                             progressBar.setIndeterminate(false);
 
                         } else {
+                            progressBar.setVisibility(View.GONE);
+                            progressBar.setIndeterminate(false);
                             Toast.makeText(getContext(), "Document Not Found", LENGTH_SHORT).show();
                         }
                     }
@@ -189,6 +191,8 @@ public class ProfileFragment extends Fragment {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getContext(), "Error!", LENGTH_SHORT).show();
                         Log.d(TAG, "onFailure: " + e.toString());
+                        progressBar.setVisibility(View.GONE);
+                        progressBar.setIndeterminate(false);
                     }
                 });
     }

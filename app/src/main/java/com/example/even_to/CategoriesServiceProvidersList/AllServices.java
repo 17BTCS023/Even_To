@@ -12,7 +12,6 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +22,7 @@ import com.example.even_to.R;
 import com.example.even_to.adapter.ServiceAdapter;
 import com.example.even_to.model.Service;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -31,8 +31,6 @@ import com.google.firebase.firestore.Query;
 public class AllServices extends AppCompatActivity implements
         FilterDialogFragment.FilterListener,
         ServiceAdapter.OnServiceSelectedListener {
-
-    ProgressBar progressBar ;
 
     private static final String TAG = "CHECK THIS";
     private static final int LIMIT = 50;
@@ -66,8 +64,6 @@ public class AllServices extends AppCompatActivity implements
         mCurrentSortByView = findViewById(R.id.text_current_sort_by);
         mServicesRecycler = findViewById(R.id.recycler_services);
         mEmptyView = findViewById(R.id.view_empty);
-
-        progressBar = findViewById(R.id.progress_bar);
 
 
         mFilterBar = findViewById(R.id.filter_bar);
@@ -108,14 +104,13 @@ public class AllServices extends AppCompatActivity implements
     public void onClearFilterClicked() {
         mFilterDialog.resetFilters();
         onFilter(Filters.getDefault());
-        Toast.makeText(this, "Removing Filter", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Filter Cleared", Toast.LENGTH_SHORT).show();
     }
 
     private void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
         // Get the 50 highest rated restaurants
         mQuery = mFirestore.collection("services")
-                .orderBy("avgRating", Query.Direction.DESCENDING)
                 .limit(LIMIT);
 
     }
@@ -127,11 +122,8 @@ public class AllServices extends AppCompatActivity implements
         }
 
         mAdapter = new ServiceAdapter(mQuery, this) {
-
             @Override
             protected void onDataChanged() {
-                progressBar.setVisibility(View.GONE);
-                progressBar.setIndeterminate(false);
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
                     mServicesRecycler.setVisibility(View.GONE);
@@ -162,8 +154,6 @@ public class AllServices extends AppCompatActivity implements
     @Override
     public void onStart() {
         super.onStart();
-        progressBar.setVisibility(View.GONE);
-        progressBar.setIndeterminate(false);
         // Apply filters
         onFilter(mViewModel.getFilters());
 
@@ -174,7 +164,6 @@ public class AllServices extends AppCompatActivity implements
     }
     @Override
     public void onStop() {
-
         super.onStop();
         if (mAdapter != null) {
             mAdapter.stopListening();
@@ -183,9 +172,12 @@ public class AllServices extends AppCompatActivity implements
     @Override
     public void onFilter(Filters filters) {
         // Construct a basic query
-        Query query = mFirestore.collection("services").whereEqualTo("category", mCategory);
-        Log.d("Kitty Category", "onFilter: "+  mCategory);
+        Query query = mFirestore.collection("services") ;
+        Log.d("Kitty Category", "onFilter: "+ mCategory);
 
+        if(mCategory!= null){
+            query = query.whereEqualTo("category",  mCategory);
+        }
         // Category (equality filter)
         if(filters.hasType()){
             query = query.whereEqualTo("type", filters.getType());

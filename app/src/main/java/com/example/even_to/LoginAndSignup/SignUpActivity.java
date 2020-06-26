@@ -102,6 +102,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 // show this toast
                             }else{
                                 // if not added
+                                progressBar.setVisibility(View.GONE);
+                                progressBar.setIndeterminate(false);
                                 Toast.makeText(SignUpActivity.this, task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         }

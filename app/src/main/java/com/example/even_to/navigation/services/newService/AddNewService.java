@@ -156,6 +156,8 @@ public class AddNewService extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.GONE);
+                        progressBar.setIndeterminate(false);
                         Toast.makeText(AddNewService.this, "Error!", LENGTH_SHORT).show();
                         Log.d(TAG, "onFailure: " + e.toString());
                     }

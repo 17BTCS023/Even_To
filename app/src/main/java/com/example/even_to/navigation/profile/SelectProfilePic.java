@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.even_to.MainHomeScreen;
 import com.example.even_to.R;
+import com.example.even_to.navigation.orders.OrderFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
@@ -108,6 +109,8 @@ public class SelectProfilePic extends AppCompatActivity {
                     UploadImageToStorage();
                 }
                 else{
+                    progressBar.setVisibility(View.GONE);
+                    progressBar.setIndeterminate(false);
                     Toast.makeText(SelectProfilePic.this, "Select a photo", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -187,6 +190,7 @@ public class SelectProfilePic extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+
                         Log.d(TAG, "onFailure: " + e.getMessage());
                     }
                 });
@@ -211,6 +215,8 @@ public class SelectProfilePic extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.GONE);
+                        progressBar.setIndeterminate(false);
                         Log.d(TAG, e.toString());
                     }
                 });

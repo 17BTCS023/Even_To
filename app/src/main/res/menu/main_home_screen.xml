@@ -2,10 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_go_back_to_home"
         android:orderInCategory="101"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="Home"
+        app:showAsAction="never"
+        android:onClick="goBackToHome"/>
 
 <!--    <item android:id="@+id/action1_search"-->
 <!--        android:title="Search"-->

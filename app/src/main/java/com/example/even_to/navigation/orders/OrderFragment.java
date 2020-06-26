@@ -41,10 +41,9 @@ public class OrderFragment extends Fragment implements
     private static final String TAG = "OrderFragment";
     FirebaseAuth firebaseAuth;
     FirebaseFirestore dbInstance;
-    private ImageView mEmptyView;
+    public ImageView mEmptyView;
     private Query mQuery;
     private OrderAdapter mAdapter;
-    Order order;
     MaterialButton mUnHire, mViewService;
 
     ProgressBar progressBar ;
@@ -72,15 +71,16 @@ public class OrderFragment extends Fragment implements
     private void initFirestore() {
         firebaseAuth = FirebaseAuth.getInstance();
         dbInstance = FirebaseFirestore.getInstance();
-        mQuery = dbInstance.collection("orders").whereEqualTo(Order.KEY_USER_ID, firebaseAuth.getUid())
-                .orderBy(Order.KEY_NAME, Query.Direction.ASCENDING);
+        mQuery = dbInstance.collection("orders").
+                orderBy("name", Query.Direction.ASCENDING);
+//                .whereEqualTo("userId", firebaseAuth.getUid())
+
     }
 
     private void initRecyclerView() {
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        //mAdapter = new RestaurantAdapter(mQuery, this){
         mAdapter = new OrderAdapter(mQuery, this) {
 
             @Override
@@ -113,9 +113,9 @@ public class OrderFragment extends Fragment implements
 
     public void onStart() {
         super.onStart();
+        // Start listening for Firestore updates
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setIndeterminate(true);
-        // Start listening for Firestore updates
         if (mAdapter != null) {
             mAdapter.startListening();
         }
@@ -151,13 +151,14 @@ public class OrderFragment extends Fragment implements
                                         public void onSuccess(Void aVoid) {
                                             progressBar.setVisibility(View.GONE);
                                             progressBar.setIndeterminate(false);
-                                            mUnHire.setText("FIRED .");
                                             Toast.makeText(getContext(), "Fired!", Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
+                                            progressBar.setVisibility(View.GONE);
+                                            progressBar.setIndeterminate(false);
                                             Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -168,6 +169,8 @@ public class OrderFragment extends Fragment implements
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.GONE);
+                        progressBar.setIndeterminate(false);
                         Toast.makeText(getContext(), "Couldn't Hire, Try after sometime!", Toast.LENGTH_SHORT).show();
 
                     }

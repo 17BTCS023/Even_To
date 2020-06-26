@@ -95,15 +95,7 @@ public class ServiceDetailActivity extends AppCompatActivity implements
         mRatingsRecycler = findViewById(R.id.recycler_ratings);
 
         progressBar = findViewById(R.id.progress_bar);
-
         userId = auth.getUid();
-
-//        mAddReview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onAddRatingClicked(v);
-//            }
-//        });
 
         // Get service ID from extras
         serviceId = getIntent().getStringExtra(KEY_SERVICE_ID);
@@ -129,7 +121,6 @@ public class ServiceDetailActivity extends AppCompatActivity implements
                 showProfile();
             }
         });
-
 
         // Get ratings
         Query ratingsQuery = mServiceRef
@@ -174,13 +165,13 @@ public class ServiceDetailActivity extends AppCompatActivity implements
                     @Override
                     public void onSuccess(Void aVoid) {
                         progressBar.setVisibility(View.GONE);
-                        progressBar.setIndeterminate(false);
                         Toast.makeText(ServiceDetailActivity.this, "Hired!", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(ServiceDetailActivity.this, "Couldn't Hire, Try after sometime!", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -189,7 +180,6 @@ public class ServiceDetailActivity extends AppCompatActivity implements
     @Override
     public void onStart() {
         super.onStart();
-
         mRatingAdapter.startListening();
         mServiceRegistration = mServiceRef.addSnapshotListener(this);
     }

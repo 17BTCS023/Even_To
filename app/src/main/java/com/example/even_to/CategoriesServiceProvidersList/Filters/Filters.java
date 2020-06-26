@@ -21,8 +21,8 @@ public class Filters {
 
     public static Filters getDefault() {
         Filters filters = new Filters();
-        filters.setSortBy(Service.KEY_NAME);
-        filters.setSortDirection(Query.Direction.ASCENDING);
+        filters.setSortBy(Service.KEY_AVG_RATING);
+        filters.setSortDirection(Query.Direction.DESCENDING);
 
         return filters;
     }
@@ -122,24 +122,24 @@ public class Filters {
             desc.append(city);
             desc.append("</b>");
         }
-        if (type != null && city != null && experience != null) {
-            desc.append(" has ");
-        }
-        if (experience != null) {
-            desc.append(" for ");
-            desc.append("<b>");
-            desc.append(experience + " exp");
-            desc.append("</b>");
-        }
-        if (type != null && city != null && experience != null && capacity != null) {
-            desc.append(" of ");
-        }
-        if (capacity != null) {
-            desc.append(" for ");
-            desc.append("<b>");
-            desc.append(capacity + " size");
-            desc.append("</b>");
-        }
+//        if (type != null && city != null && experience != null) {
+//            desc.append(" has ");
+//        }
+//        if (experience != null) {
+//            desc.append(" for ");
+//            desc.append("<b>");
+//            desc.append(experience + " exp");
+//            desc.append("</b>");
+//        }
+//        if (type != null && city != null && experience != null && capacity != null) {
+//            desc.append(" of ");
+//        }
+//        if (capacity != null) {
+//            desc.append(" for ");
+//            desc.append("<b>");
+//            desc.append(capacity + " size");
+//            desc.append("</b>");
+//        }
 
         return desc.toString();
     }
