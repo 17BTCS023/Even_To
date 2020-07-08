@@ -24,7 +24,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.bumptech.glide.Glide;
 import com.example.even_to.CategoriesServiceProvidersList.CategorySelection.SelectCategory;
 import com.example.even_to.navigation.home.HomeFragment;
-import com.example.even_to.navigation.messages.MessagesFragment;
 import com.example.even_to.navigation.orders.OrderFragment;
 import com.example.even_to.navigation.profile.ProfileFragment;
 import com.example.even_to.navigation.services.myService.MyServicesFragment;
@@ -54,9 +53,7 @@ public class MainHomeScreen extends AppCompatActivity implements
     Toolbar toolbar;
     TextView userEmail, userName;
     FirebaseAuth auth;
-
     SharedPref sharedPref;
-
     ImageView mProfileImage;
 
     @Override
@@ -69,14 +66,10 @@ public class MainHomeScreen extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home_screen);
-
         auth = FirebaseAuth.getInstance();
         sharedPref = new SharedPref(this);
-        /*** finding the toolbar for our main screen ****/
         toolbar = findViewById(R.id.toolbar);
-        // setSupportActionBar sets up the toolbar as the actionbar
         setSupportActionBar(toolbar);
-
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +79,7 @@ public class MainHomeScreen extends AppCompatActivity implements
         });
         drawer = findViewById(R.id.drawer_layout);
 
-        /*** To have an hamburger icon with rotation action ***/
+        /* To have an hamburger icon with rotation action */
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -94,11 +87,9 @@ public class MainHomeScreen extends AppCompatActivity implements
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         /*** we dont want to loose the state of the activity ***/
         if (savedInstanceState == null) {
-            /* Creating instance of the HomeFragment and display it using
-            // FragmentManager and Transaction **/
+            /* Creating instance of the HomeFragment and display it using FragmentManager and Transaction **/
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.nav_host_fragment, new HomeFragment())
                     .commit();
@@ -106,7 +97,7 @@ public class MainHomeScreen extends AppCompatActivity implements
         }
     }
 
-    /********* When we press back, we should leave the activity immediately, but close the drawer first *******/
+    /* When we press back, we should leave the activity immediately, but close the drawer first *******/
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -117,7 +108,7 @@ public class MainHomeScreen extends AppCompatActivity implements
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_home_screen, menu);
         return true;
     }
@@ -129,14 +120,10 @@ public class MainHomeScreen extends AppCompatActivity implements
                 || super.onSupportNavigateUp();
     }
 
-    /**** When the profile is seclected from the menu, the profile_fragment should be loaded ****/
+    /* When the profile is selected from the menu, the profile_fragment should be loaded ****/
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // getting the id of the selected item
         int menuItemId = item.getItemId();
-        // Using switch statement, identify the item selected
-        //Use a FragmentManager and Transaction tp add the Fragment to the screen
-        //FragmentManager fragmentManager = getSupportFragmentManager();
         if (isStartup) {
             ((FrameLayout) findViewById(R.id.nav_host_fragment)).removeAllViews();
             isStartup = false;
@@ -147,7 +134,6 @@ public class MainHomeScreen extends AppCompatActivity implements
         if (sharedPref.getProfileStatus()) {
             ChangeDisplayInfo(auth.getUid(), userName, userEmail, mProfileImage);
         }
-
         switch (menuItemId) {
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction()
@@ -182,17 +168,8 @@ public class MainHomeScreen extends AppCompatActivity implements
                 toolbar.setTitle(R.string.my_services);
                 break;
 
-//            case R.id.nav_messages:
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.nav_host_fragment, new MessagesFragment())
-//                        .commit();
-//                fab.setImageResource(R.drawable.ic_edit);
-//                toolbar.setTitle(R.string.my_messages);
-//
-//                break;
-
             case R.id.nav_logout:
-                /*** Set sharedPref remember as false ***/
+                /* Set sharedPref remember as false */
                 SharedPref sharedPref = new SharedPref(this);
                 sharedPref.setDefault();
                 sharedPref.setProfileDefault();
@@ -202,8 +179,8 @@ public class MainHomeScreen extends AppCompatActivity implements
         }
 
         drawer.closeDrawer(GravityCompat.START);
-
         return true;
+
     }
     private void ChangeDisplayInfo(String uid, final TextView userName, final TextView userEmail, final ImageView mProfileImage) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -220,8 +197,6 @@ public class MainHomeScreen extends AppCompatActivity implements
                                     .load(map.get(KEY_PROFILE_PIC))
                                     .into(mProfileImage);
                         }
-
-
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -231,7 +206,6 @@ public class MainHomeScreen extends AppCompatActivity implements
                     }
                 });
     }
-
     public void goBackToHome(MenuItem item) {
         startActivity(new Intent(getApplicationContext(), MainHomeScreen.class ));
         finish();

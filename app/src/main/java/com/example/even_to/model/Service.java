@@ -86,16 +86,8 @@ public class Service {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getExperience() {
         return experience;
-    }
-
-    public void setExperience(String experience) {
-        this.experience = experience;
     }
 
     public String getImageLogo() {
@@ -110,10 +102,6 @@ public class Service {
         return link;
     }
 
-    public void setLink(String link) {
-        this.link = link;
-    }
-
     public double getAvgRating() {
         return avgRating;
     }
@@ -124,10 +112,6 @@ public class Service {
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public int getNumRatings() {
@@ -142,16 +126,8 @@ public class Service {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getCapacity() {
         return capacity;
-    }
-
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
     }
 
     public String getDocumentId() {
@@ -161,7 +137,6 @@ public class Service {
     public void setDocumentId(String documentId) {
         this.documentId = documentId;
     }
-
 
     public String getUserId() {
         return userId;

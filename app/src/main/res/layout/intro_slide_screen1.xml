@@ -13,7 +13,7 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="-100dp"
-        android:src="@drawable/food"
+        android:src="@drawable/home_screen_food"
         android:contentDescription="@string/string_todo" />
 
     <TextView

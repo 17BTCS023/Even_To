@@ -237,7 +237,7 @@
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/lonely_guy" />
+            android:src="@drawable/no_ratings_lonely_guy" />
 
         <TextView
             style="@style/AppTheme.Body1"

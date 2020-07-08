@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.even_to.CategoriesServiceProvidersList.AllServices;
 import com.example.even_to.R;
+import com.example.even_to.adapter.HomeCategoryAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-public class HomeFragment extends Fragment implements CategoryAdapter.OnCategoryListener {
+public class HomeFragment extends Fragment implements HomeCategoryAdapter.OnCategoryListener {
 
 
     RecyclerView recyclerHome;
@@ -26,7 +28,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
 
     List<HashMap<String,Object>> categoryList = new ArrayList<>();
-    CategoryAdapter categoryAdapter;
+    HomeCategoryAdapter categoryAdapter;
 
     public HomeFragment(){
         // simply
@@ -51,11 +53,11 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         //Getting reference to the recycler view
         recyclerHome.setLayoutManager(layoutManager);
-        imageList.add(R.drawable.food);
-        imageList.add(R.drawable.drinks);
-        imageList.add(R.drawable.bake);
+        imageList.add(R.drawable.home_screen_food);
+        imageList.add(R.drawable.home_screen_drinks);
+        imageList.add(R.drawable.home_screen_bake);
         imageList.add(R.drawable.home_screen_gift);
-        imageList.add(R.drawable.home_screen_party);
+        imageList.add(R.drawable.home_screen_decor);
         imageList.add(R.drawable.home_screen_camera);
 
         titleList.add("Food");
@@ -73,7 +75,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
             categoryList.add(map);
         }
 
-        categoryAdapter = new CategoryAdapter(categoryList, this);
+        categoryAdapter = new HomeCategoryAdapter(categoryList, this);
         recyclerHome.setAdapter(categoryAdapter);
 
     }
@@ -82,7 +84,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
     public void onCategoryClick(int position) {
 
         String cat = titleList.get(position);
-        Log.d("ERRRROOOORRRR!!!", "onCategoryClick: " + cat);
         switch (cat){
             case "Food" :
                 Intent intent1 = new Intent(getContext(), AllServices.class);

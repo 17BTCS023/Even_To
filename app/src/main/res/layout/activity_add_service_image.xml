@@ -19,7 +19,7 @@
             android:layout_width="200dp"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/upload_lady" />
+            android:src="@drawable/service_bg_image_upload_lady" />
 
         <TextView
             android:layout_width="match_parent"

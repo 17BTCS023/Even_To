@@ -12,7 +12,7 @@
     android:layout_height="110dp"
     android:layout_gravity="center"
     android:layout_marginTop="-100dp"
-    android:src="@drawable/home_screen_party" />
+    android:src="@drawable/home_screen_decor" />
 
 <TextView
     android:layout_width="match_parent"

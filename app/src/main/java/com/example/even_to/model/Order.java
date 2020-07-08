@@ -1,13 +1,10 @@
 package com.example.even_to.model;
 
-import com.example.even_to.R;
-
 public class Order {
 
     public Order(){
 
     }
-
     public static final String KEY_NAME = "name";
     public static final String KEY_SERVICE_TYPE = "type";
     public static final String KEY_CATEGORY = "category";
@@ -73,54 +70,13 @@ public class Order {
         this.category = category;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setExperience(String experience) {
-        this.experience = experience;
-    }
-
     public void setImageLogo(String imageLogo) {
         this.imageLogo = imageLogo;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
-    }
-
-    public void setAvgRating(double avgRating) {
-        this.avgRating = avgRating;
-    }
-
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
-    public void setServiceProviderUserId(String serviceProviderUserId) {
-        this.serviceProviderUserId = serviceProviderUserId;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setNumRatings(int numRatings) {
-        this.numRatings = numRatings;
-    }
-
 
     public String getName() {
         return name;
@@ -138,10 +94,6 @@ public class Order {
         return description;
     }
 
-    public String getExperience() {
-        return experience;
-    }
-
     public String getImageLogo() {
         return imageLogo;
     }
@@ -154,15 +106,7 @@ public class Order {
         return city;
     }
 
-    public String getCapacity() {
-        return capacity;
-    }
-
-    public double getAvgRating() {
-        return avgRating;
-    }
-
-    public String getDocumentId() {
+     public String getDocumentId() {
         return documentId;
     }
 
@@ -170,15 +114,8 @@ public class Order {
         return userId;
     }
 
-    public String getServiceProviderUserId() {
-        return serviceProviderUserId;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public int getNumRatings() {
-        return numRatings;
-    }
 }

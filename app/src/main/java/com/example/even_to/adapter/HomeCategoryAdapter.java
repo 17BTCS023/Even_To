@@ -1,4 +1,4 @@
-package com.example.even_to.navigation.home;
+package com.example.even_to.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +14,13 @@ import com.example.even_to.R;
 import java.util.HashMap;
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>  {
+public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapter.ViewHolder>  {
 
     List<HashMap<String, Object>> categoryList;
     private OnCategoryListener mOnCategoryListener;
 
 
-    public CategoryAdapter(List<HashMap<String, Object>> categoryList, OnCategoryListener onCategoryListener) {
+    public HomeCategoryAdapter(List<HashMap<String, Object>> categoryList, OnCategoryListener onCategoryListener) {
         this.categoryList = categoryList;
         this.mOnCategoryListener = onCategoryListener;
     }
@@ -48,7 +48,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView, OnCategoryListener onCategoryListener) {
             super(itemView);
-            imageCategory = itemView.findViewById(R.id.image_furniture);
+            imageCategory = itemView.findViewById(R.id.image_category);
             textTitle = itemView.findViewById(R.id.text_title);
             this.onCategoryListener = onCategoryListener;
             itemView.setOnClickListener(this);
